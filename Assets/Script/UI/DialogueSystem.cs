@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class DialogueAnimator : MonoBehaviour
+public class DialogueSystem : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TMP_Text dialogueText;
@@ -12,14 +12,24 @@ public class DialogueAnimator : MonoBehaviour
     [SerializeField] private string[] dialogues;
 
     [Header("Settings")]
-    [Tooltip("Nombre de caractères révélés par seconde.")]
     [SerializeField] private float charsPerSecond = 20f;
 
+    [Tooltip("Index du dernier dialogue actif. -1 = dernier du tableau.")]
+    [SerializeField] private int lastDialogueIndex = -1;
+
+    /// <summary>Fired à chaque changement de dialogue. Passe l'index courant.</summary>
     public static event Action<int> OnDialogueChanged;
+
+    /// <summary>Fired automatiquement quand le dernier dialogue est entièrement affiché.</summary>
     public static event Action OnDialoguesComplete;
 
     private Coroutine _typingCoroutine;
     private int _currentDialogueIndex = -1;
+    private bool _sequenceComplete = false;
+
+    private int EffectiveLastIndex => lastDialogueIndex >= 0
+        ? Mathf.Min(lastDialogueIndex, dialogues.Length - 1)
+        : dialogues.Length - 1;
 
     private void Awake()
     {
@@ -34,11 +44,13 @@ public class DialogueAnimator : MonoBehaviour
     }
 
     /// <summary>
-    /// Si l'animation est en cours, la saute. Sinon, passe au dialogue suivant.
-    /// À brancher sur le ButtonNextDialogue.
+    /// Premier clic : skip le typewriter.
+    /// Second clic : dialogue suivant.
     /// </summary>
     public void OnNextPressed()
     {
+        if (_sequenceComplete) return;
+
         if (IsAnimating)
         {
             SkipAnimation();
@@ -47,35 +59,24 @@ public class DialogueAnimator : MonoBehaviour
 
         int nextIndex = _currentDialogueIndex + 1;
 
-        if (nextIndex < dialogues.Length)
-        {
+        if (nextIndex <= EffectiveLastIndex)
             ShowDialogue(nextIndex);
-        }
-        else
-        {
-            OnDialoguesComplete?.Invoke();
-        }
     }
 
-    /// <summary>
-    /// Affiche un dialogue précis via son index et lance l'animation typewriter.
-    /// </summary>
+    /// <summary>Affiche un dialogue par son index.</summary>
     public void ShowDialogue(int index)
     {
         if (index < 0 || index >= dialogues.Length)
         {
-            Debug.LogWarning($"[DialogueAnimator] Index {index} hors du tableau ({dialogues.Length} dialogues).");
+            Debug.LogWarning($"[DialogueSystem] Index {index} invalide.");
             return;
         }
 
         _currentDialogueIndex = index;
-        OnDialogueChanged?.Invoke(_currentDialogueIndex);
+        OnDialogueChanged?.Invoke(index);
         SetText(dialogues[index]);
     }
 
-    /// <summary>
-    /// Saute l'animation et révèle immédiatement tous les caractères.
-    /// </summary>
     public void SkipAnimation()
     {
         if (_typingCoroutine != null)
@@ -88,7 +89,6 @@ public class DialogueAnimator : MonoBehaviour
     }
 
     public bool IsAnimating => _typingCoroutine != null;
-    public bool IsLastDialogue => _currentDialogueIndex >= dialogues.Length - 1 && !IsAnimating;
 
     private void SetText(string newText)
     {
@@ -112,5 +112,11 @@ public class DialogueAnimator : MonoBehaviour
         }
 
         _typingCoroutine = null;
+
+        if (_currentDialogueIndex >= EffectiveLastIndex)
+        {
+            _sequenceComplete = true;
+            OnDialoguesComplete?.Invoke();
+        }
     }
 }
