@@ -1,16 +1,25 @@
 fileFormatVersion: 2
-guid: 985751c24bcd4364f9029f383af5cfc8
+guid: e7c7b007be4e2984b853b861b6f3cef5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4117545545832812659
-    second: HumanOperation_0
+      213: 3627913167122455670
+    second: HeartBeat1_0
+  - first:
+      213: -4371286481681425856
+    second: HeartBeat1_1
+  - first:
+      213: -504697525135086072
+    second: HeartBeat1_2
+  - first:
+      213: 1563655309044183990
+    second: HeartBeat1_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
-    sRGBTexture: 0
+    sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -72,7 +81,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -98,14 +107,14 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 50
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -139,13 +148,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HumanOperation_0
+      name: HeartBeat1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 950
-        height: 600
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d8fa42a442a8bd6c0800000000000000
-      internalID: -4117545545832812659
+      spriteID: 67cdb42ddcfe85230800000000000000
+      internalID: 3627913167122455670
       vertices: []
       indices: 
       edges: []
@@ -164,7 +173,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: de30766668de8524297543199182277b
+    spriteID: 6e51f6bdee01c7343a9e62e6a0f4608c
     internalID: 0
     vertices: []
     indices: 
@@ -174,9 +183,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":950.0,"y":600.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1920.0,"y":1080.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      HumanOperation_0: -4117545545832812659
+      HeartBeat1_0: 3627913167122455670
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
