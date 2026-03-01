@@ -7,10 +7,19 @@ public class AnimationTriggerController : MonoBehaviour
     {
         [Tooltip("Index du dialogue déclencheur. -1 = OnDialoguesComplete.")]
         public int dialogueIndex;
-
-        [Tooltip("Nom du paramètre dans l'Animator Controller.")]
         public string parameterName;
+        public ParameterType parameterType;
+        public bool boolValue;
+        public float floatValue;
+        public int intValue;
+    }
 
+    [System.Serializable]
+    public struct AnimationPreset
+    {
+        [Tooltip("Nom du preset, pour s'y retrouver dans l'Inspector.")]
+        public string presetName;
+        public string parameterName;
         public ParameterType parameterType;
         public bool boolValue;
         public float floatValue;
@@ -19,9 +28,14 @@ public class AnimationTriggerController : MonoBehaviour
 
     public enum ParameterType { Trigger, Bool, Float, Int }
 
+    [Header("Animator")]
     [SerializeField] private Animator targetAnimator;
 
+    [Header("Dialogue Entries")]
     [SerializeField] private AnimationEntry[] dialogueEntries;
+
+    [Header("Presets (boutons, events externes...)")]
+    [SerializeField] private AnimationPreset[] presets;
 
     private void Awake()
     {
@@ -42,7 +56,6 @@ public class AnimationTriggerController : MonoBehaviour
     }
 
     private void OnDialogueChanged(int index) => Evaluate(index);
-
     private void OnDialoguesComplete() => Evaluate(-1);
 
     private void Evaluate(int index)
@@ -50,22 +63,35 @@ public class AnimationTriggerController : MonoBehaviour
         foreach (AnimationEntry entry in dialogueEntries)
         {
             if (entry.dialogueIndex != index) continue;
-            Apply(entry);
+            ApplyEntry(entry.parameterName, entry.parameterType, entry.boolValue, entry.floatValue, entry.intValue);
         }
     }
 
-    private void Apply(AnimationEntry entry)
+    /// <summary>Déclenche un preset par son index. Branchable sur un bouton OnClick.</summary>
+    public void PlayPreset(int presetIndex)
     {
-        switch (entry.parameterType)
+        if (presetIndex < 0 || presetIndex >= presets.Length)
         {
-            case ParameterType.Trigger: targetAnimator.SetTrigger(entry.parameterName); break;
-            case ParameterType.Bool: targetAnimator.SetBool(entry.parameterName, entry.boolValue); break;
-            case ParameterType.Float: targetAnimator.SetFloat(entry.parameterName, entry.floatValue); break;
-            case ParameterType.Int: targetAnimator.SetInteger(entry.parameterName, entry.intValue); break;
+            Debug.LogWarning($"[AnimationTriggerController] Preset {presetIndex} invalide.");
+            return;
+        }
+
+        AnimationPreset p = presets[presetIndex];
+        ApplyEntry(p.parameterName, p.parameterType, p.boolValue, p.floatValue, p.intValue);
+    }
+
+    private void ApplyEntry(string paramName, ParameterType type, bool boolVal, float floatVal, int intVal)
+    {
+        switch (type)
+        {
+            case ParameterType.Trigger: targetAnimator.SetTrigger(paramName); break;
+            case ParameterType.Bool: targetAnimator.SetBool(paramName, boolVal); break;
+            case ParameterType.Float: targetAnimator.SetFloat(paramName, floatVal); break;
+            case ParameterType.Int: targetAnimator.SetInteger(paramName, intVal); break;
         }
     }
 
-    // Méthodes publiques génériques — appelables depuis n'importe quel script
+    // Méthodes publiques génériques
     public void SetTrigger(string paramName) => targetAnimator.SetTrigger(paramName);
     public void SetBool(string paramName, bool value) => targetAnimator.SetBool(paramName, value);
     public void SetFloat(string paramName, float value) => targetAnimator.SetFloat(paramName, value);
