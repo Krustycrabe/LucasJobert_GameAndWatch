@@ -1,3 +1,4 @@
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobuleSpawner : MonoBehaviour
@@ -5,13 +6,19 @@ public class GlobuleSpawner : MonoBehaviour
     [SerializeField] private GameObject globulePrefab;
 
     [Tooltip("Colonne fixe de spawn.")]
-    [SerializeField] private int spawnColumn = 8;
+    [SerializeField] private int spawnColumn = 7;
 
-    [Tooltip("Probabilit� de spawn sur chaque ligne � chaque battement (0 � 1).")]
+    [Tooltip("Probabilité de spawn sur chaque ligne à chaque battement (0 à 1).")]
     [SerializeField][Range(0f, 1f)] private float spawnChancePerRow = 0.6f;
 
-    [Tooltip("Nombre minimum de cellules libres � garantir par ligne (passage du joueur).")]
-    [SerializeField] private int minFreeCellsPerRow = 2;
+    [Tooltip("Nombre minimum de lignes entièrement libres à garantir à tout moment.")]
+    [SerializeField] private int minFreeRows = 1;
+
+    private void Awake()
+    {
+        DifficultyData data = DifficultyManager.Instance?.Current;
+        if (data != null) spawnChancePerRow = data.spawnChance; // ← renomme spawnChancePerRow en spawnChance
+    }
 
     private void OnEnable() => HeartAnimator.OnHeartBeat1 += SpawnOnAllEligibleRows;
     private void OnDisable() => HeartAnimator.OnHeartBeat1 -= SpawnOnAllEligibleRows;
@@ -21,15 +28,27 @@ public class GlobuleSpawner : MonoBehaviour
         GridManager grid = GridManager.Instance;
         GlobuleRegistry registry = GlobuleRegistry.Instance;
 
+        // Compte les lignes actuellement libres
+        int freeRowCount = 0;
+        bool[] rowIsFree = new bool[grid.Rows];
+        for (int row = 0; row < grid.Rows; row++)
+        {
+            rowIsFree[row] = !registry.RowHasAnyGlobule(row, grid.Columns);
+            if (rowIsFree[row]) freeRowCount++;
+        }
+
         for (int row = 0; row < grid.Rows; row++)
         {
             Vector2Int spawnCell = new Vector2Int(spawnColumn, row);
 
             if (registry.IsOccupied(spawnCell)) continue;
 
-            // V�rifie toute la ligne (pas seulement depuis spawnColumn)
-            int freeCells = registry.CountFreeCellsInRow(row, 0, grid.Columns - 1);
-            if (freeCells <= minFreeCellsPerRow) continue;
+            // Si la ligne est libre, vérifier qu'on peut se permettre de l'occuper
+            if (rowIsFree[row])
+            {
+                if (freeRowCount <= minFreeRows) continue;
+                freeRowCount--; // On va l'occuper, on met à jour le compteur
+            }
 
             if (Random.value > spawnChancePerRow) continue;
 

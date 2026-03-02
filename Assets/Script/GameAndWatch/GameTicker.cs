@@ -10,7 +10,13 @@ public class GameTicker : MonoBehaviour
 
     private Coroutine _tickCoroutine;
 
-    private void Start() => _tickCoroutine = StartCoroutine(TickRoutine());
+    private void Start()
+    {
+        DifficultyData data = DifficultyManager.Instance?.Current;
+        if (data != null) tickInterval = data.tickInterval;
+        _tickCoroutine = StartCoroutine(TickRoutine());
+    }
+
 
     /// <summary>Change l'intervalle de tick à chaud (gestion de la difficulté).</summary>
     public void SetTickInterval(float interval)

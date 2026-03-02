@@ -18,12 +18,11 @@ public class GlobuleRegistry : MonoBehaviour
     /// <summary>Retourne true si un globule occupe cette cellule.</summary>
     public bool IsOccupied(Vector2Int cell) => _positions.Contains(cell);
 
-    /// <summary>Compte les cellules libres dans une ligne entre deux colonnes.</summary>
-    public int CountFreeCellsInRow(int row, int fromCol, int toCol)
+    /// <summary>Retourne true si la ligne contient au moins un globule.</summary>
+    public bool RowHasAnyGlobule(int row, int numColumns)
     {
-        int free = 0;
-        for (int col = fromCol; col <= toCol; col++)
-            if (!_positions.Contains(new Vector2Int(col, row))) free++;
-        return free;
+        for (int col = 0; col < numColumns; col++)
+            if (_positions.Contains(new Vector2Int(col, row))) return true;
+        return false;
     }
 }

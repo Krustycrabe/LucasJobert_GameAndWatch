@@ -7,11 +7,16 @@ public class LivesManager : MonoBehaviour
 
     public static event Action<int> OnLifeLost;
     public static event Action OnPlayerReset;
+    public static event Action OnPlayerNeedsReset; // nouveau : délégué à PlayerDeathAnimator
     public static event Action OnGameOver;
 
     private int _currentLives;
 
-    private void Awake() => _currentLives = maxLives;
+    private void Awake()
+    {
+        DifficultyData data = DifficultyManager.Instance?.Current;
+        _currentLives = data != null ? data.startingLives : maxLives;
+    }
 
     private void OnEnable()
     {
@@ -31,8 +36,11 @@ public class LivesManager : MonoBehaviour
         OnLifeLost?.Invoke(_currentLives);
 
         if (_currentLives <= 0) OnGameOver?.Invoke();
-        else OnPlayerReset?.Invoke();
+        else OnPlayerNeedsReset?.Invoke(); // animation d'abord, reset ensuite
     }
 
     private void HandleHeartReached() => OnPlayerReset?.Invoke();
+
+    /// <summary>Déclenche OnPlayerReset — appelé par PlayerDeathAnimator après l'animation.</summary>
+    public static void FirePlayerReset() => OnPlayerReset?.Invoke();
 }
