@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 4060def958fc0954da00ac752f33c543
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2430019770539975345
+    second: GlobuleBullet2_0
+  - first:
+      213: 4743621882715406289
+    second: GlobuleBullet2_1
+  - first:
+      213: 4988172548746371731
+    second: GlobuleBullet2_2
+  - first:
+      213: 7422571763735043743
+    second: GlobuleBullet2_3
+  - first:
+      213: -7257266669242770813
+    second: GlobuleBullet2_4
+  - first:
+      213: 5363533708187809541
+    second: GlobuleBullet2_5
+  - first:
+      213: 2300864899107036622
+    second: GlobuleBullet2_6
+  - first:
+      213: 3980893970411620194
+    second: GlobuleBullet2_7
+  - first:
+      213: -4178856491297097947
+    second: GlobuleBullet2_8
+  - first:
+      213: 3288261834154716198
+    second: GlobuleBullet2_9
+  - first:
+      213: -8307448889837169606
+    second: GlobuleBullet2_10
+  - first:
+      213: 7727042719326715294
+    second: GlobuleBullet2_11
+  - first:
+      213: 3334554014458115889
+    second: GlobuleBullet2_12
+  - first:
+      213: -699205071051114438
+    second: GlobuleBullet2_13
+  - first:
+      213: -8123095996165546023
+    second: GlobuleBullet2_14
+  - first:
+      213: 2212538284293754205
+    second: GlobuleBullet2_15
+  - first:
+      213: 2535873796463234332
+    second: GlobuleBullet2_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GlobuleBullet2_0
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 142
+        width: 229
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4dd9cbb4e5d64ed0800000000000000
+      internalID: -2430019770539975345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_1
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 348
+        width: 35
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1df750438fab4d140800000000000000
+      internalID: 4743621882715406289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_2
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 348
+        width: 27
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 392e16e218c893540800000000000000
+      internalID: 4988172548746371731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_3
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 327
+        width: 31
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9e954151b5420760800000000000000
+      internalID: 7422571763735043743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_4
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 328
+        width: 36
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38a908b3a62094b90800000000000000
+      internalID: -7257266669242770813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_5
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 312
+        width: 44
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5073e598d791f6a40800000000000000
+      internalID: 5363533708187809541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_6
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 311
+        width: 27
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecd907b6f605eef10800000000000000
+      internalID: 2300864899107036622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_7
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 281
+        width: 40
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26701e279f9fe3730800000000000000
+      internalID: 3980893970411620194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_8
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 258
+        width: 43
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 527b6e46928b106c0800000000000000
+      internalID: -4178856491297097947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_9
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 257
+        width: 31
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62c244957b042ad20800000000000000
+      internalID: 3288261834154716198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_10
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 231
+        width: 29
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a34da8bdf3306bc80800000000000000
+      internalID: -8307448889837169606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_11
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 226
+        width: 36
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9dbcb1e968fb3b60800000000000000
+      internalID: 7727042719326715294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_12
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 209
+        width: 44
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137f02c7537b64e20800000000000000
+      internalID: 3334554014458115889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_13
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 192
+        width: 22
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a38b8d241bceb46f0800000000000000
+      internalID: -699205071051114438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_14
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 196
+        width: 38
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9df9720ca37f44f80800000000000000
+      internalID: -8123095996165546023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_15
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 171
+        width: 36
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5d0847d8d384be10800000000000000
+      internalID: 2212538284293754205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GlobuleBullet2_16
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 161
+        width: 61
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1d896148cb313320800000000000000
+      internalID: 2535873796463234332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GlobuleBullet2_0: -2430019770539975345
+      GlobuleBullet2_1: 4743621882715406289
+      GlobuleBullet2_10: -8307448889837169606
+      GlobuleBullet2_11: 7727042719326715294
+      GlobuleBullet2_12: 3334554014458115889
+      GlobuleBullet2_13: -699205071051114438
+      GlobuleBullet2_14: -8123095996165546023
+      GlobuleBullet2_15: 2212538284293754205
+      GlobuleBullet2_16: 2535873796463234332
+      GlobuleBullet2_2: 4988172548746371731
+      GlobuleBullet2_3: 7422571763735043743
+      GlobuleBullet2_4: -7257266669242770813
+      GlobuleBullet2_5: 5363533708187809541
+      GlobuleBullet2_6: 2300864899107036622
+      GlobuleBullet2_7: 3980893970411620194
+      GlobuleBullet2_8: -4178856491297097947
+      GlobuleBullet2_9: 3288261834154716198
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

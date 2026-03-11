@@ -1,0 +1,936 @@
+fileFormatVersion: 2
+guid: ea877e3f4184b634ca581fe30e4e1752
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1078243991350544326
+    second: SpearMove3_0
+  - first:
+      213: -401244268970205353
+    second: SpearMove3_1
+  - first:
+      213: -1865779814305410501
+    second: SpearMove3_2
+  - first:
+      213: 3627458282654146127
+    second: SpearMove3_3
+  - first:
+      213: -6504963693233858361
+    second: SpearMove3_4
+  - first:
+      213: -2095577440992358978
+    second: SpearMove3_5
+  - first:
+      213: 486909231584736853
+    second: SpearMove3_6
+  - first:
+      213: -8062453086736348986
+    second: SpearMove3_7
+  - first:
+      213: 6948291021080204731
+    second: SpearMove3_8
+  - first:
+      213: -7210876359742309434
+    second: SpearMove3_9
+  - first:
+      213: 6188374768619882775
+    second: SpearMove3_10
+  - first:
+      213: -3217029076597244144
+    second: SpearMove3_11
+  - first:
+      213: 5716279484556776558
+    second: SpearMove3_12
+  - first:
+      213: 4714848033838827802
+    second: SpearMove3_13
+  - first:
+      213: 2290235050641683863
+    second: SpearMove3_14
+  - first:
+      213: 2322668100622372348
+    second: SpearMove3_15
+  - first:
+      213: 8447353489661540627
+    second: SpearMove3_16
+  - first:
+      213: 4351377004843733911
+    second: SpearMove3_17
+  - first:
+      213: 8659177907113288618
+    second: SpearMove3_18
+  - first:
+      213: 7255735141221766434
+    second: SpearMove3_19
+  - first:
+      213: 3381702148612220533
+    second: SpearMove3_20
+  - first:
+      213: 714756091031277195
+    second: SpearMove3_21
+  - first:
+      213: 4533829581776218905
+    second: SpearMove3_22
+  - first:
+      213: -8256529206959683055
+    second: SpearMove3_23
+  - first:
+      213: 7740514008598158869
+    second: SpearMove3_24
+  - first:
+      213: -5391352901118364852
+    second: SpearMove3_25
+  - first:
+      213: -6076319571509287213
+    second: SpearMove3_26
+  - first:
+      213: 8506610813264826885
+    second: SpearMove3_27
+  - first:
+      213: 798148430760155856
+    second: SpearMove3_28
+  - first:
+      213: 8075086013138717421
+    second: SpearMove3_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpearMove3_0
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 581
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c706a58231b6fe00800000000000000
+      internalID: 1078243991350544326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_1
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 586
+        width: 35
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75f9ed7967e7e6af0800000000000000
+      internalID: -401244268970205353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_2
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 577
+        width: 73
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b325b3be42b6b16e0800000000000000
+      internalID: -1865779814305410501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_3
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 586
+        width: 95
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4e1627c612575230800000000000000
+      internalID: 3627458282654146127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_4
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 453
+        width: 723
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c89bfb5cf9b9b5a0800000000000000
+      internalID: -6504963693233858361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_5
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 559
+        width: 40
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd04569b630be2e0800000000000000
+      internalID: -2095577440992358978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_6
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 568
+        width: 83
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 556777acd59d1c600800000000000000
+      internalID: 486909231584736853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_7
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 567
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c804d262a96c1090800000000000000
+      internalID: -8062453086736348986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_8
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 566
+        width: 33
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb5958bbed94d6060800000000000000
+      internalID: 6948291021080204731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_9
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 549
+        width: 45
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cb3c4ad722ddeb90800000000000000
+      internalID: -7210876359742309434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_10
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 521
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 719049c801681e550800000000000000
+      internalID: 6188374768619882775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_11
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 525
+        width: 24
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01f71517911da53d0800000000000000
+      internalID: -3217029076597244144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_12
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 498
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e641cd1b7ed445f40800000000000000
+      internalID: 5716279484556776558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_13
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 510
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1989e27e418e6140800000000000000
+      internalID: 4714848033838827802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_14
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 514
+        width: 31
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79575a5f4ac88cf10800000000000000
+      internalID: 2290235050641683863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_15
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 497
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfd4abcd456cb3020800000000000000
+      internalID: 2322668100622372348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_16
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 493
+        width: 31
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 319be6b2e370b3570800000000000000
+      internalID: 8447353489661540627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_17
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 485
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7939381d452336c30800000000000000
+      internalID: 4351377004843733911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_18
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 482
+        width: 24
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa3e560ad649b2870800000000000000
+      internalID: 8659177907113288618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_19
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 456
+        width: 45
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22597dc1bac81b460800000000000000
+      internalID: 7255735141221766434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_20
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 441
+        width: 40
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 576e438ef283eee20800000000000000
+      internalID: 3381702148612220533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_21
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 441
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8e47fab0e25be900800000000000000
+      internalID: 714756091031277195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_22
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 441
+        width: 33
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91bededbbf56bee30800000000000000
+      internalID: 4533829581776218905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_23
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 447
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11ac7856e6aea6d80800000000000000
+      internalID: -8256529206959683055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_24
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 447
+        width: 36
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51e9d65da74db6b60800000000000000
+      internalID: 7740514008598158869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_25
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 432
+        width: 83
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c43711ed9111e25b0800000000000000
+      internalID: -5391352901118364852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_26
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 426
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d66f6e1b839caba0800000000000000
+      internalID: -6076319571509287213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_27
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 423
+        width: 73
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5029527f67d8d0670800000000000000
+      internalID: 8506610813264826885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_28
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 419
+        width: 35
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0da9e7dd4c7931b00800000000000000
+      internalID: 798148430760155856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearMove3_29
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 411
+        width: 95
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deacbdff1f7701070800000000000000
+      internalID: 8075086013138717421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SpearMove3_0: 1078243991350544326
+      SpearMove3_1: -401244268970205353
+      SpearMove3_10: 6188374768619882775
+      SpearMove3_11: -3217029076597244144
+      SpearMove3_12: 5716279484556776558
+      SpearMove3_13: 4714848033838827802
+      SpearMove3_14: 2290235050641683863
+      SpearMove3_15: 2322668100622372348
+      SpearMove3_16: 8447353489661540627
+      SpearMove3_17: 4351377004843733911
+      SpearMove3_18: 8659177907113288618
+      SpearMove3_19: 7255735141221766434
+      SpearMove3_2: -1865779814305410501
+      SpearMove3_20: 3381702148612220533
+      SpearMove3_21: 714756091031277195
+      SpearMove3_22: 4533829581776218905
+      SpearMove3_23: -8256529206959683055
+      SpearMove3_24: 7740514008598158869
+      SpearMove3_25: -5391352901118364852
+      SpearMove3_26: -6076319571509287213
+      SpearMove3_27: 8506610813264826885
+      SpearMove3_28: 798148430760155856
+      SpearMove3_29: 8075086013138717421
+      SpearMove3_3: 3627458282654146127
+      SpearMove3_4: -6504963693233858361
+      SpearMove3_5: -2095577440992358978
+      SpearMove3_6: 486909231584736853
+      SpearMove3_7: -8062453086736348986
+      SpearMove3_8: 6948291021080204731
+      SpearMove3_9: -7210876359742309434
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
