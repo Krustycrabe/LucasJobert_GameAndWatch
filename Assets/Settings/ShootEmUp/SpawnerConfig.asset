@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88972e93ba6336b488f93af19424c117, type: 3}
+  m_Name: SpawnerConfig
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnerConfigSO
+  phases:
+  - {fileID: 11400000, guid: 405a61cdad79bf34fad352b2fd51ca9b, type: 2}
+  - {fileID: 11400000, guid: abba6e26935b93b449cb9daae7d18b62, type: 2}
+  - {fileID: 11400000, guid: f4946eb15f455824fb553537f860bf9d, type: 2}
+  spawnX: 12
+  minSpawnY: -4
+  maxSpawnY: 4

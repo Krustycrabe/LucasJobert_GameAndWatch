@@ -1,8 +1,9 @@
 using UnityEngine;
 
 /// <summary>
-/// Moves the player by the finger's screen delta (Aircaft-style).
+/// Moves the player by the finger's screen delta (aircraft-style joystick).
 /// The finger does not need to be on the character.
+/// The first moved event after touch-start is skipped to prevent a delta spike.
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera _mainCamera;
     private Vector2 _lastScreenPosition;
     private bool _isTracking;
+    private bool _skipNextMove;
 
     private void Awake()
     {
@@ -36,22 +38,30 @@ public class PlayerMovement : MonoBehaviour
     {
         _lastScreenPosition = screenPosition;
         _isTracking = true;
+        _skipNextMove = true; // absorb the first performed event to avoid an initial position spike
     }
 
     private void HandleTouchMoved(Vector2 screenPosition)
     {
         if (!_isTracking) return;
 
+        // Skip the very first move after touch-start; recalibrate the anchor instead.
+        if (_skipNextMove)
+        {
+            _lastScreenPosition = screenPosition;
+            _skipNextMove = false;
+            return;
+        }
+
         Vector2 screenDelta = screenPosition - _lastScreenPosition;
         _lastScreenPosition = screenPosition;
 
-        // Convert screen pixel delta to world delta (works with orthographic camera)
+        // Convert screen pixel delta to world delta (orthographic camera).
         Vector3 worldOrigin = _mainCamera.ScreenToWorldPoint(Vector3.zero);
         Vector3 worldTarget = _mainCamera.ScreenToWorldPoint(new Vector3(screenDelta.x, screenDelta.y, 0f));
         Vector2 worldDelta = (worldTarget - worldOrigin) * moveSensitivity;
 
-        Vector3 newPosition = transform.position + (Vector3)worldDelta;
-        transform.position = ClampToCameraBounds(newPosition);
+        transform.position = ClampToCameraBounds(transform.position + (Vector3)worldDelta);
     }
 
     private void HandleTouchEnded()

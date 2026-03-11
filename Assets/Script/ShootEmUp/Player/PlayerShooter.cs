@@ -3,6 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Manages shooting and laser states. Drives both Animator controllers.
+/// Laser is only available when PlayerEnergyHandler reports IsCharged = true.
 /// </summary>
 public class PlayerShooter : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerShooter : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private Animator shootAnimator;
     [SerializeField] private BulletSpawner bulletSpawner;
+    [SerializeField] private PlayerEnergyHandler energyHandler;
 
     [Header("Laser")]
     [SerializeField] private float laserDuration = 2f;
@@ -21,7 +23,8 @@ public class PlayerShooter : MonoBehaviour
     private static readonly int LaserFinishedHash = Animator.StringToHash("LaserFinished");
 
     private Coroutine _laserCoroutine;
-    private bool _isLaserPlaying;  // verrou pendant l'animation laser
+    private bool _isLaserPlaying;
+    private bool _isTouching; // tracks whether the finger is currently on screen
 
     private void OnEnable()
     {
@@ -37,39 +40,47 @@ public class PlayerShooter : MonoBehaviour
 
     private void HandleTouchBegan(Vector2 screenPosition)
     {
-        // Shoot interdit pendant le laser
+        _isTouching = true;
         if (_isLaserPlaying) return;
 
-        // Les deux animators démarrent leur anim de shoot simultanément
         shootAnimator.SetBool(IsShootingHash, true);
-        playerAnimator.SetTrigger(LaserShootHash);
         bulletSpawner.StartShooting();
     }
 
     private void HandleTouchEnded()
     {
-        // Si le laser joue déjà ou si on ne tirait pas, on ignore
+        _isTouching = false;
         if (_isLaserPlaying) return;
         if (!shootAnimator.GetBool(IsShootingHash)) return;
 
         shootAnimator.SetBool(IsShootingHash, false);
         bulletSpawner.StopShooting();
 
-        shootAnimator.SetTrigger(LaserTriggeredHash);
-        playerAnimator.SetTrigger(LaserShootHash);
-
-        _isLaserPlaying = true;
-        _laserCoroutine = StartCoroutine(LaserDurationRoutine());
+        bool charged = energyHandler != null && energyHandler.IsCharged;
+        if (charged)
+        {
+            shootAnimator.SetTrigger(LaserTriggeredHash);
+            playerAnimator.SetTrigger(LaserShootHash);
+            energyHandler.ConsumeCharge();
+            _isLaserPlaying = true;
+            _laserCoroutine = StartCoroutine(LaserDurationRoutine());
+        }
     }
 
     private IEnumerator LaserDurationRoutine()
     {
         yield return new WaitForSeconds(laserDuration);
-        SetLaserFinished(true);
-        yield return null;
-        SetLaserFinished(false);
+        shootAnimator.SetTrigger(LaserFinishedHash);
+        playerAnimator.SetTrigger(LaserFinishedHash);
         _isLaserPlaying = false;
         _laserCoroutine = null;
+
+        // If the finger is still on screen, resume shooting without requiring a new tap.
+        if (_isTouching)
+        {
+            shootAnimator.SetBool(IsShootingHash, true);
+            bulletSpawner.StartShooting();
+        }
     }
 
     private void SetLaserFinished(bool value)
