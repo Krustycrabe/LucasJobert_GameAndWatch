@@ -57,9 +57,9 @@ Transform:
   m_GameObject: {fileID: 5604576297392075481}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.095, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5794311959531750161}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -117,7 +117,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -346,6 +346,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooterBehavior
   bulletPrefab: {fileID: 5385750594368496802, guid: ed882f9f320f630499d0b9dcda3954d6, type: 3}
   bulletSpawnPoint: {fileID: 6250095611803752602}
-  wanderRadius: 1.5
-  edgePadding: 0.5
+  entrySpeedMultiplier: 4
   engagePositionX: 5
+  minWanderX: 1.5
+  edgePadding: 0.5
+  wanderReachThreshold: 0.25
+  chaseInterval: 5
+  chaseDuration: 2
+  chaseSpeedMultiplier: 1.8
+  separationRadius: 1.2
+  separationStrength: 3

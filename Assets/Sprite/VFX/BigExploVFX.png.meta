@@ -1,0 +1,589 @@
+fileFormatVersion: 2
+guid: b402d11c7388ad44594cae6f81d79b02
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 728353148072564941
+    second: BigExploVFX_0
+  - first:
+      213: 8050849955239838169
+    second: BigExploVFX_1
+  - first:
+      213: 4148012947710407533
+    second: BigExploVFX_2
+  - first:
+      213: 2684630697628451317
+    second: BigExploVFX_3
+  - first:
+      213: -4971811932820840880
+    second: BigExploVFX_4
+  - first:
+      213: -8288601614014350782
+    second: BigExploVFX_5
+  - first:
+      213: 4967292705208681008
+    second: BigExploVFX_6
+  - first:
+      213: -7753845230721987242
+    second: BigExploVFX_7
+  - first:
+      213: 3096620474440182819
+    second: BigExploVFX_8
+  - first:
+      213: 1817402391347801607
+    second: BigExploVFX_9
+  - first:
+      213: -1388125749748155234
+    second: BigExploVFX_10
+  - first:
+      213: -2948375644381131972
+    second: BigExploVFX_11
+  - first:
+      213: -5812440068662826141
+    second: BigExploVFX_12
+  - first:
+      213: 4862545435242112677
+    second: BigExploVFX_13
+  - first:
+      213: -7736785130117255232
+    second: BigExploVFX_14
+  - first:
+      213: -2644280016829076085
+    second: BigExploVFX_15
+  - first:
+      213: 7282418092254930975
+    second: BigExploVFX_16
+  - first:
+      213: -7319206474563768171
+    second: BigExploVFX_17
+  - first:
+      213: 8876119644400636808
+    second: BigExploVFX_18
+  - first:
+      213: 9101050665028043542
+    second: BigExploVFX_19
+  - first:
+      213: 6147384109796661633
+    second: BigExploVFX_20
+  - first:
+      213: -5119499840940215649
+    second: BigExploVFX_21
+  - first:
+      213: 1161881603070687111
+    second: BigExploVFX_22
+  - first:
+      213: 6293006319124829564
+    second: BigExploVFX_23
+  - first:
+      213: 1929315320098949505
+    second: BigExploVFX_24
+  - first:
+      213: 5234201559650345457
+    second: BigExploVFX_25
+  - first:
+      213: -6422234712950241797
+    second: BigExploVFX_26
+  - first:
+      213: -4790378719851278758
+    second: BigExploVFX_27
+  - first:
+      213: 5951869419395847192
+    second: BigExploVFX_28
+  - first:
+      213: -975875316881645096
+    second: BigExploVFX_29
+  - first:
+      213: -2361876849055311483
+    second: BigExploVFX_30
+  - first:
+      213: 3827561870059317642
+    second: BigExploVFX_31
+  - first:
+      213: -6833090730575366173
+    second: BigExploVFX_32
+  - first:
+      213: 620968427435429415
+    second: BigExploVFX_33
+  - first:
+      213: 8149364282076130392
+    second: BigExploVFX_34
+  - first:
+      213: 3950166952449293351
+    second: BigExploVFX_35
+  - first:
+      213: 8461969496692417297
+    second: BigExploVFX_36
+  - first:
+      213: 8785498838497766409
+    second: BigExploVFX_37
+  - first:
+      213: -2399562177541789578
+    second: BigExploVFX_38
+  - first:
+      213: 8036335714298137769
+    second: BigExploVFX_39
+  - first:
+      213: 6113717281341360512
+    second: BigExploVFX_40
+  - first:
+      213: -5870878590002971243
+    second: BigExploVFX_41
+  - first:
+      213: -396064149086781762
+    second: BigExploVFX_42
+  - first:
+      213: -6702265133258677026
+    second: BigExploVFX_43
+  - first:
+      213: 6654112458967794613
+    second: BigExploVFX_44
+  - first:
+      213: -303233888523502694
+    second: BigExploVFX_45
+  - first:
+      213: -5239252488641707088
+    second: BigExploVFX_46
+  - first:
+      213: -785360680178761279
+    second: BigExploVFX_47
+  - first:
+      213: 521639309404833866
+    second: BigExploVFX_48
+  - first:
+      213: -8191181843030055248
+    second: BigExploVFX_49
+  - first:
+      213: -8523836618283408580
+    second: BigExploVFX_50
+  - first:
+      213: 964697732384264843
+    second: BigExploVFX_51
+  - first:
+      213: 7510775503766735182
+    second: BigExploVFX_52
+  - first:
+      213: -6224975449805780840
+    second: BigExploVFX_53
+  - first:
+      213: -7776164004891923717
+    second: BigExploVFX_54
+  - first:
+      213: 2241967641292643338
+    second: BigExploVFX_55
+  - first:
+      213: 2104828842455537596
+    second: BigExploVFX_56
+  - first:
+      213: -6508186007668019213
+    second: BigExploVFX_57
+  - first:
+      213: 3921519027759578067
+    second: BigExploVFX_58
+  - first:
+      213: 2629885846466773761
+    second: BigExploVFX_59
+  - first:
+      213: -6650533913010574587
+    second: BigExploVFX_60
+  - first:
+      213: 8089506957069802691
+    second: BigExploVFX_61
+  - first:
+      213: -4441913484983549133
+    second: BigExploVFX_62
+  - first:
+      213: -7235089045155500009
+    second: BigExploVFX_63
+  - first:
+      213: -159010949442849332
+    second: BigExploVFX_64
+  - first:
+      213: 5121405499114640964
+    second: BigExploVFX_65
+  - first:
+      213: 1665011547091952928
+    second: BigExploVFX_66
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BigExploVFX_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc817e54451ab1a00800000000000000
+      internalID: 728353148072564941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d14a0a016d5abf60800000000000000
+      internalID: 8050849955239838169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d63ffff7cc3b09930800000000000000
+      internalID: 4148012947710407533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f1c04d4569b14520800000000000000
+      internalID: 2684630697628451317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05e5a2e8363900bb0800000000000000
+      internalID: -4971811932820840880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_5
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24af1f73fb8f8fc80800000000000000
+      internalID: -8288601614014350782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_6
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0324a55c56e5fe440800000000000000
+      internalID: 4967292705208681008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_7
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65d857328dec46490800000000000000
+      internalID: -7753845230721987242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c65373ae769fa20800000000000000
+      internalID: 3096620474440182819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BigExploVFX_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70e2b3e88d5b83910800000000000000
+      internalID: 1817402391347801607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a071bde809321034d822c38b9b72adc9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      BigExploVFX_0: 728353148072564941
+      BigExploVFX_1: 8050849955239838169
+      BigExploVFX_2: 4148012947710407533
+      BigExploVFX_3: 2684630697628451317
+      BigExploVFX_4: -4971811932820840880
+      BigExploVFX_5: -8288601614014350782
+      BigExploVFX_6: 4967292705208681008
+      BigExploVFX_7: -7753845230721987242
+      BigExploVFX_8: 3096620474440182819
+      BigExploVFX_9: 1817402391347801607
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

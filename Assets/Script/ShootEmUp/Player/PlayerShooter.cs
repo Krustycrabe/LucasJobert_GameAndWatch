@@ -13,6 +13,8 @@ public class PlayerShooter : MonoBehaviour
     [SerializeField] private Animator shootAnimator;
     [SerializeField] private BulletSpawner bulletSpawner;
     [SerializeField] private PlayerEnergyHandler energyHandler;
+    [Tooltip("LaserHitbox component on the laser child GameObject. Enabled only during the laser.")]
+    [SerializeField] private LaserHitbox laserHitbox;
 
     [Header("Laser")]
     [SerializeField] private float laserDuration = 2f;
@@ -63,6 +65,7 @@ public class PlayerShooter : MonoBehaviour
             playerAnimator.SetTrigger(LaserShootHash);
             energyHandler.ConsumeCharge();
             _isLaserPlaying = true;
+            if (laserHitbox != null) laserHitbox.enabled = true;
             _laserCoroutine = StartCoroutine(LaserDurationRoutine());
         }
     }
@@ -70,6 +73,8 @@ public class PlayerShooter : MonoBehaviour
     private IEnumerator LaserDurationRoutine()
     {
         yield return new WaitForSeconds(laserDuration);
+
+        if (laserHitbox != null) laserHitbox.enabled = false;
         shootAnimator.SetTrigger(LaserFinishedHash);
         playerAnimator.SetTrigger(LaserFinishedHash);
         _isLaserPlaying = false;

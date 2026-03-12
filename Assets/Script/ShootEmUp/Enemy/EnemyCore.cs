@@ -40,8 +40,10 @@ public class EnemyCore : MonoBehaviour
         if (!other.CompareTag("PlayerBullet")) return;
 
         BulletMover bullet = other.GetComponent<BulletMover>();
-        int damage = bullet != null ? bullet.Damage : 1;
-        Destroy(other.gameObject);
+        if (bullet == null || bullet.HasHit) return;
+
+        int damage = bullet.Damage;
+        bullet.TriggerHit(); // play hit anim then self-destruct
         TakeDamage(damage);
     }
 
@@ -66,6 +68,7 @@ public class EnemyCore : MonoBehaviour
         SpawnEnergy();
         OnDeathEvent?.Invoke();
         _behavior?.OnDeath();
+        CameraShake.Instance?.Shake(CameraShake.Instance.EnemyDeathShake);
     }
 
     private void SpawnEnergy()

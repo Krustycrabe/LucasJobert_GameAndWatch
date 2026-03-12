@@ -1,0 +1,662 @@
+fileFormatVersion: 2
+guid: 6fae72cd8c9e5524abed83157114c8d6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7702980994696620512
+    second: ChargedVFX_0
+  - first:
+      213: 3473750830500481383
+    second: ChargedVFX_1
+  - first:
+      213: 4490886843456257878
+    second: ChargedVFX_2
+  - first:
+      213: 6534302373814353741
+    second: ChargedVFX_3
+  - first:
+      213: 2019971081351143930
+    second: ChargedVFX_4
+  - first:
+      213: 7869656586078853617
+    second: ChargedVFX_5
+  - first:
+      213: 2851776065175564174
+    second: ChargedVFX_6
+  - first:
+      213: -6899521440754278744
+    second: ChargedVFX_7
+  - first:
+      213: 4110890460178660459
+    second: ChargedVFX_8
+  - first:
+      213: -4480551363036537994
+    second: ChargedVFX_9
+  - first:
+      213: -5003721992982783136
+    second: ChargedVFX_10
+  - first:
+      213: 4103410469393603263
+    second: ChargedVFX_11
+  - first:
+      213: 897155688551917362
+    second: ChargedVFX_12
+  - first:
+      213: 8945896490494265722
+    second: ChargedVFX_13
+  - first:
+      213: 1748593759953669540
+    second: ChargedVFX_14
+  - first:
+      213: -4873382295571826075
+    second: ChargedVFX_15
+  - first:
+      213: 1044553012269924706
+    second: ChargedVFX_16
+  - first:
+      213: -2315933564578877670
+    second: ChargedVFX_17
+  - first:
+      213: 8309587917543823235
+    second: ChargedVFX_18
+  - first:
+      213: -6219685689513352973
+    second: ChargedVFX_19
+  - first:
+      213: -1656618447490659513
+    second: ChargedVFX_20
+  - first:
+      213: -2606580706453478401
+    second: ChargedVFX_21
+  - first:
+      213: -677809233365572233
+    second: ChargedVFX_22
+  - first:
+      213: 741749300239570106
+    second: ChargedVFX_23
+  - first:
+      213: -756325345890032796
+    second: ChargedVFX_24
+  - first:
+      213: 4878564261756357860
+    second: ChargedVFX_25
+  - first:
+      213: 7298528726782359127
+    second: ChargedVFX_26
+  - first:
+      213: -4935255514512021068
+    second: ChargedVFX_27
+  - first:
+      213: 1078014155646241248
+    second: ChargedVFX_28
+  - first:
+      213: 7924437719864177551
+    second: ChargedVFX_29
+  - first:
+      213: 3813287619031643014
+    second: ChargedVFX_30
+  - first:
+      213: 1354024034145632055
+    second: ChargedVFX_31
+  - first:
+      213: -5163704494609051553
+    second: ChargedVFX_32
+  - first:
+      213: 7319060468738896359
+    second: ChargedVFX_33
+  - first:
+      213: 6637882156419382691
+    second: ChargedVFX_34
+  - first:
+      213: 599010817761533445
+    second: ChargedVFX_35
+  - first:
+      213: 5187410271672937034
+    second: ChargedVFX_36
+  - first:
+      213: 7652763447870123619
+    second: ChargedVFX_37
+  - first:
+      213: 4688083251217875794
+    second: ChargedVFX_38
+  - first:
+      213: 3545664696134903665
+    second: ChargedVFX_39
+  - first:
+      213: -1691342197333646433
+    second: ChargedVFX_40
+  - first:
+      213: -5976580680390278833
+    second: ChargedVFX_41
+  - first:
+      213: 4359048396061597840
+    second: ChargedVFX_42
+  - first:
+      213: -8740984623641173565
+    second: ChargedVFX_43
+  - first:
+      213: 7781242705427557134
+    second: ChargedVFX_44
+  - first:
+      213: 3008738397417966945
+    second: ChargedVFX_45
+  - first:
+      213: 968856793269474315
+    second: ChargedVFX_46
+  - first:
+      213: 42363788142255668
+    second: ChargedVFX_47
+  - first:
+      213: -3307698320909774727
+    second: ChargedVFX_48
+  - first:
+      213: 3846352587239977705
+    second: ChargedVFX_49
+  - first:
+      213: -5080498323489085733
+    second: ChargedVFX_50
+  - first:
+      213: -1495584312860798860
+    second: ChargedVFX_51
+  - first:
+      213: 2786804426340552976
+    second: ChargedVFX_52
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ChargedVFX_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e92a7c076c76ea60800000000000000
+      internalID: 7702980994696620512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7690332c9fd353030800000000000000
+      internalID: 3473750830500481383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65f7fa65ac5d25e30800000000000000
+      internalID: 4490886843456257878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4f323683618eaa50800000000000000
+      internalID: 6534302373814353741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af12f780ff0680c10800000000000000
+      internalID: 2019971081351143930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_5
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f91b8548f2a63d60800000000000000
+      internalID: 7869656586078853617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_6
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8f20cfc83b839720800000000000000
+      internalID: 2851776065175564174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_7
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ae56ab0ec9ff30a0800000000000000
+      internalID: -6899521440754278744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6cbd75d711dc0930800000000000000
+      internalID: 4110890460178660459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67b90583642e1d1c0800000000000000
+      internalID: -4480551363036537994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_10
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06b9375bb553f8ab0800000000000000
+      internalID: -5003721992982783136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_11
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fba13d3c41e32f830800000000000000
+      internalID: 4103410469393603263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_12
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 237ab5c6856537c00800000000000000
+      internalID: 897155688551917362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_13
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a790351f575362c70800000000000000
+      internalID: 8945896490494265722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChargedVFX_14
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4adc08e92c0444810800000000000000
+      internalID: 1748593759953669540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 82822c4da24777444a676afc1fe64e4c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":2.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      ChargedVFX_0: 7702980994696620512
+      ChargedVFX_1: 3473750830500481383
+      ChargedVFX_10: -5003721992982783136
+      ChargedVFX_11: 4103410469393603263
+      ChargedVFX_12: 897155688551917362
+      ChargedVFX_13: 8945896490494265722
+      ChargedVFX_14: 1748593759953669540
+      ChargedVFX_2: 4490886843456257878
+      ChargedVFX_3: 6534302373814353741
+      ChargedVFX_4: 2019971081351143930
+      ChargedVFX_5: 7869656586078853617
+      ChargedVFX_6: 2851776065175564174
+      ChargedVFX_7: -6899521440754278744
+      ChargedVFX_8: 4110890460178660459
+      ChargedVFX_9: -4480551363036537994
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

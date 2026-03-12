@@ -14,6 +14,8 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
     [SerializeField] private float aimRotationSpeed = 360f;
     [Tooltip("Angle offset (degrees) to match the sprite's default orientation. 180 if sprite faces left.")]
     [SerializeField] private float aimAngleOffset = 180f;
+    [Tooltip("Speed (degrees/sec) at which the boss rotates back to its default orientation after throwing.")]
+    [SerializeField] private float returnRotationSpeed = 180f;
 
     [Header("Movement")]
     [Tooltip("Speed multiplier applied only during the screen-entry phase.")]
@@ -38,6 +40,7 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
     [SerializeField] private float separationStrength = 3f;
 
     private static readonly int StartThrowHash = Animator.StringToHash("StartThrow");
+    private static readonly int DeadHash       = Animator.StringToHash("Dead");
 
     private EnemyCore _core;
     private Animator _animator;
@@ -50,7 +53,9 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
     private float _chaseDurationTimer;
     private bool _isChasing;
     private bool _isAiming;
+    private bool _isReturningToDefault; // rotating back to default orientation after throw
     private float _throwTimer;
+    private float _defaultAngle; // rotation stored at Initialize, used as return target
 
     private readonly Collider2D[] _separationBuffer = new Collider2D[8];
 
@@ -61,6 +66,7 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
         _mainCamera = Camera.main;
         _hasEntered = false;
         _chaseTimer = Random.Range(0f, chaseInterval * 0.5f);
+        _defaultAngle = transform.eulerAngles.z; // capture initial orientation
     }
 
     public void OnUpdate()
@@ -71,8 +77,9 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
 
         UpdateChaseTimer();
         Aim();
+        ReturnToDefaultRotation();
 
-        if (!_isAiming)
+        if (!_isAiming && !_isReturningToDefault)
         {
             if (_isChasing) Chase();
             else Wander();
@@ -91,7 +98,12 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
     public void OnDeath()
     {
         _isAiming = false;
-        _core.DestroyWithDelay();
+        _animator.SetTrigger(DeadHash);
+        // Boss death overrides the generic enemy shake with a bigger one.
+        CameraShake.Instance?.Shake(CameraShake.Instance.BossDeathShake);
+        // DestroyEnemy() should be called via Animation Event on the last frame of the Dead anim.
+        // DestroyWithDelay is a safety fallback.
+        _core.DestroyWithDelay(2f);
     }
 
     /// <summary>Called by Animation Event at the release frame of GigaChad_Throw.anim.</summary>
@@ -105,7 +117,9 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
 
         var lance = Instantiate(lancePrefab, origin.position, transform.rotation);
         lance.GetComponent<EnemyBulletMover>()?.SetDirection(direction);
+
         _isAiming = false;
+        _isReturningToDefault = true; // start rotating back to default orientation
     }
 
     private void EnterScreen()
@@ -171,6 +185,22 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
         float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + aimAngleOffset;
         float newAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, aimRotationSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
+    }
+
+    /// <summary>Smoothly rotates the boss back to its default orientation after throwing.</summary>
+    private void ReturnToDefaultRotation()
+    {
+        if (!_isReturningToDefault) return;
+
+        float currentAngle = transform.eulerAngles.z;
+        float newAngle = Mathf.MoveTowardsAngle(currentAngle, _defaultAngle, returnRotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
+
+        if (Mathf.Abs(Mathf.DeltaAngle(newAngle, _defaultAngle)) < 0.5f)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, _defaultAngle);
+            _isReturningToDefault = false;
+        }
     }
 
     private void ApplySeparation()

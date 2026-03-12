@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6aefb0cf3f78f40a7a8d51e6fe52ec, type: 3}
   m_Name: Phase_2
   m_EditorClassIdentifier: Assembly-CSharp::PhaseDataSO
-  phaseDuration: 2
+  phaseType: 0
+  phaseDuration: 30
   spawnInterval: 2
+  maxSpawnsPerPhase: 10
+  maxAliveAtOnce: 10
   spawnPool:
   - enemyPrefab: {fileID: 7371282986075574374, guid: 0535a4a8e3aa7fe4d9866644ac0f1759, type: 3}
     spawnWeight: 2
   - enemyPrefab: {fileID: 2040447529292818536, guid: e18f6142f1860e94f992b9c8ce122566, type: 3}
     spawnWeight: 1
+  bossPrefab: {fileID: 0}
