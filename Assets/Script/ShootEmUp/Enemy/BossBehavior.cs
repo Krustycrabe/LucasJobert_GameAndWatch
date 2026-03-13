@@ -99,10 +99,7 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
     {
         _isAiming = false;
         _animator.SetTrigger(DeadHash);
-        // Boss death overrides the generic enemy shake with a bigger one.
-        CameraShake.Instance?.Shake(CameraShake.Instance.BossDeathShake);
-        // DestroyEnemy() should be called via Animation Event on the last frame of the Dead anim.
-        // DestroyWithDelay is a safety fallback.
+        // Shake and other feedbacks are handled by EnemyCore via deathFeedback SO.
         _core.DestroyWithDelay(2f);
     }
 

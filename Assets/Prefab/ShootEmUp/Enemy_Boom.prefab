@@ -289,6 +289,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCore
   data: {fileID: 11400000, guid: 376cf8e86a6564440af3fd82403c7638, type: 2}
   fallbackDestroyDelay: 0.5
+  vfxAnimator: {fileID: 2505416072053529232}
+  hitFeedback: {fileID: 11400000, guid: c6cc96289e2276145ba6a20fafa43381, type: 2}
+  deathFeedback: {fileID: 11400000, guid: b355d69963df22f4cb3c71b68f90ef1a, type: 2}
 --- !u!114 &7467620722799609706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,10 +305,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KamikazeBehavior
   chargeSpeedMultiplier: 2.2
-  detectionRange: 4
-  slowdownStartRange: 7
+  detectionRange: 5
+  slowdownStartRange: 9
   minSpeedMultiplierAtRange: 0.3
-  decelerationCurve: 1.8
+  decelerationCurve: 1.5
+  explosionRadius: 2
+  explosionShake:
+    magnitude: 0.14
+    duration: 0.3
+--- !u!95 &2505416072053529232 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 31301502014696302, guid: eaba92846210c2d45a63ddf98d1ed2a4, type: 3}
+  m_PrefabInstance: {fileID: 2497864092619616766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3059253539504667423 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 639111795755420385, guid: eaba92846210c2d45a63ddf98d1ed2a4, type: 3}

@@ -56,5 +56,8 @@ TagManager:
   - name: Ennemi
     uniqueID: 1454201947
     locked: 0
+  - name: LaserSMUP
+    uniqueID: 1982800115
+    locked: 0
   m_RenderingLayers:
   - Default

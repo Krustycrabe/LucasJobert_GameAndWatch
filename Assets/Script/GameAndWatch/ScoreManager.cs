@@ -29,6 +29,7 @@ public class ScoreManager : MonoBehaviour
 
         OnScoreChanged?.Invoke(scoreData.currentScore);
         OnMultiplierChanged?.Invoke(scoreData.currentMultiplier);
+        GameOverEvents.RaiseScoreUpdated(scoreData.currentScore);
     }
 
     private void HandlePlayerHit()

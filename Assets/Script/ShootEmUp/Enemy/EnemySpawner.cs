@@ -35,6 +35,11 @@ public class EnemySpawner : MonoBehaviour
         BeginPhase();
     }
 
+    private void OnEnable()  => GameOverEvents.OnGameOver += HandleGameOver;
+    private void OnDisable() => GameOverEvents.OnGameOver -= HandleGameOver;
+
+    private void HandleGameOver() => enabled = false;
+
     private void Update()
     {
         // During a boss phase the spawner is fully suspended until the boss dies.

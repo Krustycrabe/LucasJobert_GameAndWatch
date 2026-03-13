@@ -14,6 +14,11 @@ public class EnemyBulletMover : MonoBehaviour
     [SerializeField] private bool useLocalForward = false;
     [Tooltip("Flips the local forward axis. Enable if the projectile travels in the wrong direction.")]
     [SerializeField] private bool flipLocalForward = false;
+    [Tooltip("Mark true on boss lance/spear projectiles. Used by PlayerHealth to route the correct feedback config.")]
+    [SerializeField] private bool isSpear = false;
+
+    /// <summary>True if this projectile is a spear (boss lance), false for standard bullets.</summary>
+    public bool IsSpear => isSpear;
 
     private Vector2 _moveDirection = Vector2.left;
     private bool _hasHitPlayer;
@@ -37,7 +42,8 @@ public class EnemyBulletMover : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         _hasHitPlayer = true;
-        other.GetComponent<PlayerHealth>()?.TakeDamage(1);
+        // Damage routing and feedback type are handled by PlayerHealth.OnTriggerEnter2D
+        // via the IsSpear property — no direct TakeDamage call needed here.
         Destroy(gameObject);
     }
 

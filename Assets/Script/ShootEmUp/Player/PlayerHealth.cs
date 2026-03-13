@@ -9,10 +9,13 @@ using UnityEngine;
 /// </summary>
 public class PlayerHealth : MonoBehaviour
 {
+    /// <summary>Categorizes the source of damage for feedback routing.</summary>
+    public enum DamageSource { Contact, Bullet, Spear, Explosion }
+
     [SerializeField] private GameDataSO gameData;
 
-    /// <summary>Fires with the new remaining life count whenever the player takes damage.</summary>
-    public event Action<int> OnDamaged;
+    /// <summary>Fires with the remaining life count and damage source on each hit.</summary>
+    public event Action<int, DamageSource> OnDamaged;
 
     /// <summary>Fires when lives reach zero.</summary>
     public event Action OnDead;
@@ -40,36 +43,50 @@ public class PlayerHealth : MonoBehaviour
     /// <summary>
     /// Inflicts damage on the player.
     /// Ignored if the player is currently invincible or already dead.
-    /// Resets the score multiplier and starts invincibility frames.
+    /// Resets the score multiplier. Invincibility frames are only applied when the
+    /// player survives the hit (avoids blocking the death event on the final life).
     /// </summary>
-    public void TakeDamage(int amount = 1)
+    public void TakeDamage(int amount = 1, DamageSource source = DamageSource.Contact)
     {
         if (_isInvincible || _currentLives <= 0) return;
 
         _currentLives = Mathf.Max(0, _currentLives - amount);
-        _isInvincible = true;
-        _invincibilityTimer = gameData.invincibilityDuration;
 
         SmUpScoreManager.Instance?.ResetMultiplier();
-        OnDamaged?.Invoke(_currentLives);
+        OnDamaged?.Invoke(_currentLives, source);
 
         if (_currentLives == 0)
+        {
             OnDead?.Invoke();
+            return;
+        }
+
+        _isInvincible = true;
+        _invincibilityTimer = gameData.invincibilityDuration;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Physical body contact with a living enemy.
-        if (other.CompareTag("Enemy"))
+        // Enemy projectile contact — check for spear (boss) vs bullet (brain).
+        EnemyBulletMover bullet = other.GetComponent<EnemyBulletMover>();
+        if (bullet != null)
         {
-            EnemyCore core = other.GetComponentInParent<EnemyCore>();
-            if (core != null && !core.IsDead)
-                TakeDamage(1);
+            DamageSource source = bullet.IsSpear ? DamageSource.Spear : DamageSource.Bullet;
+            TakeDamage(1, source);
             return;
         }
 
-        // Enemy projectile contact (Spear / generic EnemyBulletMover).
-        if (other.GetComponent<EnemyBulletMover>() != null)
-            TakeDamage(1);
+        // Physical body contact with a living enemy.
+        // Kamikazes in prep phase deal damage only via OnExplosionFrame, not physical contact.
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyCore core = other.GetComponentInParent<EnemyCore>();
+            if (core == null || core.IsDead) return;
+
+            KamikazeBehavior kamikaze = other.GetComponentInParent<KamikazeBehavior>();
+            if (kamikaze != null && kamikaze.IsPrepping) return;
+
+            TakeDamage(1, DamageSource.Contact);
+        }
     }
 }

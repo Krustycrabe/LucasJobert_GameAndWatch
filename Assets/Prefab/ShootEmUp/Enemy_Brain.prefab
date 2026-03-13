@@ -258,6 +258,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 639111795755420385, guid: eaba92846210c2d45a63ddf98d1ed2a4, type: 3}
   m_PrefabInstance: {fileID: 6392609866433923568}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &6401911130095493790 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 31301502014696302, guid: eaba92846210c2d45a63ddf98d1ed2a4, type: 3}
+  m_PrefabInstance: {fileID: 6392609866433923568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7371282986075574374 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4538240977744812438, guid: eaba92846210c2d45a63ddf98d1ed2a4, type: 3}
@@ -340,6 +345,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCore
   data: {fileID: 11400000, guid: 75342f46435539d47a111773426bc265, type: 2}
   fallbackDestroyDelay: 0.5
+  vfxAnimator: {fileID: 6401911130095493790}
+  hitFeedback: {fileID: 11400000, guid: c6cc96289e2276145ba6a20fafa43381, type: 2}
+  deathFeedback: {fileID: 11400000, guid: b355d69963df22f4cb3c71b68f90ef1a, type: 2}
 --- !u!114 &2820197193108137757
 MonoBehaviour:
   m_ObjectHideFlags: 0

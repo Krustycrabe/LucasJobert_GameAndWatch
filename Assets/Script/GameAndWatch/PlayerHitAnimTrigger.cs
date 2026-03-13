@@ -9,7 +9,7 @@ public class PlayerHitAnimTrigger : MonoBehaviour
     private const string ExplodeStateName = "Explode";
     private const float AnimationTimeout = 5f;
 
-    /// <summary>Déclenché après que l'animation de mort (game over) est terminée.</summary>
+    /// <summary>Dï¿½clenchï¿½ aprï¿½s que l'animation de mort (game over) est terminï¿½e.</summary>
     public static event Action OnDeathAnimationComplete;
 
     private Animator _animator;
@@ -47,6 +47,7 @@ public class PlayerHitAnimTrigger : MonoBehaviour
         yield return PlayExplodeAnimation();
 
         OnDeathAnimationComplete?.Invoke();
+        GameOverEvents.RaiseGameOver();
     }
 
     private IEnumerator PlayExplodeAnimation()
@@ -55,7 +56,7 @@ public class PlayerHitAnimTrigger : MonoBehaviour
 
         yield return null; // laisse l'animator traiter le trigger
 
-        // Attend l'entrée dans l'état Explode
+        // Attend l'entrï¿½e dans l'ï¿½tat Explode
         float elapsed = 0f;
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName(ExplodeStateName))
         {
@@ -64,7 +65,7 @@ public class PlayerHitAnimTrigger : MonoBehaviour
             yield return null;
         }
 
-        // Attend la fin de l'état Explode
+        // Attend la fin de l'ï¿½tat Explode
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName(ExplodeStateName)
                && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {

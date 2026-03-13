@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GameData_SmUp
   m_EditorClassIdentifier: Assembly-CSharp::GameDataSO
   maxLives: 5
-  invincibilityDuration: 1.5
-  lifePanelStepX: 101
+  invincibilityDuration: 0.5
+  lifePanelStepX: 72
   lifePanelLerpSpeed: 8
   scorePerSecond: 10
   minCountupRate: 20

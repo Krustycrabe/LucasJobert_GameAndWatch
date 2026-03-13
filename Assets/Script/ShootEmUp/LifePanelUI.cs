@@ -38,7 +38,7 @@ public class LifePanelUI : MonoBehaviour
         _rectTransform.anchoredPosition = pos;
     }
 
-    private void HandleDamaged(int currentLives)
+    private void HandleDamaged(int currentLives, PlayerHealth.DamageSource _)
     {
         int livesLost = gameData.maxLives - currentLives;
         _targetX = _startX + livesLost * gameData.lifePanelStepX;

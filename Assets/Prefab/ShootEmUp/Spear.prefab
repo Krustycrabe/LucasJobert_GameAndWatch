@@ -51,6 +51,7 @@ MonoBehaviour:
   lifetime: 6
   useLocalForward: 1
   flipLocalForward: 1
+  isSpear: 1
 --- !u!61 &359717635765335391
 BoxCollider2D:
   m_ObjectHideFlags: 0

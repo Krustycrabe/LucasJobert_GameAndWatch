@@ -36,7 +36,11 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
     private Animator _animator;
     private Transform _playerTransform;
     private bool _isPrepping;
+    private bool _explodeDone;
     private readonly Collider2D[] _explosionBuffer = new Collider2D[8];
+
+    /// <summary>True from the moment the explosion animation starts until the explosion peak frame.</summary>
+    public bool IsPrepping => _isPrepping;
 
     public void Initialize(EnemyCore core)
     {
@@ -46,6 +50,8 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
 
     public void OnUpdate()
     {
+        if (_explodeDone) return;
+
         CachePlayer();
         if (_playerTransform == null) return;
 
@@ -55,6 +61,9 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
         {
             _isPrepping = true;
             _animator.SetTrigger(StartExplodeHash);
+            // Keep OnUpdate() running after ForceKill so the enemy keeps moving
+            // toward the player during the explosion animation.
+            _core.SetKeepUpdatingAfterDeath(true);
             _core.ForceKill();
         }
 
@@ -69,32 +78,35 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
     {
         if (!_isPrepping)
         {
-            // Killed by bullet before reaching detection range — play death anim and shake immediately.
+            // Killed by bullet before reaching detection range — play death anim.
+            // Camera shake and other feedbacks are handled by EnemyCore via deathFeedback SO.
             _animator.SetTrigger(DeadHash);
             _core.DestroyWithDelay(1f);
-            CameraShake.Instance?.Shake(CameraShake.Instance.EnemyDeathShake);
         }
         // Killed by ForceKill (reached player): StartExplode anim plays.
-        // Shake and player damage fire via Animation Event at the explosion peak (OnExplosionFrame).
+        // Player damage fires via Animation Event (OnExplosionFrame).
     }
 
     /// <summary>
     /// Called by Animation Event at the visual peak of the explosion.
     /// Applies a circle overlap damage check for the player and triggers cam shake.
+    /// Stops further movement after the explosion peak.
     /// </summary>
     public void OnExplosionFrame()
     {
-        // Damage player if inside explosion radius
+        _explodeDone = true;
+        _core.SetKeepUpdatingAfterDeath(false);
+
+        // Damage player if inside explosion radius.
         int count = Physics2D.OverlapCircleNonAlloc(transform.position, explosionRadius, _explosionBuffer);
         for (int i = 0; i < count; i++)
         {
             if (_explosionBuffer[i] == null) continue;
             if (!_explosionBuffer[i].CompareTag("Player")) continue;
-            _explosionBuffer[i].GetComponent<PlayerHealth>()?.TakeDamage(1);
+            _explosionBuffer[i].GetComponent<PlayerHealth>()?.TakeDamage(1, PlayerHealth.DamageSource.Explosion);
             break;
         }
 
-        // Cam shake at the right moment — peak of explosion, not at ForceKill
         CameraShake.Instance?.Shake(explosionShake);
     }
 
@@ -102,25 +114,22 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
     /// Computes the current movement speed.
     /// Outside slowdownStartRange: full charge speed.
     /// Between slowdownStartRange and detectionRange: smooth progressive deceleration.
-    /// Inside detectionRange: minimum speed (explosion is already triggered).
+    /// Inside detectionRange (prepping): minimum speed so the enemy still drifts into the player.
     /// </summary>
     private float ComputeSpeed(float distance)
     {
         float baseSpeed = _core.Data.moveSpeed * chargeSpeedMultiplier;
 
-        if (distance >= slowdownStartRange || _isPrepping == false && distance > detectionRange)
-        {
-            // Outside slowdown zone — full charge speed.
-            float t = Mathf.InverseLerp(slowdownStartRange, detectionRange, distance);
-            if (t <= 0f) return baseSpeed;
+        if (distance >= slowdownStartRange)
+            return baseSpeed;
 
-            // Inside slowdown zone — interpolate with deceleration curve.
-            float curved = Mathf.Pow(1f - t, decelerationCurve);
-            float multiplier = Mathf.Lerp(minSpeedMultiplierAtRange, 1f, curved);
-            return baseSpeed * multiplier;
-        }
+        if (distance <= detectionRange)
+            return baseSpeed * minSpeedMultiplierAtRange;
 
-        return baseSpeed * minSpeedMultiplierAtRange;
+        // Inside slowdown zone: interpolate with deceleration curve.
+        float t = Mathf.InverseLerp(slowdownStartRange, detectionRange, distance);
+        float curved = Mathf.Pow(t, decelerationCurve);
+        return Mathf.Lerp(baseSpeed, baseSpeed * minSpeedMultiplierAtRange, curved);
     }
 
     private void CachePlayer()
