@@ -80,6 +80,7 @@ public class EnemyShooterBehavior : MonoBehaviour, IEnemyBehavior
     {
         _animator.SetTrigger(DeadHash);
         _core.DestroyWithDelay(1.5f);
+        CameraShake.Instance?.Shake(CameraShake.Instance.EnemyDeathShake);
     }
 
     /// <summary>Called by Animation Event at the shoot frame of BrainShoot.anim.</summary>

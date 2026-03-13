@@ -4,6 +4,7 @@ using UnityEngine;
 /// Moves an enemy projectile in a fixed world direction or along its own local forward (transform.right).
 /// Use useLocalForward = true for aimed projectiles like the boss lance so the trajectory always
 /// follows the object's orientation, even if an animation rotates it mid-flight.
+/// Deals 1 damage to the player on contact (requires the projectile's Collider2D to be a trigger).
 /// </summary>
 public class EnemyBulletMover : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class EnemyBulletMover : MonoBehaviour
     [SerializeField] private bool flipLocalForward = false;
 
     private Vector2 _moveDirection = Vector2.left;
+    private bool _hasHitPlayer;
 
     private void Start()
     {
@@ -29,9 +31,20 @@ public class EnemyBulletMover : MonoBehaviour
         transform.Translate(direction * (speed * Time.deltaTime), Space.World);
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (_hasHitPlayer) return;
+        if (!other.CompareTag("Player")) return;
+
+        _hasHitPlayer = true;
+        other.GetComponent<PlayerHealth>()?.TakeDamage(1);
+        Destroy(gameObject);
+    }
+
     /// <summary>Sets the travel direction for world-space projectiles. Ignored when useLocalForward is true.</summary>
     public void SetDirection(Vector2 direction)
     {
         _moveDirection = direction.normalized;
     }
 }
+

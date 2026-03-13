@@ -66,9 +66,9 @@ public class EnemyCore : MonoBehaviour
     {
         _isDead = true;
         SpawnEnergy();
+        SmUpScoreManager.Instance?.AwardKillScore(data.scoreValue);
         OnDeathEvent?.Invoke();
-        _behavior?.OnDeath();
-        CameraShake.Instance?.Shake(CameraShake.Instance.EnemyDeathShake);
+        _behavior?.OnDeath(); // each behavior is responsible for its own cam shake timing
     }
 
     private void SpawnEnergy()

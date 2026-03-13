@@ -23,6 +23,12 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
     [Tooltip("Shape of the deceleration curve. 1 = linear, >1 = stays fast longer then drops, <1 = slows early.")]
     [SerializeField] private float decelerationCurve = 1.8f;
 
+    [Header("Explosion Damage")]
+    [Tooltip("World-space radius used by the overlap check at the explosion peak frame.")]
+    [SerializeField] private float explosionRadius = 1.5f;
+    [Tooltip("Camera shake triggered at the peak of the explosion.")]
+    [SerializeField] private ShakeData explosionShake = new ShakeData(0.14f, 0.30f);
+
     private static readonly int StartExplodeHash = Animator.StringToHash("StartExplode");
     private static readonly int DeadHash         = Animator.StringToHash("Dead");
 
@@ -30,6 +36,7 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
     private Animator _animator;
     private Transform _playerTransform;
     private bool _isPrepping;
+    private readonly Collider2D[] _explosionBuffer = new Collider2D[8];
 
     public void Initialize(EnemyCore core)
     {
@@ -62,23 +69,33 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
     {
         if (!_isPrepping)
         {
-            // Killed by bullet before reaching detection range: play death anim.
-            // DestroyEnemy() must be called via Animation Event on the last frame of the Dead anim.
-            // DestroyWithDelay is a safety fallback.
+            // Killed by bullet before reaching detection range — play death anim and shake immediately.
             _animator.SetTrigger(DeadHash);
             _core.DestroyWithDelay(1f);
+            CameraShake.Instance?.Shake(CameraShake.Instance.EnemyDeathShake);
         }
-        // Killed by ForceKill (reached player): StartExplode anim plays,
-        // DestroyEnemy() fires via Animation Event at last frame.
+        // Killed by ForceKill (reached player): StartExplode anim plays.
+        // Shake and player damage fire via Animation Event at the explosion peak (OnExplosionFrame).
     }
 
     /// <summary>
-    /// Called by Animation Event at the peak explosion frame.
-    /// Player collision script handles damage reception.
+    /// Called by Animation Event at the visual peak of the explosion.
+    /// Applies a circle overlap damage check for the player and triggers cam shake.
     /// </summary>
     public void OnExplosionFrame()
     {
-        // Reserved for player-side collision handling.
+        // Damage player if inside explosion radius
+        int count = Physics2D.OverlapCircleNonAlloc(transform.position, explosionRadius, _explosionBuffer);
+        for (int i = 0; i < count; i++)
+        {
+            if (_explosionBuffer[i] == null) continue;
+            if (!_explosionBuffer[i].CompareTag("Player")) continue;
+            _explosionBuffer[i].GetComponent<PlayerHealth>()?.TakeDamage(1);
+            break;
+        }
+
+        // Cam shake at the right moment — peak of explosion, not at ForceKill
+        CameraShake.Instance?.Shake(explosionShake);
     }
 
     /// <summary>

@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1047066123
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
@@ -165,6 +165,7 @@ MonoBehaviour:
   speed: 10
   lifetime: 5
   damage: 1
+  hitAnimDuration: 0.3
 --- !u!58 &8734797068427756939
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -273,8 +274,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1047066123
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 116111831898697603, guid: ef8814f0b99226b4ea9e5191d1d816d4, type: 3}

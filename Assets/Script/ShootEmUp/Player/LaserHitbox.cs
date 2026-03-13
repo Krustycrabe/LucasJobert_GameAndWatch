@@ -23,18 +23,24 @@ public class LaserHitbox : MonoBehaviour
     private void Awake()
     {
         _collider = GetComponent<Collider2D>();
-        // Always start disabled — PlayerShooter is the only authority that enables this.
+        // Disable both the MonoBehaviour AND the physics collider.
+        // Disabling only 'enabled' leaves the Collider2D physically active, which causes
+        // OnTriggerEnter2D to propagate up to the parent Rigidbody2D (PlayerHealth) —
+        // making any enemy entering the laser zone deal contact damage to the player.
+        _collider.enabled = false;
         enabled = false;
     }
 
     private void OnEnable()
     {
+        _collider.enabled = true;
         _tickTimer = 0f;
         CameraShake.Instance?.StartContinuousShake(CameraShake.Instance.LaserContinuousShake);
     }
 
     private void OnDisable()
     {
+        _collider.enabled = false;
         CameraShake.Instance?.StopContinuousShake();
     }
 
@@ -54,7 +60,8 @@ public class LaserHitbox : MonoBehaviour
         {
             Collider2D col = _hitBuffer[i];
             if (col == null || !col.CompareTag("Enemy")) continue;
-            col.GetComponent<EnemyCore>()?.TakeDamage(damagePerTick);
+            // GetComponentInParent handles cases where the collider is on a child of the EnemyCore root.
+            col.GetComponentInParent<EnemyCore>()?.TakeDamage(damagePerTick);
         }
     }
 }

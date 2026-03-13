@@ -1,0 +1,676 @@
+fileFormatVersion: 2
+guid: c0de722ac4992e944a6f8941aad9ad57
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1901471121155969919
+    second: 2ndRowBG_0
+  - first:
+      213: -2307365053909449964
+    second: 2ndRowBG_1
+  - first:
+      213: 2941405413334182007
+    second: 2ndRowBG_2
+  - first:
+      213: -8119691247860971221
+    second: 2ndRowBG_3
+  - first:
+      213: 7826961273070883342
+    second: 2ndRowBG_4
+  - first:
+      213: 6691340151771965516
+    second: 2ndRowBG_5
+  - first:
+      213: 2310881542861629642
+    second: 2ndRowBG_6
+  - first:
+      213: -7916180974279005226
+    second: 2ndRowBG_7
+  - first:
+      213: -4467649894200080197
+    second: 2ndRowBG_8
+  - first:
+      213: -5763164339965617831
+    second: 2ndRowBG_9
+  - first:
+      213: -4796873537401518145
+    second: 2ndRowBG_10
+  - first:
+      213: -8645329376526981611
+    second: 2ndRowBG_11
+  - first:
+      213: -8755213308067391329
+    second: 2ndRowBG_12
+  - first:
+      213: -8656239195497476729
+    second: 2ndRowBG_13
+  - first:
+      213: -1037236257430239728
+    second: 2ndRowBG_14
+  - first:
+      213: 6359808527911103468
+    second: 2ndRowBG_15
+  - first:
+      213: -1776532984776526513
+    second: 2ndRowBG_16
+  - first:
+      213: -4476862017655855504
+    second: 2ndRowBG_17
+  - first:
+      213: 4162107377584586895
+    second: 2ndRowBG_18
+  - first:
+      213: 689321104983526899
+    second: 2ndRowBG_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 2ndRowBG_0
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 1288
+        width: 139
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f735a2709e1636a10800000000000000
+      internalID: 1901471121155969919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_1
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 1243
+        width: 48
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 413c39a55b79affd0800000000000000
+      internalID: -2307365053909449964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_2
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 1278
+        width: 245
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 778e132a3a8f1d820800000000000000
+      internalID: 2941405413334182007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_3
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 1251
+        width: 81
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b29066d74df015f80800000000000000
+      internalID: -8119691247860971221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_4
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 1271
+        width: 477
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0211201fc3fe9c60800000000000000
+      internalID: 7826961273070883342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_5
+      rect:
+        serializedVersion: 2
+        x: 1477
+        y: 1332
+        width: 104
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c482da17a6a6cdc50800000000000000
+      internalID: 6691340151771965516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_6
+      rect:
+        serializedVersion: 2
+        x: 2053
+        y: 1247
+        width: 125
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac826480586e11020800000000000000
+      internalID: 2310881542861629642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_7
+      rect:
+        serializedVersion: 2
+        x: 2104
+        y: 1211
+        width: 337
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dbe46a7853142290800000000000000
+      internalID: -7916180974279005226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1142
+        width: 2560
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb884638718bff1c0800000000000000
+      internalID: -4467649894200080197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_9
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 1223
+        width: 359
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 959962e31902500b0800000000000000
+      internalID: -5763164339965617831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 116
+        width: 2560
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb706b2cee41e6db0800000000000000
+      internalID: -4796873537401518145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_11
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 103
+        width: 139
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5162cd9acbe950880800000000000000
+      internalID: -8645329376526981611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_12
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 106
+        width: 48
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f98ded722eb3f7680800000000000000
+      internalID: -8755213308067391329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_13
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 72
+        width: 245
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78d4f8d705cded780800000000000000
+      internalID: -8656239195497476729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_14
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 48
+        width: 81
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01607bf8e1ffa91f0800000000000000
+      internalID: -1037236257430239728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_15
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 100
+        width: 477
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb24a11924924850800000000000000
+      internalID: 6359808527911103468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_16
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 110
+        width: 359
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4571aea9ac7857e0800000000000000
+      internalID: -1776532984776526513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_17
+      rect:
+        serializedVersion: 2
+        x: 2053
+        y: 89
+        width: 125
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0762f21e6bdfed1c0800000000000000
+      internalID: -4476862017655855504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_18
+      rect:
+        serializedVersion: 2
+        x: 2104
+        y: 91
+        width: 337
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8046fdab96c2c930800000000000000
+      internalID: 4162107377584586895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2ndRowBG_19
+      rect:
+        serializedVersion: 2
+        x: 1477
+        y: 82
+        width: 104
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fd09be84e5f09900800000000000000
+      internalID: 689321104983526899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      2ndRowBG_0: 1901471121155969919
+      2ndRowBG_1: -2307365053909449964
+      2ndRowBG_10: -4796873537401518145
+      2ndRowBG_11: -8645329376526981611
+      2ndRowBG_12: -8755213308067391329
+      2ndRowBG_13: -8656239195497476729
+      2ndRowBG_14: -1037236257430239728
+      2ndRowBG_15: 6359808527911103468
+      2ndRowBG_16: -1776532984776526513
+      2ndRowBG_17: -4476862017655855504
+      2ndRowBG_18: 4162107377584586895
+      2ndRowBG_19: 689321104983526899
+      2ndRowBG_2: 2941405413334182007
+      2ndRowBG_3: -8119691247860971221
+      2ndRowBG_4: 7826961273070883342
+      2ndRowBG_5: 6691340151771965516
+      2ndRowBG_6: 2310881542861629642
+      2ndRowBG_7: -7916180974279005226
+      2ndRowBG_8: -4467649894200080197
+      2ndRowBG_9: -5763164339965617831
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
