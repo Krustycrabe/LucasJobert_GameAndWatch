@@ -2,10 +2,11 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// Manages player lives and handles all sources of incoming damage:
-/// physical enemy contact, enemy projectiles (EnemyBulletMover), and explicit calls
-/// (e.g. from Kamikaze explosion overlap check).
-/// Applies invincibility frames after every hit to prevent rapid repeated damage.
+/// Manages player lives and handles all incoming damage sources.
+/// Invincibility frames prevent rapid repeated damage.
+/// The explosion collider of the Kamikaze uses the standard "Enemy" contact path —
+/// no special cases needed here since EnemyCore.BeginExplosion() disables the body
+/// collider and uses a separate growing CircleCollider2D for the blast radius.
 /// </summary>
 public class PlayerHealth : MonoBehaviour
 {
@@ -20,12 +21,13 @@ public class PlayerHealth : MonoBehaviour
     /// <summary>Fires when lives reach zero.</summary>
     public event Action OnDead;
 
-    public int CurrentLives => _currentLives;
-    public bool IsInvincible => _isInvincible;
+    public int  CurrentLives  => _currentLives;
+    public bool IsInvincible  => _isInvincible;
 
-    private int _currentLives;
-    private bool _isInvincible;
+    private int   _currentLives;
+    private bool  _isInvincible;
     private float _invincibilityTimer;
+    private bool  _isDead;
 
     private void Awake()
     {
@@ -36,20 +38,21 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!_isInvincible) return;
         _invincibilityTimer -= Time.deltaTime;
-        if (_invincibilityTimer <= 0f)
-            _isInvincible = false;
+        if (_invincibilityTimer <= 0f) _isInvincible = false;
     }
 
     /// <summary>
-    /// Inflicts damage on the player.
-    /// Ignored if the player is currently invincible or already dead.
-    /// Resets the score multiplier. Invincibility frames are only applied when the
-    /// player survives the hit (avoids blocking the death event on the final life).
+    /// Inflicts damage respecting invincibility frames.
+    /// Ignored if the player is invincible or already dead.
     /// </summary>
     public void TakeDamage(int amount = 1, DamageSource source = DamageSource.Contact)
     {
-        if (_isInvincible || _currentLives <= 0) return;
+        if (_isDead || _isInvincible) return;
+        ApplyDamage(amount, source);
+    }
 
+    private void ApplyDamage(int amount, DamageSource source)
+    {
         _currentLives = Mathf.Max(0, _currentLives - amount);
 
         SmUpScoreManager.Instance?.ResetMultiplier();
@@ -57,36 +60,37 @@ public class PlayerHealth : MonoBehaviour
 
         if (_currentLives == 0)
         {
+            _isDead = true;
             OnDead?.Invoke();
             return;
         }
 
-        _isInvincible = true;
+        _isInvincible       = true;
         _invincibilityTimer = gameData.invincibilityDuration;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Enemy projectile contact — check for spear (boss) vs bullet (brain).
+        // Enemy projectile — bullet or spear.
         EnemyBulletMover bullet = other.GetComponent<EnemyBulletMover>();
         if (bullet != null)
         {
-            DamageSource source = bullet.IsSpear ? DamageSource.Spear : DamageSource.Bullet;
-            TakeDamage(1, source);
+            TakeDamage(1, bullet.IsSpear ? DamageSource.Spear : DamageSource.Bullet);
             return;
         }
 
-        // Physical body contact with a living enemy.
-        // Kamikazes in prep phase deal damage only via OnExplosionFrame, not physical contact.
+        // Physical contact with a living enemy (includes the Kamikaze explosion CircleCollider2D).
+        // EnemyCore.BeginExplosion() already disabled the body collider, so only the
+        // growing explosion zone can reach here during the explosion animation.
         if (other.CompareTag("Enemy"))
         {
             EnemyCore core = other.GetComponentInParent<EnemyCore>();
             if (core == null || core.IsDead) return;
 
-            KamikazeBehavior kamikaze = other.GetComponentInParent<KamikazeBehavior>();
-            if (kamikaze != null && kamikaze.IsPrepping) return;
-
-            TakeDamage(1, DamageSource.Contact);
+            // Explosion zone contact uses DamageSource.Explosion for feedback routing.
+            DamageSource src = core.IsExploding ? DamageSource.Explosion : DamageSource.Contact;
+            TakeDamage(1, src);
         }
     }
 }
+

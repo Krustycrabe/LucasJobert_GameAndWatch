@@ -5,7 +5,13 @@ using UnityEngine;
 /// <summary>
 /// Shared logic for all enemies: health, bullet collision, energy drop, death lifecycle.
 /// Delegates per-frame behavior to the IEnemyBehavior component on the same GameObject.
-/// Optionally plays a FeedbackConfigSO on hit and on death.
+///
+/// Kamikaze explosion path:
+///   BeginExplosion() → _isExploding=true, body collider disabled.
+///   Enemy stays alive (_isDead=false) so the growing explosion CircleCollider2D
+///   can trigger PlayerHealth.OnTriggerEnter2D through the standard contact path.
+///   After the circle finishes: ResolveExplosionDeath() → destroy, no score, no energy.
+///   If killed by bullet before range: normal Die() → score + energy.
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class EnemyCore : MonoBehaviour
@@ -17,11 +23,11 @@ public class EnemyCore : MonoBehaviour
     [SerializeField] private float fallbackDestroyDelay = 0.5f;
 
     [Header("VFX")]
-    [Tooltip("Animator on the VFXHitLaser child GameObject. Receives the OnHit trigger on every hit.")]
+    [Tooltip("Animator on the VFXHitLaser child. Receives the OnHit trigger on laser hits.")]
     [SerializeField] private Animator vfxAnimator;
 
     [Header("Feedback")]
-    [Tooltip("Feedback triggered each time this enemy takes a bullet hit. Leave empty to skip.")]
+    [Tooltip("Feedback triggered on non-lethal bullet hits. Leave empty to skip.")]
     [SerializeField] private FeedbackConfigSO hitFeedback;
     [Tooltip("Feedback triggered when this enemy dies. Leave empty to skip.")]
     [SerializeField] private FeedbackConfigSO deathFeedback;
@@ -29,12 +35,15 @@ public class EnemyCore : MonoBehaviour
     public event Action OnDeathEvent;
 
     public EnemyDataSO Data => data;
-    public bool IsDead => _isDead;
+    /// <summary>True once Die() or ResolveExplosionDeath() has been called.</summary>
+    public bool IsDead      => _isDead;
+    /// <summary>True while the kamikaze explosion anim runs. Blocks bullet/laser hits only.</summary>
+    public bool IsExploding => _isExploding;
 
-    private int _currentHealth;
+    private int  _currentHealth;
     private IEnemyBehavior _behavior;
     private bool _isDead;
-    private bool _keepUpdatingAfterDeath;
+    private bool _isExploding;
 
     private void Awake()
     {
@@ -48,16 +57,9 @@ public class EnemyCore : MonoBehaviour
 
     private void Update()
     {
-        if (!_isDead || _keepUpdatingAfterDeath) _behavior?.OnUpdate();
+        if (!_isDead) _behavior?.OnUpdate();
     }
 
-    /// <summary>
-    /// Allows a behavior to keep receiving OnUpdate() calls even after the EnemyCore is marked dead.
-    /// Used by KamikazeBehavior to continue moving during the explosion animation.
-    /// </summary>
-    public void SetKeepUpdatingAfterDeath(bool value) => _keepUpdatingAfterDeath = value;
-
-    /// <summary>Forces death animation on all living enemies when the game is over.</summary>
     private void HandleGameOver()
     {
         if (_isDead) return;
@@ -67,57 +69,60 @@ public class EnemyCore : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_isDead) return;
+        if (_isDead || _isExploding) return;
         if (!other.CompareTag("PlayerBullet")) return;
 
         BulletMover bullet = other.GetComponent<BulletMover>();
         if (bullet == null || bullet.HasHit) return;
 
-        int damage = bullet.Damage;
         bullet.TriggerHit();
-        TakeDamage(damage);
+        TakeDamage(bullet.Damage);
     }
 
-    /// <summary>
-    /// Reduces health by the given amount from a standard bullet hit.
-    /// Triggers hitFeedback on non-lethal hits.
-    /// </summary>
+    /// <summary>Reduces health from a bullet hit. Triggers hitFeedback on non-lethal hits.</summary>
     public void TakeDamage(int amount)
     {
-        if (_isDead) return;
+        if (_isDead || _isExploding) return;
         _currentHealth -= amount;
+        if (_currentHealth <= 0) Die();
+        else TriggerFeedback(hitFeedback);
+    }
 
-        if (_currentHealth <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            TriggerFeedback(hitFeedback);
-        }
+    /// <summary>Reduces health from a laser tick. Plays the OnHit VFX trigger.</summary>
+    public void TakeLaserDamage(int amount)
+    {
+        if (_isDead || _isExploding) return;
+        _currentHealth -= amount;
+        vfxAnimator?.SetTrigger(OnHitHash);
+        if (_currentHealth <= 0) Die();
     }
 
     /// <summary>
-    /// Reduces health by the given amount from a laser tick.
-    /// Plays the OnHit animator trigger without the hitFeedback SO —
-    /// laser feedback is handled per-tick by LaserHitbox using its own FeedbackConfigSO.
+    /// Called by KamikazeBehavior at explosion start.
+    /// Sets _isExploding (blocks bullet/laser) but NOT _isDead, so the growing
+    /// explosion CircleCollider2D on the child GO can trigger PlayerHealth normally.
+    /// Disables the root body collider to prevent accidental contact damage.
     /// </summary>
-    public void TakeLaserDamage(int amount)
+    public void BeginExplosion()
     {
         if (_isDead) return;
-        _currentHealth -= amount;
-
-        vfxAnimator?.SetTrigger(OnHitHash);
-
-        if (_currentHealth <= 0)
-            Die();
+        _isExploding = true;
+        var col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
     }
 
-    /// <summary>Forces death regardless of current health. Used by Kamikaze on explosion.</summary>
-    public void ForceKill()
+    /// <summary>
+    /// Called by KamikazeBehavior after the explosion collider finishes growing.
+    /// No score, no energy: kamikaze self-destructs, player did not kill it.
+    /// </summary>
+    public void ResolveExplosionDeath()
     {
         if (_isDead) return;
-        Die();
+        _isDead      = true;
+        _isExploding = false;
+        TriggerFeedback(deathFeedback);
+        OnDeathEvent?.Invoke();
+        Destroy(gameObject);
     }
 
     private void Die()
@@ -135,15 +140,15 @@ public class EnemyCore : MonoBehaviour
         if (data.energyCellPrefab == null) return;
         for (int i = 0; i < data.energyDropAmount; i++)
         {
-            Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * 0.5f;
-            Instantiate(data.energyCellPrefab, (Vector2)transform.position + randomOffset, Quaternion.identity);
+            Vector2 offset = UnityEngine.Random.insideUnitCircle * 0.5f;
+            Instantiate(data.energyCellPrefab, (Vector2)transform.position + offset, Quaternion.identity);
         }
     }
 
-    /// <summary>Called by Animation Event at the end of a death or explosion animation.</summary>
+    /// <summary>Called by Animation Event at the end of a death animation.</summary>
     public void DestroyEnemy() => Destroy(gameObject);
 
-    /// <summary>Destroys after a delay. Used as fallback when no death anim event is configured.</summary>
+    /// <summary>Safety fallback when no death anim event is configured.</summary>
     public void DestroyWithDelay(float delay = -1f)
     {
         float d = delay >= 0f ? delay : fallbackDestroyDelay;

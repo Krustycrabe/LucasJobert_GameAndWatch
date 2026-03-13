@@ -59,4 +59,12 @@ public class GameDataSO : ScriptableObject
     public float multiplierKillPunch = 0.18f;
     [Tooltip("Duration of the kill-punch animation on the multiplier text.")]
     public float multiplierKillPunchDuration = 0.15f;
+
+    [Header("Multiplier — Shake")]
+    [Tooltip("Shake starts at this multiplier value or above (e.g. 3 → shake kicks in at x3).")]
+    public int multiplierShakeThreshold = 3;
+    [Tooltip("Maximum pixel offset of the shake at the highest multiplier value.")]
+    public float multiplierShakeMaxOffset = 4f;
+    [Tooltip("Shake oscillation frequency in Hz.")]
+    public float multiplierShakeFrequency = 24f;
 }
