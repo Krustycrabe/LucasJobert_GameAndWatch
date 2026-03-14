@@ -1,17 +1,20 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
 /// Core controller for the VirusSplit mini-game.
-/// Manages the split/merge state machine, input, scroll speed ramp,
+/// Manages the split/merge state machine, input, scroll-speed ramp,
+/// near-miss slow motion (condition: Split state + obstacle proximity),
 /// and coordinates ObstacleSpawner, VirusScoreManager and ParallaxScroller layers.
 ///
-/// Scene setup expected:
-///   - VirusA  (child): tag "Player", has Collider2D + Animator + TrailRenderer
-///   - VirusB  (child): tag "Player", has Collider2D + Animator + TrailRenderer, starts inactive
-///   - ParallaxScroller components assigned to parallaxLayers (all layers in the scene)
-/// Animator triggers used: "Split", "Merge", "Die" — create these in your AnimatorController.
+/// Parallax: each ParallaxScroller keeps its own base speed in the Inspector.
+/// VirusController scales all layers proportionally so that their relative depth
+/// ratios are preserved as the game accelerates:
+///   layer.ScrollSpeed = layer.BaseSpeed * (currentSpeed / initialScrollSpeed)
+///
+/// Animator triggers used: "Split", "Merge", "Die" on each virus Animator.
 /// </summary>
 public class VirusController : MonoBehaviour
 {
@@ -29,35 +32,59 @@ public class VirusController : MonoBehaviour
     [SerializeField] private Transform virusB;
 
     [Header("Scene Systems")]
-    [SerializeField] private ObstacleSpawner    obstacleSpawner;
-    [SerializeField] private VirusScoreManager  scoreManager;
-    [SerializeField] private SlowMotionManager  slowMotionManager;
-    [SerializeField] private VirusSplitVFX      vfx;
-    [Tooltip("All ParallaxScroller layers in the scene (background, mid, near).")]
+    [SerializeField] private ObstacleSpawner   obstacleSpawner;
+    [SerializeField] private VirusScoreManager scoreManager;
+    [SerializeField] private SlowMotionManager slowMotionManager;
+    [SerializeField] private VirusSplitVFX     vfx;
+
+    [Header("Trail & Particles")]
+    [Tooltip("Simulated LineRenderer trail on VirusA.")]
+    [SerializeField] private VirusSimulatedTrail trailA;
+    [Tooltip("Simulated LineRenderer trail on VirusB.")]
+    [SerializeField] private VirusSimulatedTrail trailB;
+    [Tooltip("Particle trail on VirusA/ParticleTrail child.")]
+    [SerializeField] private VirusParticleTrail  particleA;
+    [Tooltip("Particle trail on VirusB/ParticleTrail child.")]
+    [SerializeField] private VirusParticleTrail  particleB;
+
+    [Tooltip("All ParallaxScroller layers (far → near). Each keeps its own base speed in the Inspector.")]
     [SerializeField] private ParallaxScroller[] parallaxLayers;
 
-    // State
+    // ── State ─────────────────────────────────────────────────────────────────
+
     private enum VirusState { Merged, Splitting, Split, Merging }
     private VirusState _state = VirusState.Merged;
 
-    private float   _currentScrollSpeed;
-    private float   _elapsedTime;
-    private bool    _gameOver;
+    private float     _currentScrollSpeed;
+    private float     _elapsedTime;
+    private bool      _gameOver;
     private Coroutine _transitionCoroutine;
 
-    // Input
+    // Base speeds recorded at Start() from each layer's Inspector value.
+    private float[] _layerBaseSpeeds;
+
+    // ── Input ─────────────────────────────────────────────────────────────────
+
     private InputAction _tapAction;
 
-    // Cached component references
+    // ── Cached refs ───────────────────────────────────────────────────────────
+
     private Animator _animA;
     private Animator _animB;
 
-    // ── Unity Lifecycle ────────────────────────────────────────────────────────
+    /// <summary>True when the virus is in any split-related state.</summary>
+    public bool IsSplit => _state == VirusState.Split
+                        || _state == VirusState.Splitting
+                        || _state == VirusState.Merging;
+
+    // ── Unity Lifecycle ───────────────────────────────────────────────────────
 
     private void Awake()
     {
+        // Press on touch/click fires immediately on contact — no release required.
+        // This gives the lowest possible latency for a tap mechanic.
         _tapAction = new InputAction("Tap", InputActionType.Button);
-        _tapAction.AddBinding("<Touchscreen>/primaryTouch/tap");
+        _tapAction.AddBinding("<Touchscreen>/primaryTouch/press");
         _tapAction.AddBinding("<Mouse>/leftButton");
         _tapAction.performed += OnTap;
         _tapAction.Enable();
@@ -70,14 +97,15 @@ public class VirusController : MonoBehaviour
     {
         _currentScrollSpeed = config.initialScrollSpeed;
 
-        // Hide VirusB until first split.
-        SetVirusBVisible(false);
+        // Record each layer's Inspector speed as its depth anchor.
+        _layerBaseSpeeds = new float[parallaxLayers.Length];
+        for (int i = 0; i < parallaxLayers.Length; i++)
+            _layerBaseSpeeds[i] = parallaxLayers[i] != null ? parallaxLayers[i].ScrollSpeed : 1f;
 
-        // Centre VirusA at origin.
+        SetVirusBVisible(false);
         SetLocalY(virusA, 0f);
 
-        // Initialize sub-systems.
-        slowMotionManager?.Initialize(config);
+        slowMotionManager?.Initialize(config, GetVirusIsSplit, GetActiveVirusPositions);
         scoreManager?.Initialize(config);
         obstacleSpawner?.Initialize(config, GetActiveVirusPositions);
     }
@@ -96,42 +124,45 @@ public class VirusController : MonoBehaviour
     {
         if (_gameOver) return;
 
-        // Speed ramp.
         _elapsedTime        += Time.deltaTime;
         _currentScrollSpeed  = Mathf.Min(
             config.initialScrollSpeed + _elapsedTime * config.speedIncreaseRate,
             config.maxScrollSpeed);
 
-        // Push speed to sub-systems.
         scoreManager?.UpdateSpeed(_currentScrollSpeed);
         obstacleSpawner?.UpdateSpeed(_currentScrollSpeed);
-        foreach (var layer in parallaxLayers)
-            if (layer != null) layer.ScrollSpeed = _currentScrollSpeed * GetLayerMultiplier(layer);
+        trailA?.SetScrollSpeed(_currentScrollSpeed);
+        trailB?.SetScrollSpeed(_currentScrollSpeed);
+        particleA?.SetScrollSpeed(_currentScrollSpeed);
+        particleB?.SetScrollSpeed(_currentScrollSpeed);
+
+        // Scale all parallax layers proportionally — preserves depth ratios.
+        float ratio = _currentScrollSpeed / Mathf.Max(config.initialScrollSpeed, 0.001f);
+        for (int i = 0; i < parallaxLayers.Length; i++)
+            if (parallaxLayers[i] != null)
+                parallaxLayers[i].ScrollSpeed = _layerBaseSpeeds[i] * ratio;
     }
 
-    // ── Input ──────────────────────────────────────────────────────────────────
+    // ── Input ─────────────────────────────────────────────────────────────────
 
     private void OnTap(InputAction.CallbackContext ctx)
     {
         if (_gameOver) return;
-
         switch (_state)
         {
-            case VirusState.Merged:
-                BeginSplit();
-                break;
-            case VirusState.Split:
-                BeginMerge();
-                break;
-            // Ignore taps during transitions.
+            case VirusState.Merged: BeginSplit(); break;
+            case VirusState.Split:  BeginMerge(); break;
         }
     }
 
-    // ── State Machine ──────────────────────────────────────────────────────────
+    // ── State Machine ─────────────────────────────────────────────────────────
 
     private void BeginSplit()
     {
         _state = VirusState.Splitting;
+
+        // Fire slow-mo if the player is inside an obstacle proximity zone.
+        slowMotionManager?.TryTriggerSlowMo();
 
         vfx?.PlayTapPunch(virusA);
         vfx?.PlaySplitVFX(virusA.position);
@@ -139,8 +170,14 @@ public class VirusController : MonoBehaviour
         _animA?.SetTrigger(SplitHash);
         _animB?.SetTrigger(SplitHash);
 
+        // Set scroll speed on trailB BEFORE activating VirusB so that
+        // OnEnable → PreFill() uses the correct speed and the trail is
+        // immediately visible with proper X spacing.
+        trailB?.SetScrollSpeed(_currentScrollSpeed);
+        particleB?.SetScrollSpeed(_currentScrollSpeed);
+
+        SetLocalY(virusB, 0f);
         SetVirusBVisible(true);
-        SetLocalY(virusB, 0f); // start from centre
 
         if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
         _transitionCoroutine = StartCoroutine(TransitionRoutine(
@@ -154,6 +191,9 @@ public class VirusController : MonoBehaviour
     {
         _state = VirusState.Merging;
 
+        // Fire slow-mo if the player is inside an obstacle proximity zone.
+        slowMotionManager?.TryTriggerSlowMo();
+
         vfx?.PlayTapPunch(virusA, virusB);
         vfx?.PlayMergeVFX(new Vector3(virusA.position.x, 0f, virusA.position.z));
 
@@ -165,72 +205,62 @@ public class VirusController : MonoBehaviour
             virusA, GetLocalY(virusA), 0f,
             virusB, GetLocalY(virusB), 0f,
             config.mergeDuration,
-            () =>
-            {
-                _state = VirusState.Merged;
-                SetVirusBVisible(false);
-            }));
+            () => { _state = VirusState.Merged; trailB?.Clear(); particleB?.Pause(); SetVirusBVisible(false); }));
     }
 
     private IEnumerator TransitionRoutine(
-        Transform targetA, float fromA, float toA,
-        Transform targetB, float fromB, float toB,
-        float duration,
-        System.Action onComplete)
+        Transform tA, float fromA, float toA,
+        Transform tB, float fromB, float toB,
+        float duration, Action onComplete)
     {
         float elapsed = 0f;
-
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            // Use unscaledDeltaTime so slow-motion does not extend the transition
+            // and block input for longer than intended.
+            elapsed += Time.unscaledDeltaTime;
             float t  = Mathf.Clamp01(elapsed / duration);
             float c  = config.moveCurve.Evaluate(t);
-
-            SetLocalY(targetA, Mathf.Lerp(fromA, toA, c));
-            SetLocalY(targetB, Mathf.Lerp(fromB, toB, c));
-
+            SetLocalY(tA, Mathf.Lerp(fromA, toA, c));
+            SetLocalY(tB, Mathf.Lerp(fromB, toB, c));
             yield return null;
         }
-
-        SetLocalY(targetA, toA);
-        SetLocalY(targetB, toB);
+        SetLocalY(tA, toA);
+        SetLocalY(tB, toB);
         onComplete?.Invoke();
         _transitionCoroutine = null;
     }
 
-    // ── Game Over ──────────────────────────────────────────────────────────────
+    // ── Game Over ─────────────────────────────────────────────────────────────
 
     private void HandleGameOver()
     {
         if (_gameOver) return;
         _gameOver = true;
-
         if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
-
         _animA?.SetTrigger(DieHash);
         _animB?.SetTrigger(DieHash);
-
         foreach (var layer in parallaxLayers)
             if (layer != null) layer.enabled = false;
     }
 
-    // ── Helpers ────────────────────────────────────────────────────────────────
+    // ── Delegates ─────────────────────────────────────────────────────────────
 
-    /// <summary>Returns world positions of all currently active viruses (used by ObstacleMover).</summary>
-    private Vector2[] GetActiveVirusPositions()
+    /// <summary>Returns the world positions of all currently active virus colliders.</summary>
+    public Vector2[] GetActiveVirusPositions()
     {
-        bool bActive = _state == VirusState.Split || _state == VirusState.Splitting || _state == VirusState.Merging;
-
-        if (bActive && virusB != null)
-            return new Vector2[] { virusA.position, virusB.position };
-
-        return new Vector2[] { virusA.position };
+        if (IsSplit && virusB != null && virusB.gameObject.activeSelf)
+            return new[] { (Vector2)virusA.position, (Vector2)virusB.position };
+        return new[] { (Vector2)virusA.position };
     }
+
+    private bool GetVirusIsSplit() => IsSplit;
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private void SetVirusBVisible(bool visible)
     {
-        if (virusB == null) return;
-        virusB.gameObject.SetActive(visible);
+        if (virusB != null) virusB.gameObject.SetActive(visible);
     }
 
     private static void  SetLocalY(Transform t, float y)
@@ -242,18 +272,4 @@ public class VirusController : MonoBehaviour
     }
 
     private static float GetLocalY(Transform t) => t != null ? t.localPosition.y : 0f;
-
-    /// <summary>
-    /// Returns a parallax speed multiplier for a given layer based on its inspector scroll speed.
-    /// Layers with a lower base ScrollSpeed get a proportionally smaller multiplier so the
-    /// visual depth is preserved as the overall game speed increases.
-    /// Override this with a per-layer multiplier array if you need finer control.
-    /// </summary>
-    private float GetLayerMultiplier(ParallaxScroller layer)
-    {
-        // Preserve the ratio between layers by using their initial ScrollSpeed value
-        // as a percentage of the config's initial scroll speed.
-        // Layers drive their own base speed in the Inspector.
-        return 1f;
-    }
 }

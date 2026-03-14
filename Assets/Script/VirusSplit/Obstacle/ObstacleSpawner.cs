@@ -1,15 +1,21 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 /// <summary>
-/// Spawns obstacles from the right of the screen according to the current difficulty.
-/// Four obstacle types are supported:
+/// Spawns obstacles from the right of the screen using per-prefab object pools
+/// to eliminate per-spawn Instantiate/Destroy GC pressure and frame spikes.
+///
+/// Four obstacle patterns:
 ///   Center    — single obstacle at the centre lane (player must split)
-///   Top       — single obstacle at top wall (player must stay merged or split-bottom only)
+///   Top       — single obstacle at top wall
 ///   Bottom    — single obstacle at bottom wall
 ///   TopBottom — two obstacles (top + bottom); player must stay merged at centre
+///
+/// Obstacles are returned to the pool via ObstacleMover.OnReturnToPool().
+/// The pool pre-warms <poolPrewarm> instances per prefab at Initialize() time
+/// so no allocation occurs during gameplay.
 /// </summary>
 public class ObstacleSpawner : MonoBehaviour
 {
@@ -17,38 +23,54 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private VirusSplitConfigSO config;
 
     [Header("Prefabs")]
-    [Tooltip("Obstacle for the centre lane (globule blanc / brain bullet reuse).")]
+    [Tooltip("Centre-lane obstacle.")]
     [SerializeField] private GameObject centerObstaclePrefab;
-    [Tooltip("Obstacle for wall attachment (plaque immunitaire).")]
+    [Tooltip("Wall obstacle.")]
     [SerializeField] private GameObject wallObstaclePrefab;
 
-    [Header("Obstacle Z-depth")]
+    [Header("Pooling")]
+    [Tooltip("Number of instances pre-created per prefab at init time.")]
+    [SerializeField] private int poolPrewarm = 8;
+
+    [Header("Randomisation")]
+    [Range(0f, 0.5f)]
+    [SerializeField] private float jitterFraction    = 0.35f;
+    [SerializeField] private float topBottomCooldown = 3.5f;
+
+    [Header("Z depth")]
     [SerializeField] private float obstacleZ = 0f;
 
     private Func<Vector2[]> _getVirusPositions;
-    private float  _currentSpeed;
-    private float  _spawnTimer;
-    private float  _currentInterval;
-    private float  _elapsedTime;
-    private bool   _running;
-    private bool   _gameOver;
+    private float           _currentSpeed;
+    private float           _elapsedTime;
+    private float           _spawnTimer;
+    private float           _lastTopBottomTime = -999f;
+    private bool            _running;
+    private bool            _gameOver;
+
+    // ── Pools ─────────────────────────────────────────────────────────────────
+    private readonly Queue<GameObject> _centerPool = new Queue<GameObject>();
+    private readonly Queue<GameObject> _wallPool   = new Queue<GameObject>();
+
+    // ── Lifecycle ─────────────────────────────────────────────────────────────
 
     private void OnEnable()  => GameOverEvents.OnGameOver += HandleGameOver;
     private void OnDisable() => GameOverEvents.OnGameOver -= HandleGameOver;
-
     private void HandleGameOver() => _gameOver = true;
 
-    /// <summary>Called by VirusController once the game starts.</summary>
+    /// <summary>Called by VirusController at game start.</summary>
     public void Initialize(VirusSplitConfigSO cfg, Func<Vector2[]> getVirusPositions)
     {
-        config               = cfg;
-        _getVirusPositions   = getVirusPositions;
-        _currentInterval     = config.initialSpawnInterval;
-        _spawnTimer          = _currentInterval;
-        _running             = true;
+        config             = cfg;
+        _getVirusPositions = getVirusPositions;
+        _spawnTimer        = ComputeNextInterval();
+        _running           = true;
+
+        Prewarm(centerObstaclePrefab, _centerPool);
+        Prewarm(wallObstaclePrefab,   _wallPool);
     }
 
-    /// <summary>Updated each frame by VirusController with the current scroll speed.</summary>
+    /// <summary>Updated each frame by VirusController.</summary>
     public void UpdateSpeed(float speed) => _currentSpeed = speed;
 
     private void Update()
@@ -56,67 +78,126 @@ public class ObstacleSpawner : MonoBehaviour
         if (!_running || _gameOver) return;
 
         _elapsedTime += Time.deltaTime;
+        _spawnTimer  -= Time.deltaTime;
 
-        // Decrease spawn interval over time (difficulty ramp), clamp to minimum.
-        _currentInterval = Mathf.Max(
+        if (_spawnTimer <= 0f)
+        {
+            SpawnPattern(PickPattern());
+            _spawnTimer = ComputeNextInterval();
+        }
+    }
+
+    // ── Pool ──────────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Returns an obstacle to its pool. Called by ObstacleMover when the
+    /// obstacle reaches the despawn X threshold.
+    /// </summary>
+    public void ReturnToPool(GameObject go, bool isCenter)
+    {
+        go.SetActive(false);
+        (isCenter ? _centerPool : _wallPool).Enqueue(go);
+    }
+
+    // ── Interval ──────────────────────────────────────────────────────────────
+
+    private float ComputeNextInterval()
+    {
+        float baseInterval = Mathf.Max(
             config.minSpawnInterval,
             config.initialSpawnInterval - _elapsedTime * config.spawnIntervalDecreaseRate);
 
-        _spawnTimer -= Time.deltaTime;
-        if (_spawnTimer <= 0f)
-        {
-            _spawnTimer = _currentInterval;
-            SpawnPattern(PickPattern());
-        }
+        float jitter = Random.Range(1f - jitterFraction, 1f + jitterFraction);
+        return Mathf.Max(config.minSpawnInterval * 0.65f, baseInterval * jitter);
     }
+
+    // ── Pattern selection ─────────────────────────────────────────────────────
 
     private ObstaclePattern PickPattern()
     {
-        // Weight distribution: as difficulty grows, centre and TopBottom appear more often.
-        float t = Mathf.Clamp01(_elapsedTime / 60f); // saturates at 60 s
-        float rollCenter    = Mathf.Lerp(0.30f, 0.38f, t);
-        float rollTop       = Mathf.Lerp(0.25f, 0.20f, t);
-        float rollBottom    = Mathf.Lerp(0.25f, 0.20f, t);
-        // rollTopBottom = remainder
+        float t = Mathf.Clamp01(_elapsedTime / 90f);
 
-        float roll = Random.value;
-        if (roll < rollCenter)            return ObstaclePattern.Center;
-        if (roll < rollCenter + rollTop)  return ObstaclePattern.Top;
-        if (roll < rollCenter + rollTop + rollBottom) return ObstaclePattern.Bottom;
+        float wCenter    = Mathf.Lerp(0.30f, 0.35f, t);
+        float wTop       = Mathf.Lerp(0.28f, 0.22f, t);
+        float wBottom    = Mathf.Lerp(0.28f, 0.22f, t);
+        float wTopBottom = Mathf.Lerp(0.14f, 0.21f, t);
+
+        if ((_elapsedTime - _lastTopBottomTime) < topBottomCooldown)
+            wTopBottom = 0f;
+
+        float total = wCenter + wTop + wBottom + wTopBottom;
+        float roll  = Random.value * total;
+
+        if (roll < wCenter)   return ObstaclePattern.Center;
+        roll -= wCenter;
+        if (roll < wTop)      return ObstaclePattern.Top;
+        roll -= wTop;
+        if (roll < wBottom)   return ObstaclePattern.Bottom;
         return ObstaclePattern.TopBottom;
     }
 
+    // ── Spawning ──────────────────────────────────────────────────────────────
+
     private void SpawnPattern(ObstaclePattern pattern)
     {
+        if (pattern == ObstaclePattern.TopBottom)
+            _lastTopBottomTime = _elapsedTime;
+
         switch (pattern)
         {
             case ObstaclePattern.Center:
-                SpawnAt(centerObstaclePrefab, config.centerObstacleY);
+                SpawnAt(centerObstaclePrefab, _centerPool, config.centerObstacleY, isCenter: true);
                 break;
             case ObstaclePattern.Top:
-                SpawnAt(wallObstaclePrefab, config.topObstacleY);
+                SpawnAt(wallObstaclePrefab, _wallPool, config.topObstacleY, isCenter: false);
                 break;
             case ObstaclePattern.Bottom:
-                SpawnAt(wallObstaclePrefab, config.bottomObstacleY);
+                SpawnAt(wallObstaclePrefab, _wallPool, config.bottomObstacleY, isCenter: false);
                 break;
             case ObstaclePattern.TopBottom:
-                SpawnAt(wallObstaclePrefab, config.topObstacleY);
-                SpawnAt(wallObstaclePrefab, config.bottomObstacleY);
+                SpawnAt(wallObstaclePrefab, _wallPool, config.topObstacleY,    isCenter: false);
+                SpawnAt(wallObstaclePrefab, _wallPool, config.bottomObstacleY, isCenter: false);
                 break;
         }
     }
 
-    private void SpawnAt(GameObject prefab, float y)
+    private void SpawnAt(GameObject prefab, Queue<GameObject> pool, float y, bool isCenter)
     {
         if (prefab == null) return;
-        Vector3 spawnPos = new Vector3(config.obstacleSpawnX, y, obstacleZ);
-        GameObject go    = Instantiate(prefab, spawnPos, Quaternion.identity, transform);
 
-        ObstacleMover mover = go.GetComponent<ObstacleMover>();
-        if (mover == null) mover = go.AddComponent<ObstacleMover>();
+        GameObject go = pool.Count > 0 ? pool.Dequeue() : CreateInstance(prefab);
 
-        mover.Initialize(config, _getVirusPositions);
+        go.transform.position = new Vector3(config.obstacleSpawnX, y, obstacleZ);
+        go.SetActive(true);
+
+        var mover = go.GetComponent<ObstacleMover>();
+        mover.Initialize(config, _getVirusPositions, this, isCenter);
         mover.SetSpeed(_currentSpeed);
+    }
+
+    // ── Internal helpers ──────────────────────────────────────────────────────
+
+    private void Prewarm(GameObject prefab, Queue<GameObject> pool)
+    {
+        if (prefab == null) return;
+        for (int i = 0; i < poolPrewarm; i++)
+            pool.Enqueue(CreateInstance(prefab));
+    }
+
+    private GameObject CreateInstance(GameObject prefab)
+    {
+        GameObject go = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform);
+        go.SetActive(false);
+
+        // Disable ShootEmUp movement script — will never be needed.
+        var ebm = go.GetComponent<EnemyBulletMover>();
+        if (ebm != null) ebm.enabled = false;
+
+        // Ensure ObstacleMover is present.
+        if (go.GetComponent<ObstacleMover>() == null)
+            go.AddComponent<ObstacleMover>();
+
+        return go;
     }
 }
 

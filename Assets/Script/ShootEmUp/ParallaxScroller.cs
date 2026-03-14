@@ -13,10 +13,14 @@ public class ParallaxScroller : MonoBehaviour
 
     private Transform _slotA;
     private Transform _slotB;
-    private float _spriteWidth;
-    private Camera _cam;
+    private float     _spriteWidth;
+    private float     _camLeftEdge;
 
-    /// <summary>Exposes scroll speed so a manager can scale it at runtime (e.g. game speed factor).</summary>
+    // Cached half-width: camera left = cam.x - halfWidth
+    private float _camHalfWidth;
+    private Transform _camTransform;
+
+    /// <summary>Exposes scroll speed so a manager can scale it at runtime.</summary>
     public float ScrollSpeed
     {
         get => scrollSpeed;
@@ -25,7 +29,12 @@ public class ParallaxScroller : MonoBehaviour
 
     private void Start()
     {
-        _cam = Camera.main;
+        var cam = Camera.main;
+        if (cam != null)
+        {
+            _camTransform = cam.transform;
+            _camHalfWidth = cam.orthographicSize * cam.aspect;
+        }
 
         if (transform.childCount < 2)
         {
@@ -47,7 +56,6 @@ public class ParallaxScroller : MonoBehaviour
 
         _spriteWidth = rend.bounds.size.x;
 
-        // Position the slots: A at the layer's world position, B directly to its right.
         Vector3 origin = transform.position;
         _slotA.position = origin;
         _slotB.position = new Vector3(origin.x + _spriteWidth, origin.y, origin.z);
@@ -60,16 +68,15 @@ public class ParallaxScroller : MonoBehaviour
         _slotA.Translate(Vector3.left * delta, Space.World);
         _slotB.Translate(Vector3.left * delta, Space.World);
 
-        float camLeft = GetCameraLeftEdge();
+        // Recompute left edge only when camera moves (orthographic games rarely do).
+        float camLeft = _camTransform != null
+            ? _camTransform.position.x - _camHalfWidth
+            : -20f;
 
         RecycleIfOffScreen(_slotA, _slotB, camLeft);
         RecycleIfOffScreen(_slotB, _slotA, camLeft);
     }
 
-    /// <summary>
-    /// If 'target' has fully scrolled past the camera's left edge, teleport it
-    /// to the right of 'anchor' so the loop is seamless.
-    /// </summary>
     private void RecycleIfOffScreen(Transform target, Transform anchor, float camLeft)
     {
         if (target.position.x + _spriteWidth * 0.5f < camLeft)
@@ -79,11 +86,5 @@ public class ParallaxScroller : MonoBehaviour
                 target.position.y,
                 target.position.z);
         }
-    }
-
-    private float GetCameraLeftEdge()
-    {
-        if (_cam == null) return -20f;
-        return _cam.transform.position.x - _cam.orthographicSize * _cam.aspect;
     }
 }

@@ -1,0 +1,1103 @@
+fileFormatVersion: 2
+guid: 2dcc63ba7e2be6d4982173108de21b13
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8106134031487302874
+    second: VfxRegroupement_0
+  - first:
+      213: -1109512888915295723
+    second: VfxRegroupement_1
+  - first:
+      213: -6775736201859542261
+    second: VfxRegroupement_2
+  - first:
+      213: 7224753735389167977
+    second: VfxRegroupement_3
+  - first:
+      213: 7565239567841071970
+    second: VfxRegroupement_4
+  - first:
+      213: 4460976573249297357
+    second: VfxRegroupement_5
+  - first:
+      213: -6603769267027948172
+    second: VfxRegroupement_6
+  - first:
+      213: 6336521903926304019
+    second: VfxRegroupement_7
+  - first:
+      213: 4466027796005265963
+    second: VfxRegroupement_8
+  - first:
+      213: 4075294122457185887
+    second: VfxRegroupement_9
+  - first:
+      213: 5755957442694390237
+    second: VfxRegroupement_10
+  - first:
+      213: -2668595982871523252
+    second: VfxRegroupement_11
+  - first:
+      213: -5488319848829886612
+    second: VfxRegroupement_12
+  - first:
+      213: 6368157687875812825
+    second: VfxRegroupement_13
+  - first:
+      213: -6673317858309527932
+    second: VfxRegroupement_14
+  - first:
+      213: -102286549787323300
+    second: VfxRegroupement_15
+  - first:
+      213: -2793660368390862062
+    second: VfxRegroupement_16
+  - first:
+      213: 4635977020832223424
+    second: VfxRegroupement_17
+  - first:
+      213: -794506668782737621
+    second: VfxRegroupement_18
+  - first:
+      213: 2391659128551850406
+    second: VfxRegroupement_19
+  - first:
+      213: 7374263694643742507
+    second: VfxRegroupement_20
+  - first:
+      213: 936879410937860106
+    second: VfxRegroupement_21
+  - first:
+      213: 9088769208626517555
+    second: VfxRegroupement_22
+  - first:
+      213: -69227109323508355
+    second: VfxRegroupement_23
+  - first:
+      213: -5433731384878727298
+    second: VfxRegroupement_24
+  - first:
+      213: -1199199115433219444
+    second: VfxRegroupement_25
+  - first:
+      213: 5732798693840316801
+    second: VfxRegroupement_26
+  - first:
+      213: -9024477256110540577
+    second: VfxRegroupement_27
+  - first:
+      213: -3095799616945539965
+    second: VfxRegroupement_28
+  - first:
+      213: 369917166069708901
+    second: VfxRegroupement_29
+  - first:
+      213: -5459586914981375430
+    second: VfxRegroupement_30
+  - first:
+      213: 6994728594487124538
+    second: VfxRegroupement_31
+  - first:
+      213: 2638147881114726490
+    second: VfxRegroupement_32
+  - first:
+      213: 6515768409702579325
+    second: VfxRegroupement_33
+  - first:
+      213: 4876392243082450616
+    second: VfxRegroupement_34
+  - first:
+      213: -470292265509179986
+    second: VfxRegroupement_35
+  - first:
+      213: 3373072124416983825
+    second: VfxRegroupement_36
+  - first:
+      213: 4068932690374498771
+    second: VfxRegroupement_37
+  - first:
+      213: 1326362687972849171
+    second: VfxRegroupement_38
+  - first:
+      213: -1055450022719163359
+    second: VfxRegroupement_39
+  - first:
+      213: 5543340297105590286
+    second: VfxRegroupement_40
+  - first:
+      213: -6815524683187244481
+    second: VfxRegroupement_41
+  - first:
+      213: 2470788570966886272
+    second: VfxRegroupement_42
+  - first:
+      213: -8333864562307817351
+    second: VfxRegroupement_43
+  - first:
+      213: -905355165927333193
+    second: VfxRegroupement_44
+  - first:
+      213: 8317122553455290939
+    second: VfxRegroupement_45
+  - first:
+      213: -381944362987259720
+    second: VfxRegroupement_46
+  - first:
+      213: -1017326017503879469
+    second: VfxRegroupement_47
+  - first:
+      213: -971244622076891247
+    second: VfxRegroupement_48
+  - first:
+      213: -7505608903170308915
+    second: VfxRegroupement_49
+  - first:
+      213: 6916956930000260857
+    second: VfxRegroupement_50
+  - first:
+      213: -5687107030875100901
+    second: VfxRegroupement_51
+  - first:
+      213: 110721671734022439
+    second: VfxRegroupement_52
+  - first:
+      213: -1850176329845692411
+    second: VfxRegroupement_53
+  - first:
+      213: -4691733982149649054
+    second: VfxRegroupement_54
+  - first:
+      213: 144006829082129011
+    second: VfxRegroupement_55
+  - first:
+      213: 4654727978063418438
+    second: VfxRegroupement_56
+  - first:
+      213: 5876646189813174808
+    second: VfxRegroupement_57
+  - first:
+      213: 1652370785558167967
+    second: VfxRegroupement_58
+  - first:
+      213: 6707170767856936715
+    second: VfxRegroupement_59
+  - first:
+      213: -6292101213500719840
+    second: VfxRegroupement_60
+  - first:
+      213: 620736186557726034
+    second: VfxRegroupement_61
+  - first:
+      213: 2518376936818886862
+    second: VfxRegroupement_62
+  - first:
+      213: 9174967263757965764
+    second: VfxRegroupement_63
+  - first:
+      213: 7256947028135186558
+    second: VfxRegroupement_64
+  - first:
+      213: -8154107419903437980
+    second: VfxRegroupement_65
+  - first:
+      213: -5028460287559506038
+    second: VfxRegroupement_66
+  - first:
+      213: 2077053809632086742
+    second: VfxRegroupement_67
+  - first:
+      213: 6316805547949304126
+    second: VfxRegroupement_68
+  - first:
+      213: -1966903688634833313
+    second: VfxRegroupement_69
+  - first:
+      213: -6289603118351183680
+    second: VfxRegroupement_70
+  - first:
+      213: -3902911157232866058
+    second: VfxRegroupement_71
+  - first:
+      213: 7868886284966824587
+    second: VfxRegroupement_72
+  - first:
+      213: -3283908842756156141
+    second: VfxRegroupement_73
+  - first:
+      213: 2618053467236873261
+    second: VfxRegroupement_74
+  - first:
+      213: 1306448176380036239
+    second: VfxRegroupement_75
+  - first:
+      213: 5484430443285101718
+    second: VfxRegroupement_76
+  - first:
+      213: 7845784768181607063
+    second: VfxRegroupement_77
+  - first:
+      213: 6932151289789450641
+    second: VfxRegroupement_78
+  - first:
+      213: -1569048654090954822
+    second: VfxRegroupement_79
+  - first:
+      213: -1681616209850518457
+    second: VfxRegroupement_80
+  - first:
+      213: 1957882288546015188
+    second: VfxRegroupement_81
+  - first:
+      213: -5040454627431962486
+    second: VfxRegroupement_82
+  - first:
+      213: 7347327742103639691
+    second: VfxRegroupement_83
+  - first:
+      213: 4994914612184193521
+    second: VfxRegroupement_84
+  - first:
+      213: 8142524195247064728
+    second: VfxRegroupement_85
+  - first:
+      213: -8665893396397638474
+    second: VfxRegroupement_86
+  - first:
+      213: 7504705753837173616
+    second: VfxRegroupement_87
+  - first:
+      213: 1100896613657135283
+    second: VfxRegroupement_88
+  - first:
+      213: 1036335606687620753
+    second: VfxRegroupement_89
+  - first:
+      213: -2230240114906419551
+    second: VfxRegroupement_90
+  - first:
+      213: -187586242918604655
+    second: VfxRegroupement_91
+  - first:
+      213: 1903623688307801951
+    second: VfxRegroupement_92
+  - first:
+      213: 552451845967090001
+    second: VfxRegroupement_93
+  - first:
+      213: 5368057502959009214
+    second: VfxRegroupement_94
+  - first:
+      213: 3438608720839842314
+    second: VfxRegroupement_95
+  - first:
+      213: 7250098134723727533
+    second: VfxRegroupement_96
+  - first:
+      213: -3333777536967282594
+    second: VfxRegroupement_97
+  - first:
+      213: 1883669112675014060
+    second: VfxRegroupement_98
+  - first:
+      213: 3177890006237586442
+    second: VfxRegroupement_99
+  - first:
+      213: 5076263528863929777
+    second: VfxRegroupement_100
+  - first:
+      213: -5727692050097840732
+    second: VfxRegroupement_101
+  - first:
+      213: -1522529593914404465
+    second: VfxRegroupement_102
+  - first:
+      213: -4753610468797450748
+    second: VfxRegroupement_103
+  - first:
+      213: -1579719975105190248
+    second: VfxRegroupement_104
+  - first:
+      213: 8217049035468475840
+    second: VfxRegroupement_105
+  - first:
+      213: -3661792818372500346
+    second: VfxRegroupement_106
+  - first:
+      213: -7475219304173013008
+    second: VfxRegroupement_107
+  - first:
+      213: 6058543847909184617
+    second: VfxRegroupement_108
+  - first:
+      213: 8853955914857369641
+    second: VfxRegroupement_109
+  - first:
+      213: 5163884646786273650
+    second: VfxRegroupement_110
+  - first:
+      213: -5378371730231287176
+    second: VfxRegroupement_111
+  - first:
+      213: 2664442028075322220
+    second: VfxRegroupement_112
+  - first:
+      213: 4893752999256083543
+    second: VfxRegroupement_113
+  - first:
+      213: -3876196112441581964
+    second: VfxRegroupement_114
+  - first:
+      213: -5724623433364337481
+    second: VfxRegroupement_115
+  - first:
+      213: -5174376587938578786
+    second: VfxRegroupement_116
+  - first:
+      213: 6810471277516407454
+    second: VfxRegroupement_117
+  - first:
+      213: 3484491287190596118
+    second: VfxRegroupement_118
+  - first:
+      213: 8566687609561016368
+    second: VfxRegroupement_119
+  - first:
+      213: 5398561997833853794
+    second: VfxRegroupement_120
+  - first:
+      213: 760853892982833446
+    second: VfxRegroupement_121
+  - first:
+      213: -2744662812897263612
+    second: VfxRegroupement_122
+  - first:
+      213: -1730141695564520451
+    second: VfxRegroupement_123
+  - first:
+      213: -1607003343896204040
+    second: VfxRegroupement_124
+  - first:
+      213: 783058624730239150
+    second: VfxRegroupement_125
+  - first:
+      213: -3174908704318350187
+    second: VfxRegroupement_126
+  - first:
+      213: -1962151167458750630
+    second: VfxRegroupement_127
+  - first:
+      213: -2341531996874790876
+    second: VfxRegroupement_128
+  - first:
+      213: -2302160944028787848
+    second: VfxRegroupement_129
+  - first:
+      213: 297827103212576496
+    second: VfxRegroupement_130
+  - first:
+      213: -3763305547509800070
+    second: VfxRegroupement_131
+  - first:
+      213: -1668712545100383649
+    second: VfxRegroupement_132
+  - first:
+      213: 2610705340680514751
+    second: VfxRegroupement_133
+  - first:
+      213: -163072242725537977
+    second: VfxRegroupement_134
+  - first:
+      213: 8325371635201039788
+    second: VfxRegroupement_135
+  - first:
+      213: -3127636246008005487
+    second: VfxRegroupement_136
+  - first:
+      213: -2313657846432101555
+    second: VfxRegroupement_137
+  - first:
+      213: 1080260700782718516
+    second: VfxRegroupement_138
+  - first:
+      213: -260552615482522019
+    second: VfxRegroupement_139
+  - first:
+      213: 3643755491395939791
+    second: VfxRegroupement_140
+  - first:
+      213: 8886453314408482938
+    second: VfxRegroupement_141
+  - first:
+      213: -7139814692327945594
+    second: VfxRegroupement_142
+  - first:
+      213: 8203109718840834957
+    second: VfxRegroupement_143
+  - first:
+      213: 8092164808480721483
+    second: VfxRegroupement_144
+  - first:
+      213: 7343411261052703395
+    second: VfxRegroupement_145
+  - first:
+      213: 3923401194285245667
+    second: VfxRegroupement_146
+  - first:
+      213: -8686769526724395814
+    second: VfxRegroupement_147
+  - first:
+      213: -8267453880163937655
+    second: VfxRegroupement_148
+  - first:
+      213: -6543423024893870645
+    second: VfxRegroupement_149
+  - first:
+      213: -5348511712840288732
+    second: VfxRegroupement_150
+  - first:
+      213: 7993773434132478623
+    second: VfxRegroupement_151
+  - first:
+      213: -2726762585094552720
+    second: VfxRegroupement_152
+  - first:
+      213: 6247177291347164727
+    second: VfxRegroupement_153
+  - first:
+      213: 7326378905794824893
+    second: VfxRegroupement_154
+  - first:
+      213: 1125443617928047279
+    second: VfxRegroupement_155
+  - first:
+      213: 2771203722556578967
+    second: VfxRegroupement_156
+  - first:
+      213: -5395675498732347990
+    second: VfxRegroupement_157
+  - first:
+      213: -1200485797874487947
+    second: VfxRegroupement_158
+  - first:
+      213: 3534306366770345113
+    second: VfxRegroupement_159
+  - first:
+      213: -1310184399589860569
+    second: VfxRegroupement_160
+  - first:
+      213: -4126822530670404315
+    second: VfxRegroupement_161
+  - first:
+      213: -1710615915677288105
+    second: VfxRegroupement_162
+  - first:
+      213: -8216765030692391477
+    second: VfxRegroupement_163
+  - first:
+      213: 3648436192008584145
+    second: VfxRegroupement_164
+  - first:
+      213: -4413708698579188745
+    second: VfxRegroupement_165
+  - first:
+      213: -18228590333755370
+    second: VfxRegroupement_166
+  - first:
+      213: 2536910911926542145
+    second: VfxRegroupement_167
+  - first:
+      213: 5667716195629578923
+    second: VfxRegroupement_168
+  - first:
+      213: 6097796223725752642
+    second: VfxRegroupement_169
+  - first:
+      213: 7442881059632203289
+    second: VfxRegroupement_170
+  - first:
+      213: 8165283600367248824
+    second: VfxRegroupement_171
+  - first:
+      213: -6158768674824652304
+    second: VfxRegroupement_172
+  - first:
+      213: -7751242957939725704
+    second: VfxRegroupement_173
+  - first:
+      213: -9096582407966537900
+    second: VfxRegroupement_174
+  - first:
+      213: -5639710763911945377
+    second: VfxRegroupement_175
+  - first:
+      213: -5034046333840021928
+    second: VfxRegroupement_176
+  - first:
+      213: 1502521830728197970
+    second: VfxRegroupement_177
+  - first:
+      213: -3263088892117014296
+    second: VfxRegroupement_178
+  - first:
+      213: 5047639090505336413
+    second: VfxRegroupement_179
+  - first:
+      213: -5154993246322293558
+    second: VfxRegroupement_180
+  - first:
+      213: 2661990336129000514
+    second: VfxRegroupement_181
+  - first:
+      213: 5635560765247570404
+    second: VfxRegroupement_182
+  - first:
+      213: 3856419504544292508
+    second: VfxRegroupement_183
+  - first:
+      213: 4592149770428821154
+    second: VfxRegroupement_184
+  - first:
+      213: 739366178078085110
+    second: VfxRegroupement_185
+  - first:
+      213: -8129247154525601148
+    second: VfxRegroupement_186
+  - first:
+      213: 7158956666215526409
+    second: VfxRegroupement_187
+  - first:
+      213: 1274439341884623053
+    second: VfxRegroupement_188
+  - first:
+      213: 1907472080104736018
+    second: VfxRegroupement_189
+  - first:
+      213: -6514543950288144391
+    second: VfxRegroupement_190
+  - first:
+      213: 4330898363126548411
+    second: VfxRegroupement_191
+  - first:
+      213: 2720714758299376959
+    second: VfxRegroupement_192
+  - first:
+      213: 6429586151187857724
+    second: VfxRegroupement_193
+  - first:
+      213: -3881312603607021921
+    second: VfxRegroupement_194
+  - first:
+      213: -193041150066403757
+    second: VfxRegroupement_195
+  - first:
+      213: 5093498489316883350
+    second: VfxRegroupement_196
+  - first:
+      213: 7896378831339295342
+    second: VfxRegroupement_197
+  - first:
+      213: -4302612590314140750
+    second: VfxRegroupement_198
+  - first:
+      213: 5305829492694248428
+    second: VfxRegroupement_199
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: VfxRegroupement_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6238e77eb0a318f80800000000000000
+      internalID: -8106134031487302874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5128c7ee7e73a90f0800000000000000
+      internalID: -1109512888915295723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b035864e2dfb7f1a0800000000000000
+      internalID: -6775736201859542261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9614c837e3b734460800000000000000
+      internalID: 7224753735389167977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26395e9fd412df860800000000000000
+      internalID: 7565239567841071970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_5
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcb1ddfde8298ed30800000000000000
+      internalID: 4460976573249297357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_6
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47d482407d2ba54a0800000000000000
+      internalID: -6603769267027948172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_7
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31d520b6919dfe750800000000000000
+      internalID: 6336521903926304019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b222ae15e948afd30800000000000000
+      internalID: 4466027796005265963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5e3c4c996a5e8830800000000000000
+      internalID: 4075294122457185887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_10
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd1a01a3cc441ef40800000000000000
+      internalID: 5755957442694390237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_11
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4098e7a71e37fad0800000000000000
+      internalID: -2668595982871523252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_12
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6fd4c40d2295d3b0800000000000000
+      internalID: -5488319848829886612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_13
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ddb28b5dad306850800000000000000
+      internalID: 6368157687875812825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VfxRegroupement_14
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 486a03eb3cc9363a0800000000000000
+      internalID: -6673317858309527932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ae0fc5885889d424baffae750edd031e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":2.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      VfxRegroupement_0: -8106134031487302874
+      VfxRegroupement_1: -1109512888915295723
+      VfxRegroupement_10: 5755957442694390237
+      VfxRegroupement_11: -2668595982871523252
+      VfxRegroupement_12: -5488319848829886612
+      VfxRegroupement_13: 6368157687875812825
+      VfxRegroupement_14: -6673317858309527932
+      VfxRegroupement_2: -6775736201859542261
+      VfxRegroupement_3: 7224753735389167977
+      VfxRegroupement_4: 7565239567841071970
+      VfxRegroupement_5: 4460976573249297357
+      VfxRegroupement_6: -6603769267027948172
+      VfxRegroupement_7: 6336521903926304019
+      VfxRegroupement_8: 4466027796005265963
+      VfxRegroupement_9: 4075294122457185887
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -46,17 +46,15 @@ public class VirusSplitConfigSO : ScriptableObject
     public float spawnIntervalDecreaseRate = 0.04f;
 
     [Header("Near-Miss Slow Motion")]
-    [Tooltip("Y-axis distance between a virus and an obstacle at which a near-miss is detected.")]
-    public float nearMissYDistance       = 0.5f;
-    [Tooltip("X margin: near-miss is evaluated when the obstacle is within this many units of the virus X.")]
-    public float nearMissXWindow         = 1.2f;
+    [Tooltip("Radius of the proximity trigger collider created on each obstacle (child GO).")]
+    public float nearMissTriggerRadius  = 1.2f;
     [Tooltip("Time scale applied during the near-miss slow motion.")]
     [Range(0.05f, 0.9f)]
-    public float slowMotionScale         = 0.22f;
-    [Tooltip("Real-time duration of the slow motion plateau.")]
-    public float slowMotionDuration      = 0.45f;
-    [Tooltip("Real-time duration to lerp back to normal time scale.")]
-    public float slowMotionRecovery      = 0.35f;
+    public float slowMotionScale        = 0.22f;
+    [Tooltip("Real-time duration of the slow-motion plateau (seconds).")]
+    public float slowMotionDuration     = 0.5f;
+    [Tooltip("Real-time duration to lerp back to normal time scale after the plateau.")]
+    public float slowMotionRecovery     = 0.35f;
 
     [Header("Score")]
     [Tooltip("Metres awarded per world unit of scroll (score = distance * metersPerUnit).")]

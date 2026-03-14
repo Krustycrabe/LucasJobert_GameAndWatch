@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105ae8273e908094e81a033f1e5850cc, type: 3}
   m_Name: VirusSplitConfig
   m_EditorClassIdentifier: Assembly-CSharp::VirusSplitConfigSO
-  splitTopY: 6
-  splitBottomY: -6
+  splitTopY: 8
+  splitBottomY: -8
   splitDuration: 0.14
   mergeDuration: 0.14
   moveCurve:
@@ -41,19 +41,18 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   initialScrollSpeed: 5
-  maxScrollSpeed: 14
+  maxScrollSpeed: 20
   speedIncreaseRate: 0.08
-  obstacleSpawnX: 6
-  obstacleDestroyX: -6
+  obstacleSpawnX: 11
+  obstacleDestroyX: -12
   centerObstacleY: 0
-  topObstacleY: 2.9
-  bottomObstacleY: -2.9
+  topObstacleY: 2.5
+  bottomObstacleY: -2.5
   initialSpawnInterval: 2.8
-  minSpawnInterval: 0.85
+  minSpawnInterval: 0.6
   spawnIntervalDecreaseRate: 0.04
-  nearMissYDistance: 0.5
-  nearMissXWindow: 1.2
-  slowMotionScale: 0.22
-  slowMotionDuration: 0.45
-  slowMotionRecovery: 0.35
+  nearMissTriggerRadius: 0.7
+  slowMotionScale: 0.5
+  slowMotionDuration: 0.3
+  slowMotionRecovery: 0.3
   metersPerUnit: 0.5

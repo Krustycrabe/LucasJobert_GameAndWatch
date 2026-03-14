@@ -2,33 +2,45 @@ using UnityEngine;
 
 /// <summary>
 /// Moves an obstacle from right to left at the current scroll speed.
-/// Destroys itself when it exits the left boundary defined in VirusSplitConfigSO.
-/// Triggers game over on collision with any collider tagged "Player".
-/// Near-miss detection: when the obstacle passes the virus X position, if a virus was
-/// within nearMissYDistance without colliding, triggers SlowMotionManager.
+/// Triggers game over via GameOverEvents when a collider tagged "Player" enters.
+///
+/// On reaching the despawn X threshold the obstacle is returned to the
+/// ObstacleSpawner pool (no Destroy = no GC spike).
+///
+/// Near-miss detection is handled by a dynamically-created child GameObject with
+/// ObstacleNearMissTrigger + a larger CircleCollider2D.
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class ObstacleMover : MonoBehaviour
 {
-    private VirusSplitConfigSO _config;
-    private float    _speed;
-    private bool     _gameOver;
-    private bool     _nearMissChecked;
+    private VirusSplitConfigSO  _config;
+    private ObstacleSpawner     _pool;
+    private float               _speed;
+    private bool                _gameOver;
+    private bool                _isCenter;
+    private bool                _nearMissCreated;
 
-    // References to active virus positions for near-miss detection.
-    // Set via Initialize(); the array can have 1 or 2 entries depending on virus state.
-    private System.Func<Vector2[]> _getVirusPositions;
-
-    /// <summary>
-    /// Called by ObstacleSpawner after instantiation.
-    /// getVirusPositions: a delegate that returns the current world positions of active viruses.
-    /// </summary>
-    public void Initialize(VirusSplitConfigSO config, System.Func<Vector2[]> getVirusPositions)
+    /// <summary>Called by ObstacleSpawner each time the obstacle is taken from the pool.</summary>
+    public void Initialize(
+        VirusSplitConfigSO    config,
+        System.Func<Vector2[]> getVirusPositions,
+        ObstacleSpawner        pool,
+        bool                   isCenter)
     {
-        _config           = config;
-        _getVirusPositions = getVirusPositions;
+        _config   = config;
+        _pool     = pool;
+        _isCenter = isCenter;
+        _gameOver = false;
+
+        // Create the near-miss child only the very first time — it moves with the parent.
+        if (!_nearMissCreated)
+        {
+            CreateNearMissTrigger();
+            _nearMissCreated = true;
+        }
     }
 
+    /// <summary>Updated by ObstacleSpawner via SetSpeed().</summary>
     public void SetSpeed(float speed) => _speed = speed;
 
     private void OnEnable()  => GameOverEvents.OnGameOver += HandleGameOver;
@@ -36,48 +48,59 @@ public class ObstacleMover : MonoBehaviour
 
     private void HandleGameOver() => _gameOver = true;
 
+    private void Start()
+    {
+        // Disable ShootEmUp movement & collision scripts that would interfere.
+        var ebm = GetComponent<EnemyBulletMover>();
+        if (ebm != null) ebm.enabled = false;
+
+        var col = GetComponent<Collider2D>();
+        if (col != null) col.isTrigger = true;
+    }
+
     private void Update()
     {
         if (_gameOver) return;
 
         transform.position += Vector3.left * _speed * Time.deltaTime;
 
-        if (transform.position.x < _config.obstacleDestroyX)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        CheckNearMiss();
-    }
-
-    private void CheckNearMiss()
-    {
-        if (_nearMissChecked || _getVirusPositions == null) return;
-
-        Vector2[] positions = _getVirusPositions.Invoke();
-        if (positions == null || positions.Length == 0) return;
-
-        float obstX = transform.position.x;
-
-        foreach (Vector2 virusPos in positions)
-        {
-            // Evaluate only once as the obstacle passes the virus' X.
-            if (obstX > virusPos.x - _config.nearMissXWindow) continue;
-
-            _nearMissChecked = true;
-
-            float yDist = Mathf.Abs(transform.position.y - virusPos.y);
-            if (yDist < _config.nearMissYDistance)
-                SlowMotionManager.Instance?.TriggerSlowMotion();
-
-            return;
-        }
+        if (_config != null && transform.position.x < _config.obstacleDestroyX)
+            ReturnToPool();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
-        GameOverEvents.RaiseGameOver();
+        if (other.CompareTag("Player"))
+            GameOverEvents.RaiseGameOver();
+    }
+
+    // ── Private ────────────────────────────────────────────────────────────────
+
+    private void ReturnToPool()
+    {
+        if (_pool != null)
+            _pool.ReturnToPool(gameObject, _isCenter);
+        else
+            gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Creates a child GO with ObstacleNearMissTrigger and a CircleCollider2D sized
+    /// to nearMissTriggerRadius. Only called once per pooled instance.
+    /// </summary>
+    private void CreateNearMissTrigger()
+    {
+        float radius = _config != null ? _config.nearMissTriggerRadius : 1.2f;
+
+        var child = new GameObject("NearMissTrigger");
+        child.transform.SetParent(transform, false);
+        child.transform.localPosition = Vector3.zero;
+
+        var circle       = child.AddComponent<CircleCollider2D>();
+        circle.radius    = radius;
+        circle.isTrigger = true;
+
+        child.AddComponent<ObstacleNearMissTrigger>();
     }
 }
+

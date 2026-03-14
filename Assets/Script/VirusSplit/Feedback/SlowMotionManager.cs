@@ -1,23 +1,26 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Singleton. Applies a near-miss slow motion effect by scaling Time.timeScale.
-/// Uses unscaled real time for its own coroutine so the recovery is not affected by the
-/// time scale change. All gameplay systems that use Time.deltaTime slow down automatically.
+/// Singleton. Applies a timed near-miss slow-motion effect.
+///
+/// Trigger model — one-shot on player input:
+///   1. ObstacleNearMissTrigger calls SetProximity(true/false) when a virus
+///      enters or leaves an obstacle's proximity zone.
+///   2. VirusController calls TryTriggerSlowMo() on every split or merge INPUT.
+///   3. Slow-mo fires ONLY IF a virus is currently inside a proximity zone
+///      at the moment the input occurs.
+///   4. Effect runs for slowMotionDuration (real time), then lerps back to 1.
+///   5. A new trigger during recovery or plateau restarts the plateau timer.
 /// </summary>
 public class SlowMotionManager : MonoBehaviour
 {
     public static SlowMotionManager Instance { get; private set; }
 
     private VirusSplitConfigSO _config;
-    private Coroutine _activeCoroutine;
-    private bool _active;
-
-    public void Initialize(VirusSplitConfigSO config)
-    {
-        _config = config;
-    }
+    private bool               _proximityActive;
+    private Coroutine          _activeRoutine;
 
     private void Awake()
     {
@@ -29,42 +32,61 @@ public class SlowMotionManager : MonoBehaviour
     {
         if (Instance == this)
         {
-            Instance = null;
-            Time.timeScale = 1f; // safety reset
+            Instance       = null;
+            Time.timeScale = 1f;
         }
     }
 
-    /// <summary>
-    /// Triggers a slow-motion plateau followed by a smooth recovery back to normal speed.
-    /// Safe to call multiple times — restarts the effect cleanly.
-    /// </summary>
-    public void TriggerSlowMotion()
+    // ── Initialisation ─────────────────────────────────────────────────────────
+
+    /// <summary>Called by VirusController at Start().</summary>
+    public void Initialize(VirusSplitConfigSO config, Func<bool> getIsSplit, Func<Vector2[]> getVirusPositions)
     {
-        if (_config == null) return;
-        if (_activeCoroutine != null) StopCoroutine(_activeCoroutine);
-        _activeCoroutine = StartCoroutine(SlowMotionRoutine());
+        _config = config;
     }
+
+    // ── Public API ─────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Called by ObstacleNearMissTrigger when a virus enters (true) or exits (false)
+    /// the obstacle proximity zone.
+    /// </summary>
+    public void SetProximity(bool active) => _proximityActive = active;
+
+    /// <summary>
+    /// Called by VirusController on every split or merge input.
+    /// Starts slow-mo only if a virus is currently inside a proximity zone.
+    /// </summary>
+    public void TryTriggerSlowMo()
+    {
+        if (_config == null || !_proximityActive) return;
+
+        // Restart the routine — resets the plateau timer even if already active.
+        if (_activeRoutine != null) StopCoroutine(_activeRoutine);
+        _activeRoutine = StartCoroutine(SlowMotionRoutine());
+    }
+
+    // ── Internal ───────────────────────────────────────────────────────────────
 
     private IEnumerator SlowMotionRoutine()
     {
-        _active = true;
+        // Plateau
         Time.timeScale = _config.slowMotionScale;
-
         yield return new WaitForSecondsRealtime(_config.slowMotionDuration);
 
-        float elapsed  = 0f;
-        float recovery = _config.slowMotionRecovery;
-        float start    = _config.slowMotionScale;
+        // Recovery lerp (unscaled so it's not affected by the current timeScale)
+        float start   = Time.timeScale;
+        float elapsed = 0f;
 
-        while (elapsed < recovery)
+        while (elapsed < _config.slowMotionRecovery)
         {
             elapsed        += Time.unscaledDeltaTime;
-            Time.timeScale  = Mathf.Lerp(start, 1f, elapsed / recovery);
+            Time.timeScale  = Mathf.Lerp(start, 1f, elapsed / _config.slowMotionRecovery);
             yield return null;
         }
 
-        Time.timeScale   = 1f;
-        _active          = false;
-        _activeCoroutine = null;
+        Time.timeScale = 1f;
+        _activeRoutine = null;
     }
 }
+
