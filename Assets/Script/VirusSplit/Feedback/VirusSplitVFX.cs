@@ -35,9 +35,25 @@ public class VirusSplitVFX : MonoBehaviour
     [Tooltip("Optional extra burst on arrival (can reuse splitParticles or a separate PS).")]
     [SerializeField] private ParticleSystem mergeArrivalParticles;
 
+    // Shader looked up once per domain reload, not per Awake() call.
+    private static Shader _urpParticleShader;
+
+    private static Shader GetParticleShader()
+    {
+        if (_urpParticleShader == null)
+            _urpParticleShader = Shader.Find("Universal Render Pipeline/Particles/Unlit");
+        return _urpParticleShader;
+    }
+
     private Animator  _animator;
     private Coroutine _tapPunchA;
     private Coroutine _tapPunchB;
+    private Coroutine _mergeCircleCoroutine;
+
+    // Original scales cached on first punch — restored explicitly before any StopCoroutine.
+    // try/finally does NOT run on StopCoroutine in Unity, so we cannot rely on it.
+    private Vector3 _originalScaleA;
+    private Vector3 _originalScaleB;
 
     private void Awake()
     {
@@ -49,6 +65,15 @@ public class VirusSplitVFX : MonoBehaviour
         ConfigureSplitParticles(mergeArrivalParticles, particleMaterial);
     }
 
+    // Called by VirusController after virus transforms are fully initialized.
+    // Must be called before the first PlayTapPunch so the reference scales are correct.
+    /// <summary>Caches the baseline localScale of both virus transforms.</summary>
+    public void CacheBaseScales(Transform virusA, Transform virusB)
+    {
+        if (virusA != null) _originalScaleA = virusA.localScale;
+        if (virusB != null) _originalScaleB = virusB.localScale;
+    }
+
     // ── Public API ─────────────────────────────────────────────────────────────
 
     /// <summary>Scale punch on both virus transforms on tap.</summary>
@@ -56,13 +81,33 @@ public class VirusSplitVFX : MonoBehaviour
     {
         if (virusA != null)
         {
-            if (_tapPunchA != null) StopCoroutine(_tapPunchA);
-            _tapPunchA = StartCoroutine(ScalePunch(virusA, tapPunchAmount, tapPunchDuration));
+            // Restore scale BEFORE StopCoroutine — try/finally does not run on StopCoroutine
+            // in Unity. Without this, each interrupted punch leaves localScale at an
+            // inflated intermediate value, which grows the Collider2D and causes phantom hits.
+            if (_tapPunchA != null)
+            {
+                StopCoroutine(_tapPunchA);
+                virusA.localScale = _originalScaleA;
+            }
+            else
+            {
+                _originalScaleA = virusA.localScale;
+            }
+            _tapPunchA = StartCoroutine(ScalePunchA(virusA, _originalScaleA, tapPunchAmount, tapPunchDuration));
         }
+
         if (virusB != null)
         {
-            if (_tapPunchB != null) StopCoroutine(_tapPunchB);
-            _tapPunchB = StartCoroutine(ScalePunch(virusB, tapPunchAmount, tapPunchDuration));
+            if (_tapPunchB != null)
+            {
+                StopCoroutine(_tapPunchB);
+                virusB.localScale = _originalScaleB;
+            }
+            else
+            {
+                _originalScaleB = virusB.localScale;
+            }
+            _tapPunchB = StartCoroutine(ScalePunchB(virusB, _originalScaleB, tapPunchAmount, tapPunchDuration));
         }
     }
 
@@ -83,7 +128,8 @@ public class VirusSplitVFX : MonoBehaviour
     public void PlayMergeVFX(Vector3 mergeDestination)
     {
         _animator?.SetTrigger(MergeHash);
-        StartCoroutine(MergeCircleRoutine(mergeDestination));
+        if (_mergeCircleCoroutine != null) StopCoroutine(_mergeCircleCoroutine);
+        _mergeCircleCoroutine = StartCoroutine(MergeCircleRoutine(mergeDestination));
     }
 
     // ── Private ────────────────────────────────────────────────────────────────
@@ -142,23 +188,38 @@ public class VirusSplitVFX : MonoBehaviour
         }
         else
         {
-            var shader = Shader.Find("Universal Render Pipeline/Particles/Unlit");
+            var shader = GetParticleShader();
             if (shader != null)
                 rend.sharedMaterial = new Material(shader) { name = "_VFX_Particle_Auto" };
         }
     }
 
-    private IEnumerator ScalePunch(Transform target, float amount, float duration)
+    private IEnumerator ScalePunchA(Transform target, Vector3 originalScale, float amount, float duration)
     {
-        Vector3 original = target.localScale;
-        float   elapsed  = 0f;
+        float elapsed = 0f;
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
-            target.localScale = original * (1f + amount * Mathf.Sin(elapsed / duration * Mathf.PI));
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            target.localScale = originalScale * (1f + amount * Mathf.Sin(t * Mathf.PI));
             yield return null;
         }
-        target.localScale = original;
+        target.localScale = originalScale;
+        _tapPunchA = null;
+    }
+
+    private IEnumerator ScalePunchB(Transform target, Vector3 originalScale, float amount, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            target.localScale = originalScale * (1f + amount * Mathf.Sin(t * Mathf.PI));
+            yield return null;
+        }
+        target.localScale = originalScale;
+        _tapPunchB = null;
     }
 
     private IEnumerator MergeCircleRoutine(Vector3 destination)
@@ -186,6 +247,8 @@ public class VirusSplitVFX : MonoBehaviour
             mergeArrivalParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             mergeArrivalParticles.Play();
         }
+
+        _mergeCircleCoroutine = null;
     }
 }
 

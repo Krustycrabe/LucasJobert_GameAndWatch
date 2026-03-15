@@ -70,23 +70,33 @@ public class SlowMotionManager : MonoBehaviour
 
     private IEnumerator SlowMotionRoutine()
     {
-        // Plateau
-        Time.timeScale = _config.slowMotionScale;
-        yield return new WaitForSecondsRealtime(_config.slowMotionDuration);
-
-        // Recovery lerp (unscaled so it's not affected by the current timeScale)
-        float start   = Time.timeScale;
-        float elapsed = 0f;
-
-        while (elapsed < _config.slowMotionRecovery)
+        // try/finally guarantees timeScale is restored even if StopCoroutine
+        // interrupts this routine mid-plateau or mid-recovery on rapid spam.
+        try
         {
-            elapsed        += Time.unscaledDeltaTime;
-            Time.timeScale  = Mathf.Lerp(start, 1f, elapsed / _config.slowMotionRecovery);
-            yield return null;
-        }
+            // Plateau
+            Time.timeScale = _config.slowMotionScale;
+            yield return new WaitForSecondsRealtime(_config.slowMotionDuration);
 
-        Time.timeScale = 1f;
-        _activeRoutine = null;
+            // Recovery lerp (unscaled so it is not affected by the current timeScale)
+            float start   = Time.timeScale;
+            float elapsed = 0f;
+
+            while (elapsed < _config.slowMotionRecovery)
+            {
+                elapsed        += Time.unscaledDeltaTime;
+                Time.timeScale  = Mathf.Lerp(start, 1f, elapsed / _config.slowMotionRecovery);
+                yield return null;
+            }
+        }
+        finally
+        {
+            // Always reached: on normal completion AND on StopCoroutine interruption.
+            // Without this, rapid spam can strand timeScale at 0.22 permanently,
+            // making deltaTime-based coroutines (ScalePunch) appear frozen.
+            Time.timeScale = 1f;
+            _activeRoutine = null;
+        }
     }
 }
 

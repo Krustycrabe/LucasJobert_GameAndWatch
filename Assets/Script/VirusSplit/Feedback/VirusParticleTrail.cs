@@ -47,15 +47,27 @@ public class VirusParticleTrail : MonoBehaviour
         Configure();
     }
 
+    // Set to true by the controller before the first SetActive(true) on VirusB.
+    // When true, Start() skips Play() because Resume() already started the system.
+    public bool ControlledStart { get; set; }
+
     private void Start()
     {
         if (!_configured) Configure();
-        _ps.Play();
+
+        // VirusA  : ControlledStart is never set → Play() fires at scene start. ✓
+        // VirusB  : ControlledStart is set by VirusController BEFORE the first
+        //           SetActive(true). Start() is deferred to the next frame by Unity,
+        //           so Resume() already ran → do NOT Play() again or it restarts
+        //           the ParticleSystem and drops the first emission burst.
+        if (!ControlledStart)
+            _ps.Play();
     }
 
     private void OnEnable()
     {
-        if (_configured) _ps?.Play();
+        // Do NOT auto-play here — VirusController calls Resume() explicitly
+        // after SetVirusBVisible(true) so the emission rate is always correct.
     }
 
     // ── Public API ────────────────────────────────────────────────────────────
@@ -63,20 +75,22 @@ public class VirusParticleTrail : MonoBehaviour
     /// <summary>Stub kept for API compatibility — no per-frame mutation required.</summary>
     public void SetScrollSpeed(float speed) { }
 
-    /// <summary>Stops emission (called when VirusB merges back).</summary>
+    /// <summary>Stops emission and clears live particles (called when VirusB merges back).</summary>
     public void Pause()
     {
         if (_ps == null) return;
+        _ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         var e = _ps.emission;
         e.rateOverTime = 0f;
     }
 
-    /// <summary>Resumes emission (called when VirusB activates on split).</summary>
+    /// <summary>Restores emission rate and plays (called when VirusB activates on split).</summary>
     public void Resume()
     {
         if (_ps == null) return;
         var e = _ps.emission;
         e.rateOverTime = emissionRate;
+        _ps.Play();
     }
 
     // ── Private ───────────────────────────────────────────────────────────────

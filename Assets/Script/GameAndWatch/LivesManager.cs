@@ -7,7 +7,7 @@ public class LivesManager : MonoBehaviour
 
     public static event Action<int> OnLifeLost;
     public static event Action OnPlayerReset;
-    public static event Action OnPlayerNeedsReset; // nouveau : délégué à PlayerDeathAnimator
+    public static event Action OnPlayerNeedsReset; // nouveau : dï¿½lï¿½guï¿½ ï¿½ PlayerDeathAnimator
     public static event Action OnGameOver;
 
     private int _currentLives;
@@ -21,13 +21,14 @@ public class LivesManager : MonoBehaviour
     private void OnEnable()
     {
         CollisionDetector.OnPlayerHit += HandleHit;
-        PlayerController.OnPlayerReachedHeart += HandleHeartReached;
+        // OnPlayerReachedHeart is now handled by HeartReachedAnimTrigger, which plays
+        // the animation first and then calls FirePlayerReset() when it is done.
+        // LivesManager no longer resets the player directly on heart reached.
     }
 
     private void OnDisable()
     {
         CollisionDetector.OnPlayerHit -= HandleHit;
-        PlayerController.OnPlayerReachedHeart -= HandleHeartReached;
     }
 
     private void HandleHit()
@@ -36,11 +37,9 @@ public class LivesManager : MonoBehaviour
         OnLifeLost?.Invoke(_currentLives);
 
         if (_currentLives <= 0) OnGameOver?.Invoke();
-        else OnPlayerNeedsReset?.Invoke(); // animation d'abord, reset ensuite
+        else OnPlayerNeedsReset?.Invoke();
     }
 
-    private void HandleHeartReached() => OnPlayerReset?.Invoke();
-
-    /// <summary>Déclenche OnPlayerReset — appelé par PlayerDeathAnimator après l'animation.</summary>
+    /// <summary>Dï¿½clenche OnPlayerReset ï¿½ appelï¿½ par PlayerDeathAnimator aprï¿½s l'animation.</summary>
     public static void FirePlayerReset() => OnPlayerReset?.Invoke();
 }

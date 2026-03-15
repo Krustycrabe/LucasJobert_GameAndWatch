@@ -45,6 +45,19 @@ public class VirusSplitConfigSO : ScriptableObject
     [Tooltip("Spawn interval decrease per second of play time.")]
     public float spawnIntervalDecreaseRate = 0.04f;
 
+    [Header("Fast Obstacle")]
+    [Tooltip("Speed multiplier applied to a fast obstacle (e.g. 2.2 = 2.2× base scroll speed).")]
+    [Range(1.2f, 4f)]
+    public float fastObstacleSpeedMultiplier = 2.2f;
+    [Tooltip("Probability of a fast obstacle at the start of the game (0 = never).")]
+    [Range(0f, 1f)]
+    public float fastObstacleChanceStart     = 0.04f;
+    [Tooltip("Maximum probability of a fast obstacle reached after fastObstacleRampDuration seconds.")]
+    [Range(0f, 1f)]
+    public float fastObstacleChanceMax       = 0.40f;
+    [Tooltip("Seconds of play time to ramp from ChanceStart to ChanceMax.")]
+    public float fastObstacleRampDuration    = 120f;
+
     [Header("Near-Miss Slow Motion")]
     [Tooltip("Radius of the proximity trigger collider created on each obstacle (child GO).")]
     public float nearMissTriggerRadius  = 1.2f;

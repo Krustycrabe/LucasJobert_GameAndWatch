@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "VirusSplitAction",
+    "maps": [
+        {
+            "name": "VirusSplit",
+            "id": "27911eb0-064d-4442-82f2-4a2959a39b04",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "1e3beab5-753f-4688-9e53-5ca0ea21c36c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "137c2f20-8dd1-4d83-b7c2-e9dc7e319c7a",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

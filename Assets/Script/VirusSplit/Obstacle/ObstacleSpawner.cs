@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -49,8 +50,8 @@ public class ObstacleSpawner : MonoBehaviour
     private bool            _gameOver;
 
     // ── Pools ─────────────────────────────────────────────────────────────────
-    private readonly Queue<GameObject> _centerPool = new Queue<GameObject>();
-    private readonly Queue<GameObject> _wallPool   = new Queue<GameObject>();
+    private readonly Queue<PoolEntry> _centerPool = new Queue<PoolEntry>();
+    private readonly Queue<PoolEntry> _wallPool   = new Queue<PoolEntry>();
 
     // ── Lifecycle ─────────────────────────────────────────────────────────────
 
@@ -64,10 +65,11 @@ public class ObstacleSpawner : MonoBehaviour
         config             = cfg;
         _getVirusPositions = getVirusPositions;
         _spawnTimer        = ComputeNextInterval();
-        _running           = true;
 
-        Prewarm(centerObstaclePrefab, _centerPool);
-        Prewarm(wallObstaclePrefab,   _wallPool);
+        // Prewarm is spread across multiple frames (one instance per frame) so the
+        // first frame after scene load does not spike with 16 simultaneous Instantiate
+        // calls + Physics2D broadphase rebuilds, which was causing the input freeze.
+        StartCoroutine(PrewarmCoroutine());
     }
 
     /// <summary>Updated each frame by VirusController.</summary>
@@ -93,13 +95,11 @@ public class ObstacleSpawner : MonoBehaviour
     /// Returns an obstacle to its pool. Called by ObstacleMover when the
     /// obstacle reaches the despawn X threshold.
     /// </summary>
-    public void ReturnToPool(GameObject go, bool isCenter)
+    public void ReturnToPool(PoolEntry entry, bool isCenter)
     {
-        go.SetActive(false);
-        (isCenter ? _centerPool : _wallPool).Enqueue(go);
-    }
-
-    // ── Interval ──────────────────────────────────────────────────────────────
+        entry.Go.SetActive(false);
+        (isCenter ? _centerPool : _wallPool).Enqueue(entry);
+    }    // ── Interval ──────────────────────────────────────────────────────────────
 
     private float ComputeNextInterval()
     {
@@ -161,44 +161,70 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnAt(GameObject prefab, Queue<GameObject> pool, float y, bool isCenter)
+    private void SpawnAt(GameObject prefab, Queue<PoolEntry> pool, float y, bool isCenter)
     {
         if (prefab == null) return;
 
-        GameObject go = pool.Count > 0 ? pool.Dequeue() : CreateInstance(prefab);
+        PoolEntry entry = pool.Count > 0 ? pool.Dequeue() : CreateInstance(prefab);
 
-        go.transform.position = new Vector3(config.obstacleSpawnX, y, obstacleZ);
-        go.SetActive(true);
+        entry.Go.transform.position = new Vector3(config.obstacleSpawnX, y, obstacleZ);
+        entry.Go.SetActive(true);
 
-        var mover = go.GetComponent<ObstacleMover>();
-        mover.Initialize(config, _getVirusPositions, this, isCenter);
-        mover.SetSpeed(_currentSpeed);
+        // ObstacleMover is cached in the PoolEntry — no GetComponent per spawn.
+        entry.Mover.Initialize(config, _getVirusPositions, this, entry, isCenter);
+
+        float t      = Mathf.Clamp01(_elapsedTime / config.fastObstacleRampDuration);
+        float chance = Mathf.Lerp(config.fastObstacleChanceStart, config.fastObstacleChanceMax, t);
+        bool  isFast = Random.value < chance;
+        float speed  = isFast ? _currentSpeed * config.fastObstacleSpeedMultiplier : _currentSpeed;
+        entry.Mover.SetSpeed(speed);
+        entry.Mover.SetFast(isFast);
     }
 
     // ── Internal helpers ──────────────────────────────────────────────────────
 
-    private void Prewarm(GameObject prefab, Queue<GameObject> pool)
+    /// <summary>
+    /// Instantiates pool instances one per frame to avoid a CPU/Physics2D spike
+    /// on the first frame. _running is set to true only after all instances exist
+    /// so no spawn can occur against an incomplete pool.
+    /// </summary>
+    private IEnumerator PrewarmCoroutine()
     {
-        if (prefab == null) return;
         for (int i = 0; i < poolPrewarm; i++)
-            pool.Enqueue(CreateInstance(prefab));
+        {
+            if (centerObstaclePrefab != null)
+                _centerPool.Enqueue(CreateInstance(centerObstaclePrefab));
+            if (wallObstaclePrefab != null)
+                _wallPool.Enqueue(CreateInstance(wallObstaclePrefab));
+            yield return null;
+        }
+
+        _running = true;
     }
 
-    private GameObject CreateInstance(GameObject prefab)
+    private PoolEntry CreateInstance(GameObject prefab)
     {
         GameObject go = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform);
         go.SetActive(false);
 
-        // Disable ShootEmUp movement script — will never be needed.
         var ebm = go.GetComponent<EnemyBulletMover>();
         if (ebm != null) ebm.enabled = false;
 
-        // Ensure ObstacleMover is present.
-        if (go.GetComponent<ObstacleMover>() == null)
-            go.AddComponent<ObstacleMover>();
+        var mover = go.GetComponent<ObstacleMover>();
+        if (mover == null) mover = go.AddComponent<ObstacleMover>();
 
-        return go;
+        return new PoolEntry { Go = go, Mover = mover };
     }
 }
 
 public enum ObstaclePattern { Center, Top, Bottom, TopBottom }
+
+/// <summary>
+/// Pool entry that caches the ObstacleMover reference to avoid
+/// a GetComponent call on every spawn.
+/// </summary>
+public class PoolEntry
+{
+    public GameObject    Go;
+    public ObstacleMover Mover;
+}

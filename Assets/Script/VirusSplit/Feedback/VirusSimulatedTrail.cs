@@ -73,7 +73,10 @@ public class VirusSimulatedTrail : MonoBehaviour
         PreFill();
     }
 
-    private void Update()
+    // LateUpdate runs after Update and physics — guarantees the virus Transform
+    // has its final position for this frame before we sample it for the trail.
+    // This prevents one-frame jitter caused by sampling mid-physics-step.
+    private void LateUpdate()
     {
         // O(1): accumulate drift — no loop over N points.
         float shift  = _scrollSpeed * Time.deltaTime;
