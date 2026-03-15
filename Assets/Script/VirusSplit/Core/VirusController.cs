@@ -225,6 +225,8 @@ public class VirusController : MonoBehaviour
         // _inputLocked already set to true in OnTap before this call.
         _state = VirusState.Splitting;
 
+        VirusSplitFeedback.OnSplit?.Invoke();
+
         slowMotionManager?.TryTriggerSlowMo();
         vfx?.PlayTapPunch(virusA);
         vfx?.PlaySplitVFX(virusA.position);
@@ -256,6 +258,8 @@ public class VirusController : MonoBehaviour
     {
         // _inputLocked already set to true in OnTap before this call.
         _state = VirusState.Merging;
+
+        VirusSplitFeedback.OnMerge?.Invoke();
 
         slowMotionManager?.TryTriggerSlowMo();
         vfx?.PlayTapPunch(virusA, virusB);
