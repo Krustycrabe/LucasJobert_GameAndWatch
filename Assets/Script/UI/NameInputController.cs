@@ -171,7 +171,7 @@ public class NameInputController : MonoBehaviour
 
     private void RegisterPlayer(string playerName)
     {
-        // SaveSystem.Instance?.RegisterPlayer(playerName);
+        SaveSystem.Instance?.SetPlayerName(playerName);
         Debug.Log($"[NameInputController] Nom validé : '{playerName}'");
     }
 

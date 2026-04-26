@@ -19,6 +19,11 @@ public class GameObjectActivator : MonoBehaviour
     [Header("Etat initial")]
     [SerializeField] private bool activeOnStart = true;
 
+    [Header("Save System")]
+    [Tooltip("Si coché, force le target inactif au démarrage quand le tutoriel est déjà complété.\n" +
+             "À activer UNIQUEMENT sur les GO liés à la séquence tuto (ex : ButtonNextDialogue).")]
+    [SerializeField] private bool deactivateWhenTutorialDone = false;
+
     [Header("Dialogue Entries")]
     [SerializeField] private ActivationEntry[] dialogueEntries;
 
@@ -30,6 +35,20 @@ public class GameObjectActivator : MonoBehaviour
     {
         if (target == null)
             target = gameObject;
+
+        // Si l'opt-in est coché et que le tuto est déjà complété,
+        // force le target inactif et verrouille via _forcedInactive
+        // pour résister aux Write Defaults de l'Animator.
+        if (deactivateWhenTutorialDone)
+        {
+            bool tutorialDone = SaveSystem.Instance != null && SaveSystem.Instance.Data.tutorialCompleted;
+            if (tutorialDone)
+            {
+                _forcedInactive = true;
+                target.SetActive(false);
+                return;
+            }
+        }
 
         target.SetActive(activeOnStart);
     }

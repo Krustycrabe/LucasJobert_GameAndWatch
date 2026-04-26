@@ -25,6 +25,9 @@ public class MiniGamePageSelector : MonoBehaviour
     private int _currentPage;
     private Coroutine _scrollCoroutine;
 
+    /// <summary>Index de la page actuellement affichée.</summary>
+    public int CurrentPageIndex => _currentPage;
+
     /// <summary>
     /// Sélectionne une page par son index (0 = Heart, 1 = Vessel, 2 = Brain).
     /// Branchable sur les boutons BTN_Heart, BTN_Vessel, BTN_Brain via OnClick.

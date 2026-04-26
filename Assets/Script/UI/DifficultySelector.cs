@@ -1,10 +1,17 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Gère uniquement la sélection cyclique de difficulté pour un mini-jeu.
+/// Ne charge aucune scène — le chargement est délégué à MiniGameMenuSnapshotHandler.CaptureAndLaunch().
+///
+/// BOUTON PLAY (onClick) :
+///   Event 1 (optionnel) : DifficultySelector.ApplyCurrentDifficulty()
+///   Event 2             : MiniGameMenuSnapshotHandler.CaptureAndLaunch("NomDeLaScene")
+/// </summary>
 public class DifficultySelector : MonoBehaviour
 {
-    [Header("Difficult�s")]
+    [Header("Difficultés")]
     [SerializeField] private DifficultyData[] difficulties;
 
     [Header("UI")]
@@ -12,23 +19,18 @@ public class DifficultySelector : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private Animator menuAnimator;
-    [Tooltip("Nom du trigger d�clench� � chaque changement de difficult�.")]
+    [Tooltip("Nom du trigger déclenché à chaque changement de difficulté.")]
     [SerializeField] private string changeTrigger = "Change";
-
-    [Header("Sc�ne")]
-    [SerializeField] private string gameSceneName = "Level_GameAndWatch";
 
     private int _currentIndex;
 
-    private const int WrapMin = 0;
-
     private void Start()
     {
-        _currentIndex = 1;
+        _currentIndex = 0;
         RefreshDisplay();
     }
 
-    /// <summary>S�lectionne la difficult� suivante. Brancher sur ButtonNextDifficulty.OnClick.</summary>
+    /// <summary>Sélectionne la difficulté suivante. Brancher sur ButtonNextDifficulty.OnClick.</summary>
     public void SelectNext()
     {
         Debug.Log("pressed");
@@ -37,7 +39,7 @@ public class DifficultySelector : MonoBehaviour
         TriggerAnimation();
     }
 
-    /// <summary>S�lectionne la difficult� pr�c�dente. Brancher sur ButtonPreviousDifficulty.OnClick.</summary>
+    /// <summary>Sélectionne la difficulté précédente. Brancher sur ButtonPreviousDifficulty.OnClick.</summary>
     public void SelectPrevious()
     {
         _currentIndex = (_currentIndex - 1 + difficulties.Length) % difficulties.Length;
@@ -45,13 +47,16 @@ public class DifficultySelector : MonoBehaviour
         TriggerAnimation();
     }
 
-    /// <summary>Lance la partie avec la difficult� active. Brancher sur le bouton Play.</summary>
-    public void StartGame()
+    /// <summary>
+    /// Applique la difficulté courante au DifficultyManager.
+    /// Brancher sur le bouton Play en Event 1 (optionnel).
+    /// Si aucune difficulté n'est configurée, ne fait rien — le jeu peut tout de même se lancer.
+    /// </summary>
+    public void ApplyCurrentDifficulty()
     {
         if (difficulties.Length == 0) return;
-
-        DifficultyManager.Instance.SelectDifficulty(difficulties[_currentIndex]);
-        SceneManager.LoadScene(gameSceneName);
+        DifficultyManager.Instance?.SelectDifficulty(difficulties[_currentIndex]);
+        Debug.Log($"[DifficultySelector] Difficulté appliquée : '{difficulties[_currentIndex].difficultyName}'.");
     }
 
     private void RefreshDisplay()
