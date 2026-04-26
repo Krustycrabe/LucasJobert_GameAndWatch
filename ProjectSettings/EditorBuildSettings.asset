@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_GameAndWatch.unity
     guid: f5be28a7b72058b479ee1f4b19e5b63a
+  - enabled: 1
+    path: Assets/Scenes/Level_FlappyBird.unity
+    guid: 1be567fab8ac50148b807f56b7655903
+  - enabled: 1
+    path: Assets/Scenes/Level_ShootEmUp.unity
+    guid: 54321657ccf884c468309476ae34d174
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

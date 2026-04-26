@@ -5,15 +5,15 @@ public class GameObjectActivator : MonoBehaviour
     [System.Serializable]
     public struct ActivationEntry
     {
-        [Tooltip("Index du dialogue dÈclencheur. -1 = OnDialoguesComplete.")]
+        [Tooltip("Index du dialogue dÔøΩclencheur. -1 = OnDialoguesComplete.")]
         public int dialogueIndex;
 
-        [Tooltip("true = activer, false = dÈsactiver.")]
+        [Tooltip("true = activer, false = dÔøΩsactiver.")]
         public bool activate;
     }
 
     [Header("Target")]
-    [Tooltip("GameObject ‡ contrÙler. Si vide, cible le GameObject courant.")]
+    [Tooltip("GameObject ÔøΩ contrÔøΩler. Si vide, cible le GameObject courant.")]
     [SerializeField] private GameObject target;
 
     [Header("Etat initial")]
@@ -21,6 +21,10 @@ public class GameObjectActivator : MonoBehaviour
 
     [Header("Dialogue Entries")]
     [SerializeField] private ActivationEntry[] dialogueEntries;
+
+    // When true, LateUpdate forces the target to stay inactive each frame,
+    // preventing the Animator's Write Defaults from overriding our SetActive(false).
+    private bool _forcedInactive;
 
     private void Awake()
     {
@@ -42,6 +46,12 @@ public class GameObjectActivator : MonoBehaviour
         DialogueSystem.OnDialoguesComplete -= OnDialoguesComplete;
     }
 
+    private void LateUpdate()
+    {
+        if (_forcedInactive && target != null && target.activeSelf)
+            target.SetActive(false);
+    }
+
     private void OnDialogueChanged(int index) => Evaluate(index);
     private void OnDialoguesComplete() => Evaluate(-1);
 
@@ -50,17 +60,23 @@ public class GameObjectActivator : MonoBehaviour
         foreach (ActivationEntry entry in dialogueEntries)
         {
             if (entry.dialogueIndex != index) continue;
-            target.SetActive(entry.activate);
+            ApplyState(entry.activate);
         }
     }
 
-    /// <summary>Active le GameObject cible.</summary>
-    public void Activate() => target.SetActive(true);
+    private void ApplyState(bool activate)
+    {
+        _forcedInactive = !activate;
+        target.SetActive(activate);
+    }
 
-    /// <summary>DÈsactive le GameObject cible.</summary>
-    public void Deactivate() => target.SetActive(false);
+    /// <summary>Active le GameObject cible et l√®ve le verrouillage forc√©.</summary>
+    public void Activate() => ApplyState(true);
 
-    /// <summary>Inverse l'Ètat actuel du GameObject cible.</summary>
-    public void Toggle() => target.SetActive(!target.activeSelf);
+    /// <summary>D√©sactive le GameObject cible et le verrouille pour r√©sister aux Write Defaults de l'Animator.</summary>
+    public void Deactivate() => ApplyState(false);
+
+    /// <summary>Inverse l'√©tat actuel du GameObject cible.</summary>
+    public void Toggle() => ApplyState(!target.activeSelf);
 }
 
