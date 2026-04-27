@@ -52,6 +52,7 @@ public class GameOverScreen : MonoBehaviour
     /// <summary>Appelé par le bouton Rejouer.</summary>
     public void Restart()
     {
+        GameOverEvents.Reset();
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -59,6 +60,7 @@ public class GameOverScreen : MonoBehaviour
     /// <summary>Appelé par le bouton Quitter.</summary>
     public void Quit()
     {
+        GameOverEvents.Reset();
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }

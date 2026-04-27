@@ -960,6 +960,7 @@ MonoBehaviour:
   - {fileID: 1763382975}
   - {fileID: 1763382974}
   - {fileID: 1763382973}
+  inputGuardTime: 0.06
   inputStartDelay: 0
   inputActionsAsset: {fileID: -944628639613478452, guid: f9723c052ca340947bec6cf3c7df3de6, type: 3}
 --- !u!4 &1217471348

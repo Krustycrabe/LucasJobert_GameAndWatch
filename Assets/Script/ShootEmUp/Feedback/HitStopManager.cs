@@ -30,8 +30,14 @@ public class HitStopManager : MonoBehaviour
         {
             // Keep the longer freeze active.
             if (duration <= _remainingFreeze) return;
+
+            // Reset explicite AVANT StopCoroutine : le bloc finally d'une coroutine
+            // Unity ne s'exécute PAS sur StopCoroutine — sans ce reset,
+            // timeScale resterait à 0 si la nouvelle freeze est elle-même interrompue.
             StopCoroutine(_currentFreeze);
-            Time.timeScale = 0f;
+            _currentFreeze   = null;
+            _remainingFreeze = 0f;
+            Time.timeScale   = 1f;
         }
 
         _currentFreeze = StartCoroutine(FreezeRoutine(duration));

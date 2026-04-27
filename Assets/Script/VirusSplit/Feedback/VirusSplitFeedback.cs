@@ -34,6 +34,14 @@ public class VirusSplitFeedback : MonoBehaviour
         OnMerge -= HandleMerge;
     }
 
+    private void OnDestroy()
+    {
+        // Reset static delegates on scene unload to prevent stale subscriptions
+        // from accumulating if the component is re-enabled in a subsequent session.
+        OnSplit = null;
+        OnMerge = null;
+    }
+
     private void HandleSplit() => TriggerFeedback(splitConfig);
     private void HandleMerge() => TriggerFeedback(mergeConfig);
 

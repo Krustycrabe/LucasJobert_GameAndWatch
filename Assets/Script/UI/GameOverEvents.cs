@@ -18,4 +18,15 @@ public static class GameOverEvents
 
     /// <summary>Broadcasts a score update to all listeners.</summary>
     public static void RaiseScoreUpdated(int score) => OnScoreUpdated?.Invoke(score);
+
+    /// <summary>
+    /// Clears all subscribers from both events.
+    /// Call this from a scene-scoped MonoBehaviour's OnDestroy to prevent stale
+    /// static subscribers from firing into a freshly loaded scene.
+    /// </summary>
+    public static void Reset()
+    {
+        OnGameOver     = null;
+        OnScoreUpdated = null;
+    }
 }

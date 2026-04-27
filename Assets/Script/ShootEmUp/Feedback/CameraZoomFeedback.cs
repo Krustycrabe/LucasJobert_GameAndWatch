@@ -23,6 +23,8 @@ public class CameraZoomFeedback : MonoBehaviour
         _baseSize = _camera.orthographicSize;
     }
 
+    private void OnEnable() => _baseSize = _camera != null ? _camera.orthographicSize : _baseSize;
+
     /// <summary>
     /// Punches the camera zoom by <paramref name="amount"/> over <paramref name="duration"/> seconds (unscaled).
     /// Negative amount = zoom in, positive = zoom out.
@@ -30,6 +32,9 @@ public class CameraZoomFeedback : MonoBehaviour
     public void Punch(float amount, float duration)
     {
         if (Mathf.Approximately(amount, 0f) || duration <= 0f) return;
+
+        if (_currentPunch == null)
+            _baseSize = _camera != null ? _camera.orthographicSize : _baseSize;
 
         if (_currentPunch != null) StopCoroutine(_currentPunch);
         _currentPunch = StartCoroutine(PunchRoutine(amount, duration));

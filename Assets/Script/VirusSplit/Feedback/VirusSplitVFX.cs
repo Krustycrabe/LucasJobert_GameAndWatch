@@ -233,7 +233,9 @@ public class VirusSplitVFX : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < mergeCircleDuration)
         {
-            elapsed += Time.deltaTime;
+            // unscaledDeltaTime : la routine doit avancer même si timeScale = 0
+            // (HitStop ou SlowMotion actifs au moment du merge).
+            elapsed += Time.unscaledDeltaTime;
             mergeCircle.transform.localScale = Vector3.one *
                 Mathf.Lerp(mergeCircleStartScale, 0f, elapsed / mergeCircleDuration);
             yield return null;

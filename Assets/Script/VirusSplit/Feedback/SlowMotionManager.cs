@@ -61,8 +61,16 @@ public class SlowMotionManager : MonoBehaviour
     {
         if (_config == null || !_proximityActive) return;
 
-        // Restart the routine — resets the plateau timer even if already active.
-        if (_activeRoutine != null) StopCoroutine(_activeRoutine);
+        if (_activeRoutine != null)
+        {
+            StopCoroutine(_activeRoutine);
+            // Reset explicite AVANT StopCoroutine ne suffit pas — on le fait ici
+            // car le bloc finally d'une coroutine Unity ne s'exécute PAS
+            // lorsqu'elle est arrêtée par StopCoroutine.
+            Time.timeScale = 1f;
+            _activeRoutine = null;
+        }
+
         _activeRoutine = StartCoroutine(SlowMotionRoutine());
     }
 
@@ -70,8 +78,9 @@ public class SlowMotionManager : MonoBehaviour
 
     private IEnumerator SlowMotionRoutine()
     {
-        // try/finally guarantees timeScale is restored even if StopCoroutine
-        // interrupts this routine mid-plateau or mid-recovery on rapid spam.
+        // NOTE : try/finally ne s'exécute PAS sur StopCoroutine en Unity.
+        // La restauration de timeScale est garantie par le reset explicite dans TryTriggerSlowMo
+        // et dans OnDestroy — pas par ce bloc.
         try
         {
             // Plateau
@@ -91,9 +100,8 @@ public class SlowMotionManager : MonoBehaviour
         }
         finally
         {
-            // Always reached: on normal completion AND on StopCoroutine interruption.
-            // Without this, rapid spam can strand timeScale at 0.22 permanently,
-            // making deltaTime-based coroutines (ScalePunch) appear frozen.
+            // Atteint seulement en fin normale — pas sur StopCoroutine.
+            // Le reset via TryTriggerSlowMo et OnDestroy couvre les interruptions.
             Time.timeScale = 1f;
             _activeRoutine = null;
         }

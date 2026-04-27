@@ -51,12 +51,12 @@ MonoBehaviour:
   initialSpawnInterval: 2.8
   minSpawnInterval: 0.4
   spawnIntervalDecreaseRate: 0.04
-  fastObstacleSpeedMultiplier: 1.5
-  fastObstacleChanceStart: 0.02
-  fastObstacleChanceMax: 0.2
+  fastObstacleSpeedMultiplier: 1.2
+  fastObstacleChanceStart: 0
+  fastObstacleChanceMax: 0
   fastObstacleRampDuration: 120
-  nearMissTriggerRadius: 1
-  slowMotionScale: 0.4
-  slowMotionDuration: 0.4
-  slowMotionRecovery: 0.4
+  nearMissTriggerRadius: 0
+  slowMotionScale: 0.05
+  slowMotionDuration: 0
+  slowMotionRecovery: 0
   metersPerUnit: 0.5

@@ -2,52 +2,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 /// <summary>
-/// Spawns obstacles from the right of the screen using per-prefab object pools
-/// to eliminate per-spawn Instantiate/Destroy GC pressure and frame spikes.
+/// Spawns obstacles according to patterns defined in <see cref="ObstaclePatternLibrarySO"/>.
 ///
-/// Four obstacle patterns:
-///   Center    — single obstacle at the centre lane (player must split)
-///   Top       — single obstacle at top wall
-///   Bottom    — single obstacle at bottom wall
-///   TopBottom — two obstacles (top + bottom); player must stay merged at centre
+/// Flow:
+///   1. PrewarmCoroutine() allocates pool instances one per frame (no spike on start).
+///   2. SpawnLoop() runs indefinitely: draws a pattern from the library, then executes
+///      each step in order, waiting step.delayAfter seconds between steps.
+///   3. Speed and fast-obstacle chance ramp up with elapsed time exactly as before.
 ///
-/// Obstacles are returned to the pool via ObstacleMover.OnReturnToPool().
-/// The pool pre-warms <poolPrewarm> instances per prefab at Initialize() time
-/// so no allocation occurs during gameplay.
+/// The pool, ObstacleMover API, and VirusSplitConfigSO are unchanged so no other
+/// script needs to be modified.
 /// </summary>
 public class ObstacleSpawner : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private VirusSplitConfigSO config;
 
+    [Header("Pattern Library")]
+    [Tooltip("Library containing all patterns available for random selection.")]
+    [SerializeField] private ObstaclePatternLibrarySO patternLibrary;
+
     [Header("Prefabs")]
     [Tooltip("Centre-lane obstacle.")]
     [SerializeField] private GameObject centerObstaclePrefab;
-    [Tooltip("Wall obstacle.")]
+    [Tooltip("Wall obstacle (top and bottom).")]
     [SerializeField] private GameObject wallObstaclePrefab;
 
     [Header("Pooling")]
     [Tooltip("Number of instances pre-created per prefab at init time.")]
     [SerializeField] private int poolPrewarm = 8;
 
-    [Header("Randomisation")]
-    [Range(0f, 0.5f)]
-    [SerializeField] private float jitterFraction    = 0.35f;
-    [SerializeField] private float topBottomCooldown = 3.5f;
-
     [Header("Z depth")]
     [SerializeField] private float obstacleZ = 0f;
 
+    // ── Runtime state ─────────────────────────────────────────────────────────
     private Func<Vector2[]> _getVirusPositions;
     private float           _currentSpeed;
     private float           _elapsedTime;
-    private float           _spawnTimer;
-    private float           _lastTopBottomTime = -999f;
     private bool            _running;
     private bool            _gameOver;
+    private Coroutine       _spawnLoop;
 
     // ── Pools ─────────────────────────────────────────────────────────────────
     private readonly Queue<PoolEntry> _centerPool = new Queue<PoolEntry>();
@@ -57,39 +53,29 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void OnEnable()  => GameOverEvents.OnGameOver += HandleGameOver;
     private void OnDisable() => GameOverEvents.OnGameOver -= HandleGameOver;
-    private void HandleGameOver() => _gameOver = true;
+
+    private void HandleGameOver()
+    {
+        _gameOver = true;
+        if (_spawnLoop != null)
+        {
+            StopCoroutine(_spawnLoop);
+            _spawnLoop = null;
+        }
+    }
+
+    // ── Public API ────────────────────────────────────────────────────────────
 
     /// <summary>Called by VirusController at game start.</summary>
     public void Initialize(VirusSplitConfigSO cfg, Func<Vector2[]> getVirusPositions)
     {
         config             = cfg;
         _getVirusPositions = getVirusPositions;
-        _spawnTimer        = ComputeNextInterval();
-
-        // Prewarm is spread across multiple frames (one instance per frame) so the
-        // first frame after scene load does not spike with 16 simultaneous Instantiate
-        // calls + Physics2D broadphase rebuilds, which was causing the input freeze.
         StartCoroutine(PrewarmCoroutine());
     }
 
     /// <summary>Updated each frame by VirusController.</summary>
     public void UpdateSpeed(float speed) => _currentSpeed = speed;
-
-    private void Update()
-    {
-        if (!_running || _gameOver) return;
-
-        _elapsedTime += Time.deltaTime;
-        _spawnTimer  -= Time.deltaTime;
-
-        if (_spawnTimer <= 0f)
-        {
-            SpawnPattern(PickPattern());
-            _spawnTimer = ComputeNextInterval();
-        }
-    }
-
-    // ── Pool ──────────────────────────────────────────────────────────────────
 
     /// <summary>
     /// Returns an obstacle to its pool. Called by ObstacleMover when the
@@ -99,67 +85,88 @@ public class ObstacleSpawner : MonoBehaviour
     {
         entry.Go.SetActive(false);
         (isCenter ? _centerPool : _wallPool).Enqueue(entry);
-    }    // ── Interval ──────────────────────────────────────────────────────────────
-
-    private float ComputeNextInterval()
-    {
-        float baseInterval = Mathf.Max(
-            config.minSpawnInterval,
-            config.initialSpawnInterval - _elapsedTime * config.spawnIntervalDecreaseRate);
-
-        float jitter = Random.Range(1f - jitterFraction, 1f + jitterFraction);
-        return Mathf.Max(config.minSpawnInterval * 0.65f, baseInterval * jitter);
     }
 
-    // ── Pattern selection ─────────────────────────────────────────────────────
+    // ── Elapsed time ──────────────────────────────────────────────────────────
 
-    private ObstaclePattern PickPattern()
+    private void Update()
     {
-        float t = Mathf.Clamp01(_elapsedTime / 90f);
-
-        float wCenter    = Mathf.Lerp(0.30f, 0.35f, t);
-        float wTop       = Mathf.Lerp(0.28f, 0.22f, t);
-        float wBottom    = Mathf.Lerp(0.28f, 0.22f, t);
-        float wTopBottom = Mathf.Lerp(0.14f, 0.21f, t);
-
-        if ((_elapsedTime - _lastTopBottomTime) < topBottomCooldown)
-            wTopBottom = 0f;
-
-        float total = wCenter + wTop + wBottom + wTopBottom;
-        float roll  = Random.value * total;
-
-        if (roll < wCenter)   return ObstaclePattern.Center;
-        roll -= wCenter;
-        if (roll < wTop)      return ObstaclePattern.Top;
-        roll -= wTop;
-        if (roll < wBottom)   return ObstaclePattern.Bottom;
-        return ObstaclePattern.TopBottom;
+        if (!_running || _gameOver) return;
+        _elapsedTime += Time.deltaTime;
     }
 
-    // ── Spawning ──────────────────────────────────────────────────────────────
+    // ── Spawn loop ────────────────────────────────────────────────────────────
 
-    private void SpawnPattern(ObstaclePattern pattern)
+    /// <summary>
+    /// Main spawn coroutine. Draws one pattern, executes its steps in order,
+    /// then waits for the background to scroll <c>scrollDistanceAfter</c> world units
+    /// before the next step — keeping visual spacing constant at any speed.
+    /// </summary>
+    private IEnumerator SpawnLoop()
     {
-        if (pattern == ObstaclePattern.TopBottom)
-            _lastTopBottomTime = _elapsedTime;
-
-        switch (pattern)
+        while (!_gameOver)
         {
-            case ObstaclePattern.Center:
+            ObstaclePatternData pattern = patternLibrary != null ? patternLibrary.Draw() : null;
+
+            if (pattern == null || pattern.steps == null || pattern.steps.Length == 0)
+            {
+                Debug.LogWarning("[ObstacleSpawner] No valid pattern found in library.");
+                yield return new WaitForSeconds(1f);
+                continue;
+            }
+
+            foreach (PatternStep step in pattern.steps)
+            {
+                if (_gameOver) yield break;
+
+                ExecuteStep(step.row);
+
+                if (step.scrollDistanceAfter > 0f)
+                    yield return ScrollDistanceWait(step.scrollDistanceAfter);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Yields until the background has scrolled <paramref name="worldUnits"/> units
+    /// at the current (live) speed. Recalculates each frame so speed changes mid-wait
+    /// are fully accounted for.
+    /// </summary>
+    private IEnumerator ScrollDistanceWait(float worldUnits)
+    {
+        float remaining = worldUnits;
+        while (remaining > 0f && !_gameOver)
+        {
+            remaining -= _currentSpeed * Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    /// <summary>Spawns obstacle(s) for the given row.</summary>
+    private void ExecuteStep(ObstacleRow row)
+    {
+        switch (row)
+        {
+            case ObstacleRow.Center:
                 SpawnAt(centerObstaclePrefab, _centerPool, config.centerObstacleY, isCenter: true);
                 break;
-            case ObstaclePattern.Top:
+
+            case ObstacleRow.Top:
                 SpawnAt(wallObstaclePrefab, _wallPool, config.topObstacleY, isCenter: false);
                 break;
-            case ObstaclePattern.Bottom:
+
+            case ObstacleRow.Bottom:
                 SpawnAt(wallObstaclePrefab, _wallPool, config.bottomObstacleY, isCenter: false);
                 break;
-            case ObstaclePattern.TopBottom:
+
+            case ObstacleRow.TopAndBottom:
                 SpawnAt(wallObstaclePrefab, _wallPool, config.topObstacleY,    isCenter: false);
                 SpawnAt(wallObstaclePrefab, _wallPool, config.bottomObstacleY, isCenter: false);
                 break;
         }
     }
+
+    // ── SpawnAt ───────────────────────────────────────────────────────────────
 
     private void SpawnAt(GameObject prefab, Queue<PoolEntry> pool, float y, bool isCenter)
     {
@@ -170,23 +177,23 @@ public class ObstacleSpawner : MonoBehaviour
         entry.Go.transform.position = new Vector3(config.obstacleSpawnX, y, obstacleZ);
         entry.Go.SetActive(true);
 
-        // ObstacleMover is cached in the PoolEntry — no GetComponent per spawn.
         entry.Mover.Initialize(config, _getVirusPositions, this, entry, isCenter);
 
+        // Fast obstacle ramp — unchanged from original.
         float t      = Mathf.Clamp01(_elapsedTime / config.fastObstacleRampDuration);
         float chance = Mathf.Lerp(config.fastObstacleChanceStart, config.fastObstacleChanceMax, t);
-        bool  isFast = Random.value < chance;
+        bool  isFast = UnityEngine.Random.value < chance;
         float speed  = isFast ? _currentSpeed * config.fastObstacleSpeedMultiplier : _currentSpeed;
+
         entry.Mover.SetSpeed(speed);
         entry.Mover.SetFast(isFast);
     }
 
-    // ── Internal helpers ──────────────────────────────────────────────────────
+    // ── Pool helpers ──────────────────────────────────────────────────────────
 
     /// <summary>
-    /// Instantiates pool instances one per frame to avoid a CPU/Physics2D spike
-    /// on the first frame. _running is set to true only after all instances exist
-    /// so no spawn can occur against an incomplete pool.
+    /// Instantiates pool instances one per frame to avoid a Physics2D spike on
+    /// the first frame. _running and the spawn loop start only after prewarm completes.
     /// </summary>
     private IEnumerator PrewarmCoroutine()
     {
@@ -199,7 +206,8 @@ public class ObstacleSpawner : MonoBehaviour
             yield return null;
         }
 
-        _running = true;
+        _running   = true;
+        _spawnLoop = StartCoroutine(SpawnLoop());
     }
 
     private PoolEntry CreateInstance(GameObject prefab)
@@ -216,8 +224,6 @@ public class ObstacleSpawner : MonoBehaviour
         return new PoolEntry { Go = go, Mover = mover };
     }
 }
-
-public enum ObstaclePattern { Center, Top, Bottom, TopBottom }
 
 /// <summary>
 /// Pool entry that caches the ObstacleMover reference to avoid

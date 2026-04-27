@@ -52,9 +52,6 @@ public class VirusController : MonoBehaviour
     [SerializeField] private ParallaxScroller[] parallaxLayers;
 
     [Header("Input")]
-    [Tooltip("Minimum real-time gap (seconds) between two accepted inputs. Prevents double-fire.")]
-    [SerializeField] private float inputGuardTime = 0.06f;
-
     [Tooltip("Seconds after scene load before the first input is accepted. " +
              "Covers the obstacle pool prewarm spike so taps during init cannot corrupt state.")]
     [SerializeField] private float inputStartDelay = 0.5f;
@@ -68,9 +65,7 @@ public class VirusController : MonoBehaviour
     private float     _elapsedTime;
     private bool      _gameOver;
     private bool      _inputLocked;       // true during transitions — checked in OnTap
-    private bool      _inputReady;        // false until prewarm delay has elapsed
     private Coroutine _transitionCoroutine;
-    private float     _lastInputRealTime = -999f;
 
     private float[]  _layerBaseSpeeds;
 
@@ -108,6 +103,18 @@ public class VirusController : MonoBehaviour
             _tapAction.AddBinding("<Touchscreen>/primaryTouch/press");
             _tapAction.AddBinding("<Mouse>/leftButton");
         }
+        else
+        {
+            // Override any binding that uses the Press interaction or the <Touchscreen>/Press path.
+            // The Press interaction relies on an internal state machine (Waiting→Started→Performed)
+            // that can get stuck when touch events are spammed — the OS may drop TouchPhase.Ended
+            // events before they reach the Input System, leaving the interaction in Started and
+            // blocking all subsequent performed callbacks until a clean press/release cycle occurs.
+            // Replacing with <Touchscreen>/primaryTouch/press (a raw ButtonControl, no interaction)
+            // fires performed as soon as the value crosses defaultButtonPressPoint, with no internal
+            // state machine that can desync.
+            PatchTouchscreenBinding(_tapAction);
+        }
 
         _tapAction.performed += OnTap;
         _tapAction.Enable();
@@ -120,6 +127,13 @@ public class VirusController : MonoBehaviour
 
     private void Start()
     {
+        // Explicit reset — guards against a stale static GameOverEvents.OnGameOver
+        // firing on this new instance before Start() completes (possible when the
+        // previous scene's coroutines haven't fully torn down before LoadScene fires).
+        _gameOver    = false;
+        _inputLocked = false;
+        _state       = VirusState.Merged;
+
         _currentScrollSpeed = config.initialScrollSpeed;
 
         _layerBaseSpeeds = new float[parallaxLayers.Length];
@@ -137,10 +151,9 @@ public class VirusController : MonoBehaviour
         scoreManager?.Initialize(config);
         obstacleSpawner?.Initialize(config, GetActiveVirusPositions);
 
-        // Lock input during prewarm. _inputReady is a plain bool checked in OnTap —
+        // Lock input during prewarm. _inputLocked is a plain bool checked in OnTap —
         // safe to set from anywhere, unlike _tapAction.Disable() which is unsafe from callbacks.
         _inputLocked = true;
-        _inputReady  = false;
         StartCoroutine(EnableInputAfterDelay());
     }
 
@@ -150,9 +163,7 @@ public class VirusController : MonoBehaviour
         yield return new WaitForSecondsRealtime(inputStartDelay);
         if (!_gameOver)
         {
-            _inputLocked = false;
-            _inputReady  = true;
-            Debug.Log("[VirusController] Input unlocked — ready");
+            UnlockInput();
         }
     }
 
@@ -193,12 +204,7 @@ public class VirusController : MonoBehaviour
     {
         // _inputLocked is a plain bool — always safe to read from within a callback,
         // unlike _tapAction.enabled which reflects a deferred state in InputSystem 1.18.
-        if (_gameOver || _inputLocked || !_inputReady) return;
-
-        // Secondary guard against InputSystem double-fire (same real-time frame).
-        float now = Time.realtimeSinceStartup;
-        if (now - _lastInputRealTime < inputGuardTime) return;
-        _lastInputRealTime = now;
+        if (_gameOver || _inputLocked) return;
 
         // Lock IMMEDIATELY — before any transition work — so any other queued callback
         // in the same InputSystem dispatch cycle sees _inputLocked = true and exits.
@@ -213,7 +219,7 @@ public class VirusController : MonoBehaviour
             default:
                 // Should never happen — unlock so the player is not permanently stuck.
                 Debug.LogWarning($"[VirusController] Unexpected state={_state} on tap — unlocking");
-                _inputLocked = false;
+                UnlockInput();
                 break;
         }
     }
@@ -248,8 +254,8 @@ public class VirusController : MonoBehaviour
             config.splitDuration,
             () =>
             {
-                _state       = VirusState.Split;
-                _inputLocked = false; // unlock via plain bool — no InputSystem API call
+                _state = VirusState.Split;
+                UnlockInput();
                 Debug.Log("[VirusController] Split complete — input unlocked");
             }));
     }
@@ -279,7 +285,7 @@ public class VirusController : MonoBehaviour
                 trailB?.Clear();
                 particleB?.Pause();
                 SetVirusBVisible(false);
-                _inputLocked = false; // unlock via plain bool — no InputSystem API call
+                UnlockInput();
                 Debug.Log("[VirusController] Merge complete — input unlocked");
             }));
     }
@@ -301,11 +307,25 @@ public class VirusController : MonoBehaviour
         }
         SetLocalY(tA, toA);
         SetLocalY(tB, toB);
-        onComplete?.Invoke();
+
         _transitionCoroutine = null;
+
+        // Only invoke if this instance is still alive and not game-over.
+        // StopCoroutine does NOT execute finally blocks in Unity — so onComplete
+        // is intentionally NOT in a finally. The caller (HandleGameOver / scene
+        // reload) owns cleanup when it stops the coroutine early.
+        if (!_gameOver)
+            onComplete?.Invoke();
     }
 
     // ── Game Over ─────────────────────────────────────────────────────────────
+
+    /// <summary>Centralised unlock point — sets _inputLocked to false and logs the event.</summary>
+    private void UnlockInput()
+    {
+        _inputLocked = false;
+        Debug.Log("[VirusController] Input unlocked");
+    }
 
     private void HandleGameOver()
     {
@@ -318,6 +338,9 @@ public class VirusController : MonoBehaviour
         {
             StopCoroutine(_transitionCoroutine);
             _transitionCoroutine = null;
+            // TransitionRoutine's onComplete is NOT in a finally block (StopCoroutine
+            // does not run finally in Unity). Unlock is irrelevant here — _inputLocked
+            // stays true for the lifetime of this game-over state.
         }
 
         _animA?.ResetTrigger(SplitHash);
@@ -376,4 +399,29 @@ public class VirusController : MonoBehaviour
     }
 
     private static float GetLocalY(Transform t) => t != null ? t.localPosition.y : 0f;
+
+    /// <summary>
+    /// Replaces any binding whose path contains "Touchscreen" with a direct
+    /// <c>&lt;Touchscreen&gt;/primaryTouch/press</c> ButtonControl and clears its
+    /// interaction string. This removes the Press interaction state machine that
+    /// can get stuck when TouchPhase.Ended events are dropped by the OS during
+    /// rapid/spam input, causing performed callbacks to stop firing entirely.
+    /// </summary>
+    private static void PatchTouchscreenBinding(InputAction action)
+    {
+        for (int i = 0; i < action.bindings.Count; i++)
+        {
+            InputBinding b = action.bindings[i];
+            if (!b.path.Contains("Touchscreen", System.StringComparison.OrdinalIgnoreCase)) continue;
+
+            action.ApplyBindingOverride(i, new InputBinding
+            {
+                overridePath        = "<Touchscreen>/primaryTouch/press",
+                overrideInteractions = string.Empty,
+            });
+
+            Debug.Log($"[VirusController] Binding [{i}] patched: '{b.path}' (interactions='{b.interactions}') " +
+                      $"→ '<Touchscreen>/primaryTouch/press' (no interaction)");
+        }
+    }
 }
