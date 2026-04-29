@@ -569,7 +569,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Score
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 464fe548da7503f44bce6a0e2ed8c1bb, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -636,7 +636,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &209050640
@@ -813,6 +813,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283997927}
   m_CullTransparentMesh: 1
+--- !u!1 &284088370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 284088372}
+  - component: {fileID: 284088371}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &284088371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284088370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1add68567498746bc074f6d0e1a109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameAndWatch.Audio.AudioManager
+  library: {fileID: 11400000, guid: a62aa0425677e5b408d7a892d799c87f, type: 2}
+  mainMixer: {fileID: 24100000, guid: 7930fa77cbc68924eaaf62458aa92e7a, type: 2}
+  musicFadeDuration: 1
+  lowPassTransitionDuration: 0.5
+--- !u!4 &284088372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284088370}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1720.1891, y: 752.4943, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &376205901
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +922,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6836234078016266964, guid: c3ea36a32fde5144a923ab0b2b639a0d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c3ea36a32fde5144a923ab0b2b639a0d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -892,6 +940,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376205901}
   m_CullTransparentMesh: 1
+--- !u!1 &476184203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 476184205}
+  - component: {fileID: 476184204}
+  m_Layer: 0
+  m_Name: MusicStarter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &476184204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476184203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6543225d2ee517439fc61276c234ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameAndWatch.Audio.SceneMusicStarter
+  musicId: mus_shoot_em_up
+--- !u!4 &476184205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476184203}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596113272 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5375141764749126436, guid: 36779784ca798eb4599e6322cd700235, type: 3}
@@ -1529,7 +1622,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: REJOUER
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 464fe548da7503f44bce6a0e2ed8c1bb, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1596,7 +1689,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1470430683
@@ -1968,7 +2061,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: QUITTER
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 464fe548da7503f44bce6a0e2ed8c1bb, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2035,7 +2128,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1823378722
@@ -2123,7 +2216,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: GAME OVER
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 464fe548da7503f44bce6a0e2ed8c1bb, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2190,7 +2283,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1842178912
@@ -2656,6 +2749,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008610240}
   m_CullTransparentMesh: 1
+--- !u!1 &2030871206 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8228994218134747577, guid: 36779784ca798eb4599e6322cd700235, type: 3}
+  m_PrefabInstance: {fileID: 8951233689983076507}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2030871211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030871206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbe5d093d776e84287c70817578d152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameAndWatch.Audio.AnimationAudioBridge
 --- !u!1001 &2146683168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2837,6 +2947,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7978691351834993251, guid: 36779784ca798eb4599e6322cd700235, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1842148452}
+    - targetCorrespondingSourceObject: {fileID: 8228994218134747577, guid: 36779784ca798eb4599e6322cd700235, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2030871211}
     - targetCorrespondingSourceObject: {fileID: 5375141764749126436, guid: 36779784ca798eb4599e6322cd700235, type: 3}
       insertIndex: -1
       addedObject: {fileID: 596113276}
@@ -2852,3 +2965,5 @@ SceneRoots:
   - {fileID: 204480745}
   - {fileID: 214703430}
   - {fileID: 1976550364}
+  - {fileID: 284088372}
+  - {fileID: 476184205}

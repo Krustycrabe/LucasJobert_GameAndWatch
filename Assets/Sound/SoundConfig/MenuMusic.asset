@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15d49dead2a07d049bd2318b9d11fe7d, type: 3}
+  m_Name: MenuMusic
+  m_EditorClassIdentifier: Assembly-CSharp::GameAndWatch.Audio.SoundConfig
+  soundId: mus_main_menu
+  soundType: 2
+  clips:
+  - {fileID: 8300000, guid: a38ec0e2bbb61354c8bbe7e5bd6e4c6d, type: 3}
+  mixerGroup: {fileID: 4471966654821286896, guid: 7930fa77cbc68924eaaf62458aa92e7a, type: 2}
+  volume: 0.048
+  basePitch: 1.01
+  randomPitch: 0
+  pitchVariance: 0.1
+  minInterval: 0
+  startDelay: 0
+  useLowPassFilter: 0
+  lowPassCutoff: 5173
+  lowPassResonance: 1
+  loopOnStart: 1

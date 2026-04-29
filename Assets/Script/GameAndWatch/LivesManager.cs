@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using GameAndWatch.Audio;
 
 public class LivesManager : MonoBehaviour
 {
@@ -36,10 +37,22 @@ public class LivesManager : MonoBehaviour
         _currentLives--;
         OnLifeLost?.Invoke(_currentLives);
 
-        if (_currentLives <= 0) OnGameOver?.Invoke();
-        else OnPlayerNeedsReset?.Invoke();
+        if (_currentLives <= 0)
+        {
+            AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.GameOver);
+            OnGameOver?.Invoke();
+        }
+        else
+        {
+            AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.PlayerHit);
+            OnPlayerNeedsReset?.Invoke();
+        }
     }
 
     /// <summary>D�clenche OnPlayerReset � appel� par PlayerDeathAnimator apr�s l'animation.</summary>
-    public static void FirePlayerReset() => OnPlayerReset?.Invoke();
+    public static void FirePlayerReset()
+    {
+        AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.PlayerRespawn);
+        OnPlayerReset?.Invoke();
+    }
 }

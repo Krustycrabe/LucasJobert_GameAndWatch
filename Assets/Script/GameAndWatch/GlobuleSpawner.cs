@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
+using GameAndWatch.Audio;
 
 public class GlobuleSpawner : MonoBehaviour
 {
@@ -62,5 +63,7 @@ public class GlobuleSpawner : MonoBehaviour
 
         if (globule.TryGetComponent(out GlobuleController controller))
             controller.Initialize(cell);
+
+        AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.GlobuleSpawn);
     }
 }

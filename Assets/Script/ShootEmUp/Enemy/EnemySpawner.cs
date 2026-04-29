@@ -21,7 +21,24 @@ public class EnemySpawner : MonoBehaviour
     private int _aliveEnemyCount;
     private bool _waitingForBossDeath;
 
+    // Loop scaling — cumulative multipliers applied to each spawned enemy and to spawn timings.
+    private int   _loopCount;
+    private float _cumulativeSpeedMult          = 1f;
+    private float _cumulativeShootIntervalMult  = 1f;
+    private float _cumulativeSpawnIntervalMult  = 1f;
+    private int   _cumulativeMaxAliveBonus;
+
     private PhaseDataSO CurrentPhase => config.phases[_currentPhaseIndex];
+
+    /// <summary>Effective spawn interval for the current phase, reduced each loop.</summary>
+    private float EffectiveSpawnInterval =>
+        CurrentPhase.spawnInterval * _cumulativeSpawnIntervalMult;
+
+    /// <summary>Effective max alive cap, increased each loop. 0 stays 0 (unlimited).</summary>
+    private int EffectiveMaxAlive =>
+        CurrentPhase.maxAliveAtOnce > 0
+            ? CurrentPhase.maxAliveAtOnce + _cumulativeMaxAliveBonus
+            : 0;
 
     private void Start()
     {
@@ -71,14 +88,32 @@ public class EnemySpawner : MonoBehaviour
 
     private void AdvancePhase()
     {
-        if (_currentPhaseIndex >= config.phases.Length - 1)
+        bool isLastPhase = _currentPhaseIndex >= config.phases.Length - 1;
+
+        if (isLastPhase)
         {
-            Debug.Log("EnemySpawner: All phases complete.");
-            enabled = false;
-            return;
+            if (config.loopInfinitely)
+            {
+                _loopCount++;
+                _cumulativeSpeedMult         *= config.moveSpeedMultiplier;
+                _cumulativeShootIntervalMult *= config.shootIntervalMultiplier;
+                _cumulativeSpawnIntervalMult *= config.spawnIntervalMultiplier;
+                _cumulativeMaxAliveBonus     += config.maxAliveIncrement;
+                _currentPhaseIndex = 0;
+                Debug.Log($"EnemySpawner: Loop {_loopCount} — speedx{_cumulativeSpeedMult:F2} shootx{_cumulativeShootIntervalMult:F2} spawnIntervalx{_cumulativeSpawnIntervalMult:F2}");
+            }
+            else
+            {
+                Debug.Log("EnemySpawner: All phases complete.");
+                enabled = false;
+                return;
+            }
+        }
+        else
+        {
+            _currentPhaseIndex++;
         }
 
-        _currentPhaseIndex++;
         BeginPhase();
     }
 
@@ -119,10 +154,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void TrySpawn()
     {
-        if (_spawnTimer < CurrentPhase.spawnInterval) return;
+        if (_spawnTimer < EffectiveSpawnInterval) return;
 
         // Respect maxAliveAtOnce cap.
-        if (CurrentPhase.maxAliveAtOnce > 0 && _aliveEnemyCount >= CurrentPhase.maxAliveAtOnce) return;
+        if (EffectiveMaxAlive > 0 && _aliveEnemyCount >= EffectiveMaxAlive) return;
 
         // Respect total spawn cap.
         if (CurrentPhase.maxSpawnsPerPhase > 0 && _spawnedInPhase >= CurrentPhase.maxSpawnsPerPhase) return;
@@ -140,7 +175,10 @@ public class EnemySpawner : MonoBehaviour
 
         var core = enemy.GetComponent<EnemyCore>();
         if (core != null)
+        {
+            core.ApplyScaling(_cumulativeSpeedMult, _cumulativeShootIntervalMult);
             core.OnDeathEvent += OnEnemyDied;
+        }
     }
 
     private void OnEnemyDied()
@@ -154,8 +192,6 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void TryAdvanceNormalPhase()
     {
-        if (_currentPhaseIndex >= config.phases.Length - 1) return;
-
         bool timerDone = CurrentPhase.phaseDuration > 0f
             && _phaseElapsed >= CurrentPhase.phaseDuration;
 

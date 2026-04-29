@@ -95,7 +95,7 @@ public class EnemyShooterBehavior : MonoBehaviour, IEnemyBehavior
         transform.position = Vector2.MoveTowards(
             transform.position,
             new Vector2(engagePositionX, transform.position.y),
-            _core.Data.moveSpeed * entrySpeedMultiplier * Time.deltaTime);
+            _core.RuntimeSpeed * entrySpeedMultiplier * Time.deltaTime);
 
         if (transform.position.x <= engagePositionX)
         {
@@ -108,7 +108,7 @@ public class EnemyShooterBehavior : MonoBehaviour, IEnemyBehavior
     {
         transform.position = Vector2.MoveTowards(
             transform.position, _wanderTarget,
-            _core.Data.moveSpeed * Time.deltaTime);
+            _core.RuntimeSpeed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, _wanderTarget) < wanderReachThreshold)
             PickNewWanderTarget();
@@ -119,7 +119,7 @@ public class EnemyShooterBehavior : MonoBehaviour, IEnemyBehavior
         if (_playerTransform == null) return;
         transform.position = Vector2.MoveTowards(
             transform.position, _playerTransform.position,
-            _core.Data.moveSpeed * chaseSpeedMultiplier * Time.deltaTime);
+            _core.RuntimeSpeed * chaseSpeedMultiplier * Time.deltaTime);
     }
 
     private void UpdateChaseTimer()
@@ -165,7 +165,7 @@ public class EnemyShooterBehavior : MonoBehaviour, IEnemyBehavior
     private void HandleShooting()
     {
         _shootTimer += Time.deltaTime;
-        if (_shootTimer >= _core.Data.shootRate)
+        if (_shootTimer >= _core.RuntimeShootInterval)
         {
             _shootTimer = 0f;
             _animator.SetTrigger(ShootHash);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Shared logic for all enemies: health, bullet collision, energy drop, death lifecycle.
@@ -40,6 +41,11 @@ public class EnemyCore : MonoBehaviour
     /// <summary>True while the kamikaze explosion anim runs. Blocks bullet/laser hits only.</summary>
     public bool IsExploding => _isExploding;
 
+    /// <summary>Move speed after loop scaling is applied. Initialized from Data.moveSpeed.</summary>
+    public float RuntimeSpeed         { get; private set; }
+    /// <summary>Shoot interval after loop scaling is applied. Initialized from Data.shootRate.</summary>
+    public float RuntimeShootInterval { get; private set; }
+
     private int  _currentHealth;
     private IEnemyBehavior _behavior;
     private bool _isDead;
@@ -47,9 +53,21 @@ public class EnemyCore : MonoBehaviour
 
     private void Awake()
     {
-        _currentHealth = data.maxHealth;
+        _currentHealth        = data.maxHealth;
+        RuntimeSpeed          = data.moveSpeed;
+        RuntimeShootInterval  = data.shootRate;
         _behavior = GetComponent<IEnemyBehavior>();
         _behavior?.Initialize(this);
+    }
+
+    /// <summary>
+    /// Applies cumulative loop scaling to runtime stats.
+    /// Call once immediately after instantiation from the spawner.
+    /// </summary>
+    public void ApplyScaling(float speedMultiplier, float shootIntervalMultiplier)
+    {
+        RuntimeSpeed         *= speedMultiplier;
+        RuntimeShootInterval *= shootIntervalMultiplier;
     }
 
     private void OnEnable()  => GameOverEvents.OnGameOver += HandleGameOver;
@@ -84,17 +102,19 @@ public class EnemyCore : MonoBehaviour
     {
         if (_isDead || _isExploding) return;
         _currentHealth -= amount;
+        AudioManager.Instance?.PlayOneShot(SoundIds.ShootEmUp.EnemyHit);
         if (_currentHealth <= 0) Die();
         else TriggerFeedback(hitFeedback);
     }
 
-    /// <summary>Reduces health from a laser tick. Plays the OnHit VFX trigger.</summary>
+    /// <summary>Reduces health from a laser tick. Plays the OnHit VFX trigger. No energy drop on kill.</summary>
     public void TakeLaserDamage(int amount)
     {
         if (_isDead || _isExploding) return;
         _currentHealth -= amount;
+        AudioManager.Instance?.PlayOneShot(SoundIds.ShootEmUp.EnemyHit);
         vfxAnimator?.SetTrigger(OnHitHash);
-        if (_currentHealth <= 0) Die();
+        if (_currentHealth <= 0) Die(dropEnergy: false);
     }
 
     /// <summary>
@@ -125,13 +145,14 @@ public class EnemyCore : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Die()
+    private void Die(bool dropEnergy = true)
     {
         _isDead = true;
-        SpawnEnergy();
+        if (dropEnergy) SpawnEnergy();
         SmUpScoreManager.Instance?.AwardKillScore(data.scoreValue);
         OnDeathEvent?.Invoke();
         TriggerFeedback(deathFeedback);
+        AudioManager.Instance?.PlayOneShot(SoundIds.ShootEmUp.EnemyDeath);
         _behavior?.OnDeath();
     }
 

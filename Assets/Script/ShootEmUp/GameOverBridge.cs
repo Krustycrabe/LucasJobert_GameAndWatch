@@ -1,4 +1,5 @@
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// ShootEmUp bridge toward the neutral GameOverEvents channel.
@@ -49,9 +50,14 @@ public class GameOverBridge : MonoBehaviour
     {
         if (_gameOverRaised) return;
         _gameOverRaised = true;
+        AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.GameOver);
         GameOverEvents.RaiseGameOver();
     }
 
-    /// <summary>Stops all continuous camera shake when the game ends.</summary>
-    private void HandleGameOverEffects() => CameraShake.Instance?.StopContinuousShake();
+    /// <summary>Stops all continuous camera shake and the music when the game ends.</summary>
+    private void HandleGameOverEffects()
+    {
+        CameraShake.Instance?.StopContinuousShake();
+        AudioManager.Instance?.StopMusic();
+    }
 }

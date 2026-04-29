@@ -1,4 +1,5 @@
 using UnityEngine;
+using GameAndWatch.Audio;
 
 public class GlobuleController : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class GlobuleController : MonoBehaviour
     private void OnEnable() => GameTicker.OnTick += Move;
     private void OnDisable() => GameTicker.OnTick -= Move;
 
-    /// <summary>Appelé par GlobuleSpawner juste après Instantiate.</summary>
+    /// <summary>Appelï¿½ par GlobuleSpawner juste aprï¿½s Instantiate.</summary>
     public void Initialize(Vector2Int startCell)
     {
         _grid = GridManager.Instance;
@@ -44,5 +45,6 @@ public class GlobuleController : MonoBehaviour
         _currentCell = nextCell;
         _registry.Register(_currentCell);
         transform.position = _grid.CellToWorld(_currentCell);
+        AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.GlobuleMove);
     }
 }

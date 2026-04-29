@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Tracks collected energy. Activates the Charged trigger on Player_SmUp animator
@@ -36,6 +37,7 @@ public class PlayerEnergyHandler : MonoBehaviour
     {
         OnEnergyCollected?.Invoke(amount);
         PlayCollectPunch();
+        AudioManager.Instance?.PlayOneShot(SoundIds.ShootEmUp.EnergyCollect);
 
         if (_isCharged) return;
 
@@ -44,6 +46,7 @@ public class PlayerEnergyHandler : MonoBehaviour
         {
             _isCharged = true;
             playerAnimator.SetTrigger(ChargedHash);
+            AudioManager.Instance?.PlayOneShot(SoundIds.ShootEmUp.LaserReady);
         }
     }
 

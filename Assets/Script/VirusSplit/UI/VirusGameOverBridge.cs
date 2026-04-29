@@ -1,4 +1,5 @@
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// VirusSplit bridge toward the neutral GameOverEvents channel.
@@ -17,6 +18,8 @@ public class VirusGameOverBridge : MonoBehaviour
     {
         if (_raised) return;
         _raised = true;
+        AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.GameOver);
+        AudioManager.Instance?.StopMusic();
         // Restore time scale — slow motion may have been active at the moment of death.
         Time.timeScale = 1f;
     }

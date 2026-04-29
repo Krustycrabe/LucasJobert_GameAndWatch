@@ -1,4 +1,5 @@
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Orchestrates all feedback systems when the player takes a hit.
@@ -50,6 +51,10 @@ public class PlayerHitFeedback : MonoBehaviour
 
     private void HandleDamaged(int remainingLives, PlayerHealth.DamageSource source)
     {
+        // Game over sound is handled by GameOverBridge — only play hit sound when still alive.
+        if (remainingLives > 0)
+            AudioManager.Instance?.PlayOneShot(SoundIds.ShootEmUp.PlayerHit);
+
         FeedbackConfigSO config = source switch
         {
             PlayerHealth.DamageSource.Bullet    => bulletConfig,

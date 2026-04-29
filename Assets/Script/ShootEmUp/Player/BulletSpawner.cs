@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Instantiates bullets at the spawn point at a configurable fire rate.
@@ -33,6 +34,7 @@ public class BulletSpawner : MonoBehaviour
         while (true)
         {
             Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
+            AudioManager.Instance?.PlayOneShot(SoundIds.ShootEmUp.PlayerShoot);
             yield return interval;
         }
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Handles player movement on the grid via directional swipe (new InputSystem).
@@ -170,6 +171,7 @@ public class PlayerController : MonoBehaviour
             dir = delta.y > 0 ? Vector2Int.up : Vector2Int.down;
 
         _swipeConsumed = true;
+        AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.PlayerMove);
         TryMove(dir);
     }
 

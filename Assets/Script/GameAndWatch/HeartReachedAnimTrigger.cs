@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Plays the HeartReached animation on the Heart Animator when the player reaches
@@ -24,7 +25,8 @@ public class HeartReachedAnimTrigger : MonoBehaviour
 
     private void HandleHeartReached()
     {
-        if (_playing) return; // ignore re-entrancy if player reaches heart twice rapidly
+        if (_playing) return;
+        AudioManager.Instance?.PlayOneShot(SoundIds.GameAndWatch.HeartReached);
         StartCoroutine(PlayHeartReachedRoutine());
     }
 

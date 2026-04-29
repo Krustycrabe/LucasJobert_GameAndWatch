@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Core controller for the VirusSplit mini-game.
@@ -231,6 +232,7 @@ public class VirusController : MonoBehaviour
         // _inputLocked already set to true in OnTap before this call.
         _state = VirusState.Splitting;
 
+        AudioManager.Instance?.PlayOneShot(SoundIds.VirusSplit.Split);
         VirusSplitFeedback.OnSplit?.Invoke();
 
         slowMotionManager?.TryTriggerSlowMo();
@@ -265,6 +267,7 @@ public class VirusController : MonoBehaviour
         // _inputLocked already set to true in OnTap before this call.
         _state = VirusState.Merging;
 
+        AudioManager.Instance?.PlayOneShot(SoundIds.VirusSplit.Merge);
         VirusSplitFeedback.OnMerge?.Invoke();
 
         slowMotionManager?.TryTriggerSlowMo();

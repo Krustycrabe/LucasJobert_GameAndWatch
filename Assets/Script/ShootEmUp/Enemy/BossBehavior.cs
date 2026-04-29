@@ -88,7 +88,7 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
 
         // Only accumulate throw timer once the boss is in play, not during entry.
         _throwTimer += Time.deltaTime;
-        if (!_isAiming && _throwTimer >= _core.Data.shootRate)
+        if (!_isAiming && _throwTimer >= _core.RuntimeShootInterval)
         {
             _throwTimer = 0f;
             StartThrow();
@@ -124,12 +124,12 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
         transform.position = Vector2.MoveTowards(
             transform.position,
             new Vector2(engagePositionX, transform.position.y),
-            _core.Data.moveSpeed * entrySpeedMultiplier * Time.deltaTime);
+            _core.RuntimeSpeed * entrySpeedMultiplier * Time.deltaTime);
 
         if (transform.position.x <= engagePositionX)
         {
             _hasEntered = true;
-            _throwTimer = 0f; // reset so the first throw fires after a full shootRate delay
+            _throwTimer = 0f;
             PickNewWanderTarget();
         }
     }
@@ -138,7 +138,7 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
     {
         transform.position = Vector2.MoveTowards(
             transform.position, _wanderTarget,
-            _core.Data.moveSpeed * Time.deltaTime);
+            _core.RuntimeSpeed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, _wanderTarget) < wanderReachThreshold)
             PickNewWanderTarget();
@@ -149,7 +149,7 @@ public class BossBehavior : MonoBehaviour, IEnemyBehavior
         if (_playerTransform == null) return;
         transform.position = Vector2.MoveTowards(
             transform.position, _playerTransform.position,
-            _core.Data.moveSpeed * chaseSpeedMultiplier * Time.deltaTime);
+            _core.RuntimeSpeed * chaseSpeedMultiplier * Time.deltaTime);
     }
 
     private void UpdateChaseTimer()

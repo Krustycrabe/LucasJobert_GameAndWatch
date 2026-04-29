@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Manages shooting and laser states. Drives both Animator controllers.
@@ -66,6 +67,7 @@ public class PlayerShooter : MonoBehaviour
             energyHandler.ConsumeCharge();
             _isLaserPlaying = true;
             if (laserHitbox != null) laserHitbox.enabled = true;
+            AudioManager.Instance?.PlayLoop(SoundIds.ShootEmUp.LaserLoop);
             _laserCoroutine = StartCoroutine(LaserDurationRoutine());
         }
     }
@@ -75,6 +77,7 @@ public class PlayerShooter : MonoBehaviour
         yield return new WaitForSeconds(laserDuration);
 
         if (laserHitbox != null) laserHitbox.enabled = false;
+        AudioManager.Instance?.StopLoop(SoundIds.ShootEmUp.LaserLoop);
         shootAnimator.SetTrigger(LaserFinishedHash);
         playerAnimator.SetTrigger(LaserFinishedHash);
         _isLaserPlaying = false;

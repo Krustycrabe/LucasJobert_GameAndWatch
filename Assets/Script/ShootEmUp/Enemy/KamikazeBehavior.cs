@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using GameAndWatch.Audio;
 
 /// <summary>
 /// Kamikaze enemy. Charges the player. On reaching detectionRange, triggers the
@@ -98,6 +99,7 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
         if (_growStarted) return;
         _growStarted = true;
         CameraShake.Instance?.Shake(explosionShake);
+        AudioManager.Instance?.PlayOneShot(SoundIds.ShootEmUp.EnemyDeath);
         StartCoroutine(GrowExplosionCollider());
     }
 
@@ -133,7 +135,7 @@ public class KamikazeBehavior : MonoBehaviour, IEnemyBehavior
 
     private float ComputeSpeed(float distance)
     {
-        float baseSpeed = _core.Data.moveSpeed * chargeSpeedMultiplier;
+        float baseSpeed = _core.RuntimeSpeed * chargeSpeedMultiplier;
         if (distance >= slowdownStartRange) return baseSpeed;
         if (distance <= detectionRange)     return baseSpeed * minSpeedMultiplier;
         float t = Mathf.InverseLerp(slowdownStartRange, detectionRange, distance);
